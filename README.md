@@ -25,13 +25,13 @@ Scoring.main("financial");
 ```
 
 ## Algorithm
-The algorithm works exclusively on the metadata about tables and columns that are accessible over JDBC. That means that the algorithm is blazing fast (as it does not look at the actual data), works with any database out of box (assuming a corresponding JDBC driver is provided) and the estimates are not affected by the data quality (that can be a both, an advantage or a disadvantage).
+The algorithm works exclusively on the metadata about tables and columns that are accessible over JDBC. That means that the algorithm is blazing fast (as it does not look at the actual data), works with any database out of the box (assuming a corresponding JDBC driver is provided) and the estimates are not affected by the data quality (that can be a both, an advantage or a disadvantage).
 
 
 ### Primary Key
 Primary keys are identified by:
 
- 1. Column position in the table (PKs are commonly at the the beginning)
+ 1. Column position in the table (PKs are commonly at the beginning)
  2. Data type (e.g. integers are preferred over doubles)
  3. Presence of a keyword like "id" in the column name
  4. Similarity of the column name with the table name
@@ -49,3 +49,8 @@ Foreign keys are identified by:
  6. Similarity of the FK name with the FK table name (should be low)
 
 Once again, probabilities are estimated with logistic regression. And the most likely FKs are returned.
+
+## Limitations
+If the schema quality is extremely low (e.g. all columns are typed as text and have irrelevant names), the PK and particularly FK estimates are going to be off. First, set correct data types and names to the columns. Then rerun Linkifier. Great [DBLint](https://dblint.codeplex.com/) may help you to identify some of the problems with your schema. 
+
+If you have questions or suggestions, let me know.
