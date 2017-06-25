@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="464.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Events">
+    <left>
+        <TilePane orientation="VERTICAL" prefColumns="1" prefTileHeight="57.0" prefTileWidth="170.0"
+                  prefWidth="200.0" tileAlignment="TOP_LEFT" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets left="14.0" top="10.0"/>
+            </padding>
+            <VBox>
+                <Label text="Database vendor">
+                    <padding>
+                        <Insets bottom="3.0"/>
+                    </padding>
+                </Label>
+                <ComboBox fx:id="comboBoxVendor" onAction="#vendorAction" prefWidth="170.0"/>
+            </VBox>
+            <VBox>
+                <Label text="Host name/IP address">
+                    <padding>
+                        <Insets bottom="3.0"/>
+                    </padding>
+                </Label>
+                <TextField fx:id="textHost"/>
+            </VBox>
+            <VBox>
+                <Label text="Port">
+                    <padding>
+                        <Insets bottom="3.0"/>
+                    </padding>
+                </Label>
+                <TextField fx:id="textPort"/>
+            </VBox>
+            <VBox>
+                <Label text="Database name">
+                    <padding>
+                        <Insets bottom="3.0"/>
+                    </padding>
+                </Label>
+                <TextField fx:id="textDatabase"/>
+            </VBox>
+            <VBox>
+                <Label text="Schema name">
+                    <padding>
+                        <Insets bottom="3.0"/>
+                    </padding>
+                </Label>
+                <TextField fx:id="textSchema"/>
+            </VBox>
+            <VBox>
+                <Label text="User name">
+                    <padding>
+                        <Insets bottom="3.0"/>
+                    </padding>
+                </Label>
+                <TextField fx:id="textUsername"/>
+            </VBox>
+            <VBox>
+                <Label text="Password">
+                    <padding>
+                        <Insets bottom="3.0"/>
+                    </padding>
+                </Label>
+                <PasswordField fx:id="textPassword">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </PasswordField>
+            </VBox>
+        </TilePane>
+    </left>
+    <center>
+        <TextArea fx:id="textAreaConsole" editable="false" prefWidth="200.0" promptText="Log">
+            <BorderPane.margin>
+                <Insets bottom="10.0" right="6.0" top="6.0"/>
+            </BorderPane.margin>
+        </TextArea>
+    </center>
+    <bottom>
+        <TilePane alignment="TOP_RIGHT" prefHeight="33.0" prefRows="1">
+            <Button fx:id="buttonRun" onAction="#runAction" defaultButton="true" mnemonicParsing="false" text="Estimate"/>
+            <Button fx:id="buttonExport" onAction="#exportAction" disable="true" mnemonicParsing="false" text="Export"/>
+        </TilePane>
+    </bottom>
+</BorderPane>

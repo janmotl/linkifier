@@ -1,0 +1,20 @@
+# Bytecode
+bin/
+out/
+
+# IntelliJ Idea generated files
+.idea/
+*.iml
+
+# Eclipse generated files
+.classpath
+.project
+
+# Configuration files (as they may contain sensitive information)
+*.properties
+
+# Large generated files
+*.csv
+*.ddl
+*.graphml
+*.tgf
