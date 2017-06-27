@@ -48,3 +48,6 @@ Once again, probabilities are estimated with logistic regression. And the most l
 If the schema quality is extremely low (e.g. all columns are typed as text and have irrelevant names), the PK and particularly FK estimates are going to be off. First, set correct data types and names to the columns. Then rerun Linkifier. Great [DBLint](https://dblint.codeplex.com/) may help you to identify some of the problems with your schema. 
 
 If you have questions or suggestions, let me know.
+
+## Acknowledgement
+I would like to thank Aleš Fišer, Oliver Kerul’-Kmec, Jan Kukačka, Jiří Kukačka, Manuel Muñoz and Batal Thibaut for their help solving the problem. The code is using [Simmetrics](https://github.com/Simmetrics/simmetrics) for text similarity calculations.
