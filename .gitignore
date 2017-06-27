@@ -18,3 +18,9 @@ out/
 *.ddl
 *.graphml
 *.tgf
+
+#Ignore META-INF
+META-INF
+
+# Unpolished
+src/example/
