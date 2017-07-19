@@ -4,9 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="464.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Events">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Events">
     <left>
-        <TilePane orientation="VERTICAL" prefColumns="1" prefTileHeight="57.0" prefTileWidth="170.0"
+        <TilePane orientation="VERTICAL" prefRows="7" prefTileHeight="57.0" prefTileWidth="170.0"
                   prefWidth="200.0" tileAlignment="TOP_LEFT" BorderPane.alignment="CENTER">
             <padding>
                 <Insets left="14.0" top="10.0"/>
@@ -74,7 +74,7 @@
         </TilePane>
     </left>
     <center>
-        <TextArea fx:id="textAreaConsole" editable="false" prefWidth="200.0" promptText="Log">
+        <TextArea fx:id="textAreaConsole" editable="false" prefWidth="400.0" promptText="Log">
             <BorderPane.margin>
                 <Insets bottom="10.0" right="6.0" top="6.0"/>
             </BorderPane.margin>

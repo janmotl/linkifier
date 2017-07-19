@@ -24,9 +24,7 @@ public class MainApp extends Application {
 
 		stage.setTitle("Linkifier");
 		stage.getIcons().add(new Image("/img/network.png"));
-		stage.setMinWidth(600);
-		stage.setMinHeight(464);
-		stage.setMaxHeight(464);
+		stage.setResizable(false);
 		stage.setScene(new Scene(root));
 		stage.show();
 	}

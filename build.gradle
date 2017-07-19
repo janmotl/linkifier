@@ -1,0 +1,77 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+group 'linkifier'
+version '3.1.1'
+sourceCompatibility = 1.8
+
+
+// Repository
+repositories {
+    mavenCentral()
+}
+
+
+// Dependencies
+dependencies {
+    compile fileTree(dir: 'lib', include: '*.jar') // The search is not recursive -> list all directories
+    compile fileTree(dir: 'lib/mssql', include: '*.jar')
+    compile fileTree(dir: 'lib/mysql', include: '*.jar')
+    compile fileTree(dir: 'lib/oracle', include: '*.jar')
+    compile fileTree(dir: 'lib/postgresql', include: '*.jar')
+
+    testCompile 'junit:junit:4.12'
+}
+
+
+// Directory structure
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src', 'gui']
+        }
+        resources {
+            srcDirs = ['gui/resources']
+        }
+    }
+    test {
+        java {
+            srcDir 'test'
+        }
+    }
+}
+
+
+// How to build the jar file
+jar {
+    manifest {
+        attributes(
+            'Class-Path': configurations.runtime.collect { "lib/$it.name" }.join(' '),  // Where to look for .jars
+            'Main-Class': 'controller.MainApp', //  What to execute. For CLI: run.Launcher
+            'Implementation-Version': version   // To be able to read it during the runtime
+        )
+    }
+}
+
+
+// Deployment task
+task deploy(dependsOn: 'jar') {
+    doFirst {
+        copy {
+            from "$buildDir/$libsDirName"
+            into "$buildDir/output"
+        }
+        copy {
+            from configurations.runtime + configurations.compile
+            into "$buildDir/output/lib"
+        }
+    }
+}
+
+// Make a zip file
+task zip(type: Zip, dependsOn: 'deploy') {
+    from "$buildDir/output"
+    version = null
+}
+
+

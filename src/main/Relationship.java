@@ -28,7 +28,7 @@ public class Relationship implements Comparable<Relationship> {
 			3.148549839180387,      // dataLengthAgree (desirable, but can be violated in case of varchar)
 			7.67137217122626,       // tokenShareRatioLD (FK should be similar to PK's name; works better than levenshteinColumns and tpcSimilarity)
 			6.180094171665725,      // tpcSimilarity (FK name should be composed of {fkTable, pkTable, pk, typical keywords})
-			-0.33830948191073695,   // levenshteinToTable (FK should be similar to PK's table name)
+			-0.33830948191073695,   // levenshteinToTable (FK column should be similar to PK's table name)
 			0.6780118791106244,     // pkDoesNotHaveMoreTokensThanFk (PK names are generally shorter than FK names)
 			-1.796300917231083,     // violatesSpecialization (FK in is-a relationship should not have more columns than PK)
 			4.558902237589775,  	// isInRange (FK values should be in the range of PK values)

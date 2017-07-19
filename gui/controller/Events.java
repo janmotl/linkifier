@@ -131,8 +131,9 @@ public class Events implements Initializable {
 
 		// Setup logging into textArea (before any attempt to log anything)
 		try {
-			LogManager.getLogManager().readConfiguration(Events.class.getResourceAsStream("logging.properties"));
+			LogManager.getLogManager().readConfiguration(Events.class.getResourceAsStream("/logging.properties"));
 		} catch (IOException e) {
+			System.out.println("File 'logging.properties' was not found.");
 			e.printStackTrace();
 		}
 		Logger globalLogger = Logger.getLogger("");

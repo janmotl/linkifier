@@ -14,7 +14,7 @@ public class Scoring {
 	private final static Logger LOGGER = Logger.getLogger(Scoring.class.getName());
 
 	public static void main(String[] arg) throws IOException {
-		LogManager.getLogManager().readConfiguration(Scoring.class.getResourceAsStream("logging.properties"));
+		LogManager.getLogManager().readConfiguration(Scoring.class.getResourceAsStream("/logging.properties"));
 		long startTime = System.nanoTime();
 
 		// Parameters
