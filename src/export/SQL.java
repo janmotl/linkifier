@@ -22,7 +22,6 @@ public class SQL {
 		return queries;
 	}
 
-
 	public static String getFkQuery(List<CompoundRelationship> relationships, char leftQuote, char rightQuote) {
 		String queries = "";
 

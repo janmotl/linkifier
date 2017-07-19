@@ -9,6 +9,7 @@ public class MultiSetTest {
 	public void batteryTest() {
 		MultiSet<String> multiSet = new MultiSet<>();
 
+		assertEquals(0, multiSet.totalCount());
 		assertEquals(0, multiSet.count("a"));
 		multiSet.add("a");
 		assertEquals(1, multiSet.count("a"));
@@ -19,6 +20,7 @@ public class MultiSetTest {
 		assertEquals(2, multiSet.count("a"));
 		multiSet.add("a");
 		assertEquals(3, multiSet.count("a"));
+		assertEquals(4, multiSet.totalCount());
 	}
 
 

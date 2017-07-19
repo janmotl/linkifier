@@ -47,6 +47,9 @@ public class TokenizationTest {
 		assertEquals(Arrays.asList("May", "5"), Tokenization.split("May5"));
 		assertEquals(Arrays.asList("BFG", "9000"), Tokenization.split("BFG9000"));
 		assertEquals(Arrays.asList("Žluťoučký", "Kůň"), Tokenization.split("ŽluťoučkýKůň"));
+		assertEquals(Arrays.asList("."), Tokenization.split("."));
+		assertEquals(Arrays.asList(" "), Tokenization.split(" "));
+		assertEquals(Arrays.asList("324", "A"), Tokenization.split(" 324A "));
 	}
 	
 }

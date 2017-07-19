@@ -9,6 +9,7 @@ public class LCSTest {
 	public void lcs() {
 		assertEquals(4, LCS.getLongestCommonSubsequence("abcde", "bcdef"));
 		assertEquals(5, LCS.getLongestCommonSubsequence("a bcd e", "x bcd x"));
+		assertEquals(3, LCS.getLongestCommonSubsequence("bcd", "abcd"));
 	}
 
 }
