@@ -21,6 +21,3 @@ out/
 
 #Ignore META-INF
 META-INF
-
-# Unpolished
-src/example/
