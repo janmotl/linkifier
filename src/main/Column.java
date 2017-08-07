@@ -50,7 +50,7 @@ public class Column {
 	private String lowerCaseTrimmedName;    // For string distance
 	private List<String> tokenizedLowerCaseTrimmedName = new ArrayList<>();
 	private Table table;                    // The father table
-	private Integer dataType;               // Data type as defined by JDBC (simplified if appropriate)
+	private int dataType;                   // Data type as defined by JDBC (simplified if appropriate)
 	private String dataTypeName;            // Data type as defined by JDBC
 	private Boolean isUnique = false;
 	private Double uniqueRatio;
@@ -69,8 +69,8 @@ public class Column {
 	private Boolean isJunctionTable;
 	private Boolean hasMultiplePK;
 	private Boolean tableContainsLob;
-	private Integer columnSize;
-	private Integer decimalDigits;
+	private int columnSize;
+	private int decimalDigits;
 	private Boolean hasDefault;
 	private Integer ordinalPosition;
 	private Integer ordinalPositionEnd;
@@ -246,6 +246,7 @@ public class Column {
 	}
 
 	public void setUniqueRatio(Double uniqueRatio) {
+		// The passed parameter can be null (e.g. because the table contains zero rows)
 		this.uniqueRatio = uniqueRatio;
 	}
 
@@ -461,8 +462,8 @@ public class Column {
 				dataTypeName,
 				isUnique.toString(),
 				isUniqueConstraint.toString(),
-				columnSize.toString(),
-				decimalDigits.toString(),
+				Integer.toString(columnSize),
+				Integer.toString(decimalDigits),
 				(decimalDigits > 0) ? "true" : "false",
 				hasDefault.toString(),
 				ordinalPosition.toString(),

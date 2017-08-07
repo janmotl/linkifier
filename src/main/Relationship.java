@@ -313,18 +313,29 @@ public class Relationship implements Comparable<Relationship> {
 	}
 
 	// Check cardinality of PK and FK. The count of unique values in FK should be ≤ count of unique values in PK.
-	private double violatesCardinalityConstraint() {
+	public double violatesCardinalityConstraint() {
 		// We expect nulls for binary attributes (uniqueRatio is not available for them), empty tables and empty columns
-		if (fk.getNullRatio() == null) {
+		if (fk.getUniqueRatio() == null) {
 			return  0.958; // We replace missing values with the average computed over 40 databases
 		}
+		if (pk.getUniqueRatio() == null) {
+			return 3.0; // If the FK contains values but PK does not (e.g. the PK table is empty or the PK is binary), the cardinality constraint or data types do not agree. Since the method returns a logarithm of the ratio and we are fairly confident this is not a FK->PK pair, we return a reasonably high value.
+		}
 
-		// We have to take into account possible nulls in FK
-		double fkUniqueCount =  fk.getRowCount()*(1.0-fk.getNullRatio())*fk.getUniqueRatio();
+		// NullRatio is nullable (e.g. because statistics is not available)
+		double fkNullRatio = 0.13338692; // Average nullRatio computed over 40 databases
+		if (fk.getNullRatio() != null) {
+			fkNullRatio = fk.getNullRatio();
+		}
+
+		// We have to take into the account possible nulls in the FK during fkUniqueCount computation.
+		// On the other end, pkUniqueCount should be non-null by primary key constraint -> no correction for the PK.
+		double fkUniqueCount =  fk.getRowCount()*(1.0-fkNullRatio)*fk.getUniqueRatio();
 		double pkUniqueCount =  pk.getRowCount()*pk.getUniqueRatio();
 
-		// We are using a soft threshold because we are using merely estimated values.
-		// We log the estimate to dampen the high values. It helps the regression model.
+		// We are returning a continuous value (and not a binary decision) because we are using merely estimated values
+		// (e.g. the nullRatios, uniqueRatios and rowCounts can be estimated from obsolete statistics).
+		// We logarithm the estimate to dampen the high values. It helps the regression model.
 		double result = log(1.0+ max(0.0, (fkUniqueCount-pkUniqueCount)/pkUniqueCount));
 
 		if (Double.isNaN(result) || Double.isInfinite(result)) {

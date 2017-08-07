@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 group 'linkifier'   // like company name: com.hp
-version '3.1.1'
+version '3.1.2'
 sourceCompatibility = 1.8
 
 

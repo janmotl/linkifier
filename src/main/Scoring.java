@@ -18,7 +18,7 @@ public class Scoring {
 		long startTime = System.nanoTime();
 
 		// Parameters
-		String databaseName = "mutagenesis";		// For MySQL set only databaseName and set schemaName="".
+		String databaseName = "financial";		// For MySQL set only databaseName and set schemaName="".
 		String schemaName = "";                         // For other databases, set both databaseName and schemaName.
 
 		// Collect metadata
