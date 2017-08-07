@@ -10,11 +10,12 @@ Say no more.
 
  1. Download the latest [release](https://github.com/janmotl/linkifier/releases)
  2. Execute the jar file (requieres JRE 8.0 or newer)
- 3. Estimate the primary and foreign key constraints
- 4. Export the estimates (multiple formats are supported including SQL alter queries and graphml for ER-diagram visualization)
+ 3. Connect to a database (Microsoft SQL Server, MySQL, Oracle or PostgreSQL)
+ 4. Estimate the primary and foreign key constraints
+ 5. Export the estimates (multiple formats are supported including SQL alter queries and graphml for ER-diagram visualization)
   
 ## Algorithm
-The algorithm works on the metadata about tables and columns that are accessible over JDBC and column and table statistics, which the database use for the execution plan optimization. That means that the algorithm is blazing fast (as it does not look at the actual data).
+The algorithm works on the *metadata* about tables and columns, which are accessible over JDBC, and column and table *statistics*, which the database use for the execution plan optimization. That means that the algorithm is blazing fast (as it does not look at the actual data).
 
 
 ### Primary Key
@@ -45,7 +46,7 @@ Foreign keys are identified by:
 Once again, probabilities are estimated with logistic regression. And the most likely FK constraints are returned (a compound FK is returned if the PK is compound).
 
 ## Limitations
-If the schema quality is extremely low (e.g. all columns are typed as text and have irrelevant names), the PK and particularly FK estimates are going to be off. First, set correct data types and names to the columns. Then rerun Linkifier. Great [DBLint](https://dblint.codeplex.com/) may help you to identify some of the problems with your schema. 
+If the schema quality is extremely low (e.g. all columns are typed as text and have irrelevant names), the PK and particularly FK estimates are going to be off. First, set correct data types and names to the columns. Then rerun Linkifier. [DBLint](https://dblint.codeplex.com/) may help you to identify some of the problems with your schema. 
 
 If you have questions or suggestions, let me know.
 
