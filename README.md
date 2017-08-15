@@ -45,10 +45,19 @@ Foreign keys are identified by:
 
 Once again, probabilities are estimated with logistic regression. And the most likely FK constraints are returned (a compound FK is returned if the PK is compound).
 
+## How to improve the quality of the estimates
+ 1. Calculate (sample) statistics on all tables in the schema. Example queries for calculating the statistics for a table "molecule" in "mutagenesis" schema: 
+    - Microsoft SQL Server: `CREATE STATISTICS mutagenesis.molecule`
+    - MySQL: `ANALYZE TABLE mutagenesis.molecule`
+    - Oracle: `EXEC DBMS_STATS.gather_table_stats('mutagenesis', 'molecule')`
+    - PostgreSQL: `ANALYZE mutagenesis.molecule`
+ 2. Set primary keys in the schema. Once Linkifier knows for sure what are the PKs, the accuracy of the foreign key constraint estimates increases.
+ 3. Use the export into a csv file. The csv files allow you to filter out uninteresting tables while providing more details than the export into SQL.
+
 ## Limitations
 If the schema quality is extremely low (e.g. all columns are typed as text and have irrelevant names), the PK and particularly FK estimates are going to be off. First, set correct data types and names to the columns. Then rerun Linkifier. [DBLint](https://dblint.codeplex.com/) may help you to identify some of the problems with your schema. 
 
-If you have questions or suggestions, let me know.
+If you have any question or suggestion, let me know.
 
 ## Acknowledgement
 I would like to thank Aleš Fišer, Oliver Kerul’-Kmec, Jan Kukačka, Jiří Kukačka, Manuel Muñoz and Batal Thibaut for their help solving the problem. The code is using [Simmetrics](https://github.com/Simmetrics/simmetrics) for text similarity calculations.
