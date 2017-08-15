@@ -6,15 +6,19 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.logging.Logger;
 
 import static java.lang.Math.*;
 
 public class Relationship implements Comparable<Relationship> {
-
+	private final static Logger LOGGER = Logger.getLogger(Scoring.class.getName());
 	private static final List<String> KEYWORDS_FK = Arrays.asList("fk", "type", "eid");
 	private static final List<String> STAT_LESS_DATA_TYPE = Arrays.asList("BINARY", "LONGVARBINARY", "LONGVARCHAR");
-	private static final double[] WEIGHTS = new double[]{   // Coefficients from H20. The coefficients must NOT be standardized. Beware of changing att=false to att=true as it changes not only the sign, but also bias.
+	public static final double[] WEIGHTS = new double[]{   // Coefficients from H20. The coefficients must NOT be standardized. Beware of changing att=false to att=true as it changes not only the sign, but also bias.
 			-0.700089536608705,     // fk_isPrimaryKey (this helps to get the direction from FK to PK right, but it does not always hold)
 			0.8083306055552485,     // fk_contains (FKs generally contains tokens like "ID", "code",...)
 			0.10629621014079517,    // fk_levenshteinDistance (FK should be named differently from it's own table name)
@@ -308,18 +312,15 @@ public class Relationship implements Comparable<Relationship> {
 
 		// Fail-safe
 		// Possible reason for this: missing statistics for the table
-		System.out.println("We failed to compute 'inRange' feature for: " + this);
-		return false;
+		LOGGER.info("We failed to compute 'inRange' feature for: " + this + " Was statistics collected on these columns?");
+		return true;    // I am optimistic...
 	}
 
 	// Check cardinality of PK and FK. The count of unique values in FK should be ≤ count of unique values in PK.
 	public double violatesCardinalityConstraint() {
-		// We expect nulls for binary attributes (uniqueRatio is not available for them), empty tables and empty columns
-		if (fk.getUniqueRatio() == null) {
-			return  0.958; // We replace missing values with the average computed over 40 databases
-		}
-		if (pk.getUniqueRatio() == null) {
-			return 3.0; // If the FK contains values but PK does not (e.g. the PK table is empty or the PK is binary), the cardinality constraint or data types do not agree. Since the method returns a logarithm of the ratio and we are fairly confident this is not a FK->PK pair, we return a reasonably high value.
+		// We expect nulls for binary attributes (uniqueRatio is not available for them), empty tables, empty columns or it the statistics was not calculated
+		if (fk.getUniqueRatio() == null || pk.getUniqueRatio() == null) {
+			return 0.958; // We replace missing values with the average computed over 40 databases
 		}
 
 		// NullRatio is nullable (e.g. because statistics is not available)
@@ -362,7 +363,7 @@ public class Relationship implements Comparable<Relationship> {
 		// To deal with the situation where the FK contains only one unique value, we also increment the nominator.
 		double result = (max(pk.getValueMin(), min(fk.getValueMax(), pk.getValueMax())) - min(max(fk.getValueMin(), pk.getValueMin()), pk.getValueMax())+1.0) / (pk.getValueMax() - pk.getValueMin()+1.0);
 
-		if (Double.isNaN(result) || result<0.0) {
+		if (Double.isNaN(result) || Double.isInfinite(result) || result<0.0) {
 			result = 0.412; // We replace missing values with the average computed over 40 databases
 		}
 
@@ -388,7 +389,7 @@ public class Relationship implements Comparable<Relationship> {
 			result = abs(pk.getWidthAvg() - fk.getWidthAvg())/ max(pk.getWidthAvg(), fk.getWidthAvg()); // Is it beneficial to normalize the diff by max(width1, width2)
 		}
 
-		if (Double.isNaN(result)) {
+		if (Double.isNaN(result) || Double.isInfinite(result)) {
 			result = 0.357; // We replace missing values with the average computed over 40 databases
 		}
 
@@ -410,8 +411,6 @@ public class Relationship implements Comparable<Relationship> {
 	public void setSlowFeatures(Connection connection) throws SQLException {
 		setSatisfiesFKConstraint(connection);
 	}
-
-
 
 	private void setFirstCharAgree() {
 		boolean abbreviationMatches = false;
@@ -488,7 +487,7 @@ public class Relationship implements Comparable<Relationship> {
 	}
 
 
-	private double[] toArray() {
+	public double[] toArray() {
 		return new double[]{
 				fk.isPrimaryKey() ? 1 : 0,
 				fk.getContains() ? 1 : 0,
@@ -511,8 +510,7 @@ public class Relationship implements Comparable<Relationship> {
 				violatesCardinalityConstraint,
 				rangeCoverage,
 				isTheSameColumn ? 1 : 0,
-				isTheSameTable ? 1 : 0,
-				isForeignKey ? 1 : 0,       // pk_suffixSchemaCount, fk_prefixSchemaCount, fk_isDecimal, chenColumnSimilarity, fk_minLDOtherTable, fk_uniqueRatio, histogramOverlap, isInRange, avgWidthDiff, pk_isKeywordSingleton
+				isTheSameTable ? 1 : 0   // Other interesting features: pk_suffixSchemaCount, fk_prefixSchemaCount, fk_isDecimal, chenColumnSimilarity, fk_minLDOtherTable, fk_uniqueRatio, histogramOverlap, pk_isKeywordSingleton
 		};
 	}
 

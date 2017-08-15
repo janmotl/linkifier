@@ -1,5 +1,6 @@
 package example;
 
+import export.Justification;
 import export.SQL;
 import main.*;
 
@@ -49,7 +50,7 @@ public class Linkifier {
 	}
 
 	// Export
-	public void export(File file, String csvDetails) throws FileNotFoundException, UnsupportedEncodingException {
+	public void export(File file, String description) throws FileNotFoundException, UnsupportedEncodingException {
 		if (file.getName().endsWith(".tgf")) {
 			export.TGF.writeGraph(file, tables, compoundRelationships);
 		} else if (file.getName().endsWith(".graphml")) {
@@ -58,10 +59,14 @@ public class Linkifier {
 			export.DDL.writeGraph(file, tables, compoundRelationships);
 		} else if (file.getName().endsWith(".sql")) {
 			SQL.writeGraph(file, tables, compoundRelationships, leftQuote, rightQuote);
-		} else if (file.getName().endsWith(".csv") && "CSV for PK".equals(csvDetails)) {
+		} else if (file.getName().endsWith(".csv") && "CSV for PK".equals(description)) {
 			export.CSV.writePk(file, tables);
-		} else if (file.getName().endsWith(".csv") && "CSV for FK".equals(csvDetails)) {
+		} else if (file.getName().endsWith(".csv") && "CSV for FK".equals(description)) {
 			export.CSV.writeFk(file, relationships);
+		} else if (file.getName().endsWith(".csv") && "Decision justification for PK".equals(description)) {
+			Justification.writePk(file, tables);
+		} else if (file.getName().endsWith(".csv") && "Decision justification for FK".equals(description)) {
+			Justification.writeFk(file, relationships);
 		}
 	}
 

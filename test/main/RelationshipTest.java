@@ -1,6 +1,5 @@
-import main.Column;
-import main.Relationship;
-import main.Table;
+package main;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -83,7 +82,7 @@ public class RelationshipTest {
 
 		relationship.getFk().setUniqueRatio(0.5);
 		relationship.setFastFeatures("mutagenesis");
-		assertEquals(3.0, relationship.violatesCardinalityConstraint(), 0.0001);     // Pk is empty -> high penalization
+		assertEquals(0.958, relationship.violatesCardinalityConstraint(), 0.0001);     // Pk is empty or stats is unavailable -> returns average
 
 		relationship.getPk().setUniqueRatio(1.0);
 		relationship.setFastFeatures("mutagenesis");

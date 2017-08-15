@@ -1,3 +1,5 @@
+package main;
+
 import main.CompoundRelationship;
 import export.SQL;
 import main.Column;

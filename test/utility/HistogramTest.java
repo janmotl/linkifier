@@ -1,3 +1,5 @@
+package utility;
+
 import main.Column;
 import main.Relationship;
 import org.junit.Test;

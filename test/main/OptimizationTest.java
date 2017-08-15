@@ -1,3 +1,5 @@
+package main;
+
 import main.Column;
 import main.OptimizationRelationship;
 import main.Relationship;

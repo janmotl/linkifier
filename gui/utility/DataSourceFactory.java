@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 // Returns a datasource for the selected vendor.
+// We do it in a factory function because we exploit unique method calls of the datasources (e.g. )
 // Will also provide vendor specific functionality.
 public class DataSourceFactory {
 

@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.common.base.Throwables;
 import example.Linkifier;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -84,10 +85,9 @@ public class Events implements Initializable {
 		});
 		runService.setOnFailed(event -> {
 			buttonRun.setText("Estimate");
-			runService.getException().printStackTrace();
-			LOGGER.severe(runService.getException().getMessage());
+			LOGGER.severe(Throwables.getStackTraceAsString(runService.getException()));
 			LOGGER.info("Something went wrong...");
-			LOGGER.info("Contact the developer at jan.motl@fit.cvut.cz");
+			LOGGER.info("Please, send an email to the developer at jan.motl@fit.cvut.cz");
 		});
 		runService.setOnSucceeded(event -> {
 			buttonRun.setText("Estimate");
@@ -107,7 +107,9 @@ public class Events implements Initializable {
 				new FileChooser.ExtensionFilter("DDL (Oracle Data Modeler)", "*.ddl"),
 				new FileChooser.ExtensionFilter("SQL with alter queries", "*.sql"),
 				new FileChooser.ExtensionFilter("CSV for PK", "*.csv"),
-				new FileChooser.ExtensionFilter("CSV for FK", "*.csv"));
+				new FileChooser.ExtensionFilter("CSV for FK", "*.csv"),
+				new FileChooser.ExtensionFilter("Decision justification for PK", "*.csv"),
+				new FileChooser.ExtensionFilter("Decision justification for FK", "*.csv"));
 		File file = fileChooser.showSaveDialog(buttonRun.getScene().getWindow());
 
 		if (file != null) {
@@ -126,7 +128,7 @@ public class Events implements Initializable {
 
 	// The initialize() method is automatically called after the FXML file has been loaded.
 	// By this time, all the FXML fields are already initialized.
-	// rb localize the root object. null if the root object was not localized.
+	// ResourceBundle rb localize the root object. null if the root object was not localized.
 	@Override public void initialize(URL fxmlFileLocation, ResourceBundle rb) {
 
 		// Setup logging into textArea (before any attempt to log anything)

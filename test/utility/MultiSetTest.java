@@ -1,3 +1,5 @@
+package utility;
+
 import org.junit.Test;
 import utility.MultiSet;
 

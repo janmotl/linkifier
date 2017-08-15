@@ -1,3 +1,5 @@
+package utility;
+
 import main.Column;
 import main.Table;
 import org.junit.Test;

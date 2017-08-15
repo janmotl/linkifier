@@ -14,7 +14,7 @@ import java.util.*;
 public class Column {
 	public static final List<String> KEYWORDS = Arrays.asList("aux", "code", "id", "key", "name", "nbr", "no", "nr", "num", "number", "pk", "sk", "symb", "type");
 	private static final List<String> KEYWORD_SINGLETONS = Arrays.asList("code", "id");
-	private static final double[] WEIGHTS = new double[]{   // Scores trained with RapidMiner on estimatePK_v12.csv. The prediction were checked for match with RapidMiner.
+	public static final double[] WEIGHTS = new double[]{   // Scores trained with RapidMiner on estimatePK_v12.csv. The prediction were checked for match with RapidMiner.
 			-1.255989036611402,     // BigInt
 			0.8718200051682662,     // Integer
 			1.4494153854912695,     // Date
@@ -424,7 +424,7 @@ public class Column {
 		isBestAttemptPk = bestAttemptPk;
 	}
 
-	private double[] toArray() {
+	public double[] toArray() {
 		return new double[]{
 				"BIGINT".equals(dataTypeName) ? 1 : 0,
 				"INTEGER".equals(dataTypeName) ? 1 : 0,
