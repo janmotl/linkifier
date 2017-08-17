@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Optimization {
@@ -23,19 +24,26 @@ public class Optimization {
 
 	// Set the single most likely PK as the PK.
 	private static void setEstimatedPk(Table table) {
-		double maximum = 0.0;
-		Column maxCol = null;
-		for (Column column : table.getColumnList()) {
-			if (column.getPkProbability() > maximum) {
-				maximum = column.getPkProbability();
-				maxCol = column;
-			}
-		}
-		if (maxCol!=null) maxCol.setEstimatedPk(true);
+		if (table.getColumnList().isEmpty()) return;    // Nothing to optimize
 
-		// If the most likely column has a doppelganger, add the doppelganger in to the PK
-		if (maxCol!=null && maxCol.isDoppelganger()) {
+		// Sort columns in descending order of getPkProbability()
+		Collections.sort(table.getColumnList(), (a, b) -> a.getPkProbability() > b.getPkProbability() ? -1 : a.getPkProbability() == b.getPkProbability() ? 0 : 1 );
+
+		// Set the single most likely column as PK
+		Column maxCol = table.getColumnList().get(0);
+		maxCol.setEstimatedPk(true);
+
+		// If the most likely column has a doppelganger, add the doppelganger into the PK
+		if (maxCol.isDoppelganger()) {
 			table.getColumn(maxCol.getDoppelgangerName()).setEstimatedPk(true);
+		}
+
+		// If the top candidate is known to not be unique and no doppelganger was found, add the second candidate into the PK.
+		// Note: The threshold for uniqueRatio was set arbitrarily (we work with estimates -> do not make it too tight).
+		// Note: We ignore the estimated probabilities. That is not nice.
+		// Note: We do not handle scenarios where the PK is composed of more than 2 columns.
+		else if (maxCol.getUniqueRatio() != null && maxCol.getUniqueRatio() < 0.9 && table.getColumnList().size() >= 2) {
+			table.getColumnList().get(1).setEstimatedPk(true);
 		}
 	}
 

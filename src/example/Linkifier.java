@@ -22,7 +22,9 @@ public class Linkifier {
 	private int fkCount;
 	private List<CompoundRelationship> compoundRelationships;
 
-
+	// Note: The constructor could directly call private estimatePk() and estimateFk().
+	// That way we could be sure no one gets null-pointer exception just because they forgot to call these
+	// two methods in the correct order.
 	public Linkifier(Connection connection, String schemaName) throws SQLException {
 		this.connection = connection;
 		this.schemaName = schemaName;
