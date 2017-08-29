@@ -26,8 +26,10 @@ public class Table {
 		return "schema" + Setting.CSV_SEPARATOR + getHeader(Setting.CSV_SEPARATOR);
 	}
 
-	public static String getHeader(String separator) {
-		return String.join(separator,
+	public static String getHeader(String delimiter) {
+		if (delimiter==null) throw new IllegalArgumentException("The delimiter cannot be null");
+
+		return String.join(delimiter,
 				"table",
 				"column",
 				"dataTypeName",
@@ -245,6 +247,10 @@ public class Table {
 
 
 	public String toQuery(char leftQuote, char rightQuote) {
+		if (getEstimatedPk().isEmpty()) {
+			throw new IllegalStateException("EstimatedPk is empty");
+		}
+
 		String keys = "";
 		String separator = leftQuote + ", " + rightQuote;
 		for (Column column : getEstimatedPk()) {

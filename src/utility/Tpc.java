@@ -20,6 +20,11 @@ public class Tpc {
 	// We just attempt to match the tokens in the FK column name to tokens enlisted above.
 	// Note however, that each single token can be used maximally once -> use Hungarian algorithm.
 	public static Double similarity(List<String> fkTable, List<String> fk, List<String> pk, List<String> pkTable) {
+		// Input parameter validation
+		if (fkTable.isEmpty() || fk.isEmpty() || pk.isEmpty() || pkTable.isEmpty()) {
+			throw new IllegalArgumentException("The input lists should never be empty");
+		}
+
 		// Initialize two lists of tokens
 		List<String> fkTokens = fk;
 		List<String> otherTokens = new ArrayList<>();
@@ -77,7 +82,9 @@ public class Tpc {
 	private static String getAbbreviation(List<String> tokens) {
 		String result = "";
 		for (String token : tokens) {
-			result += token.substring(0, 1);
+			if (token.length()>0) {
+				result += token.substring(0, 1);
+			}
 		}
 
 		return result;

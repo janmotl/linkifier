@@ -1,7 +1,6 @@
 package utility;
 
 import org.junit.Test;
-import utility.MultiSet;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,7 +23,5 @@ public class MultiSetTest {
 		assertEquals(3, multiSet.count("a"));
 		assertEquals(4, multiSet.totalCount());
 	}
-
-
 
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 // A set, which keeps record of the value occurrence count.
 public class MultiSet<K> extends HashMap<K, Integer>{
 	private Map<K, Integer> objectCounts = new HashMap<>();
-	private int totalCount = 0;
+	private int totalCount = 0;     // Contains valid values only if items are added with the add() method (not with some of the methods of the HashMap like putIfAbsent...)
 
 	// Constructor
 	public MultiSet() {
