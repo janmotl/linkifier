@@ -59,5 +59,11 @@ If the schema quality is extremely low (e.g. all columns are typed as text and h
 
 If you have any question or suggestion, let me know.
 
+## How to cite
+Foreign Key Constraint Identification in Relational Databases,
+Jan Motl and Pavel Kordík,
+2017,
+Proceedings of the 17th ITAT Conference Information Technologies - Applications and Theory.
+
 ## Acknowledgement
 I would like to thank Aleš Fišer, Oliver Kerul’-Kmec, Jan Kukačka, Jiří Kukačka, Manuel Muñoz and Batal Thibaut for their help solving the problem. The code is using [Simmetrics](https://github.com/Simmetrics/simmetrics) for text similarity calculations.
