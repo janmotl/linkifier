@@ -28,7 +28,7 @@ Primary keys are identified by:
  5. Ratio of nulls in the column from the column statistics
  6. Average column width in bytes from the column statistics (PKs are commonly short)
 
-Once these features are collected, they are passed to logistic regression to estimate the probability that the column is the primary key. Since each table can have at most a single PK, the column with the highest probability in the table is declared to be the primary key of the table. 
+Once these features are collected, they are passed to logistic regression to estimate the probability that the column is a primary key or is in a compound primary key. Since each table can have at most a single PK, the column with the highest probability in the table is declared to be the primary key of the table. If the estimated count of unique values in the estimated PK is smaller than the count of the rows in the table, it is a sign of a compound PK. In that case columns are incrementally added into the PK by their descending probability of being in the PK until the estimated unique row count ≥ estimated table row count. The estimate is optimistic and is defined as a product of the estimated row counts of the columns in the PK.
 
 ### Foreign keys
 Foreign keys are identified by:
@@ -60,10 +60,10 @@ If the schema quality is extremely low (e.g. all columns are typed as text and h
 If you have any question or suggestion, let me know.
 
 ## How to cite
-Foreign Key Constraint Identification in Relational Databases,
+[Foreign Key Constraint Identification in Relational Databases](http://ceur-ws.org/Vol-1885/106.pdf),
 Jan Motl and Pavel Kordík,
 2017,
-Proceedings of the 17th ITAT Conference Information Technologies - Applications and Theory.
+ITAT 2017 Proceedings.
 
 ## Acknowledgement
 I would like to thank Aleš Fišer, Oliver Kerul’-Kmec, Jan Kukačka, Jiří Kukačka, Manuel Muñoz and Batal Thibaut for their help solving the problem. The code is using [Simmetrics](https://github.com/Simmetrics/simmetrics) for text similarity calculations.
