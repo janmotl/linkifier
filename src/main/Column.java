@@ -67,6 +67,7 @@ public class Column {
 	private Boolean isNullable;             // From getColumns()
 	private Boolean isKeywordSingleton;
 	private Boolean isJunctionTable;
+	private double isJunctionTable2;
 	private Boolean hasMultiplePK;
 	private Boolean tableContainsLob;
 	private int columnSize;
@@ -83,6 +84,10 @@ public class Column {
 	private Integer minLDOtherTable;        // Minimal Levenshtein Distance columnName vs. some other tableName
 	private Boolean isDoppelganger = false;
 	private String doppelgangerName;
+	private Double nullCountAsFirstColumn;
+	private Double previousColumnsAreNotSufficient;
+	private Boolean isEmptyTable;           // Nullable
+	private Double suspiciousNullRatio;     // Nullable
 	private Double primaryKeyProbability;   // Estimated probability that this column alone is a PK
 	private Boolean isEstimatedPk = false;  // Estimated binary decision whether the column is a part of PK
 	private Boolean isBestAttemptPk = false;  // If the PK is set in the database, the database PK is used. Otherwise estimate the PK
@@ -233,6 +238,10 @@ public class Column {
 		isJunctionTable = junctionTable;
 	}
 
+	public void setIsJunctionTable2(double isJunctionTable2) {
+		this.isJunctionTable2 = isJunctionTable2;
+	}
+
 	public void setHasMultiplePK(Boolean hasMultiplePK) {
 		this.hasMultiplePK = hasMultiplePK;
 	}
@@ -336,12 +345,35 @@ public class Column {
 		this.estimatedRowCount = estimatedRowCount;
 	}
 
+	public void setNullCountAsFirstColumn(Double nullCountAsFirstColumn) {
+		this.nullCountAsFirstColumn = nullCountAsFirstColumn;
+	}
+
+	public void setPreviousColumnsAreNotSufficient(Double previousColumnsAreNotSufficient) {
+		this.previousColumnsAreNotSufficient = previousColumnsAreNotSufficient;
+	}
+
+	// Data-based features for empty tables are null. Take it into the account in the model by building this feature.
+    public void setIsEmptyTable() {
+	    if (estimatedRowCount != null) {
+		    isEmptyTable = (getRowCount() == 0);
+	    }
+    }
+
+	public double isEmptyTable() {
+		if (isEmptyTable == null) {
+			return 0.4226982101795587; // Average for pk_isEmptyTable, bench schemas inflate it
+		} else {
+			return isEmptyTable ? 1 : 0;
+		}
+	}
+
 	public Integer getLD() {
 		return levenshteinDistance;
 	}
 
 	public void setLD(String a) {
-		levenshteinDistance = utility.Levenshtein.getDistance(a, lowerCaseTrimmedName);
+		levenshteinDistance = Levenshtein.getDistance(a, lowerCaseTrimmedName);
 	}
 
 	// Get min(LD of the column to some other table)
@@ -358,6 +390,23 @@ public class Column {
 		minLDOtherTable = minimum;
 	}
 
+	// There are situations when nulls are not surprising. For example, if the table is denormalized, then columns
+	// coll3, coll4,... are likely to contain a lot of nulls.
+	public void setSuspiciousNullRatio() {
+		if (NullsExpected.containsKeyword(tokenizedLowerCaseTrimmedName)) {
+			suspiciousNullRatio = 0.0;
+		} else {
+			suspiciousNullRatio = nullRatio;
+		}
+	}
+
+	public double getSuspiciousNullRatio() {
+		if (suspiciousNullRatio == null) {
+			return 0.03643104889927603; // Average for FK candidates (as it is used in relationship for fk columns)
+		} else {
+			return suspiciousNullRatio;
+		}
+	}
 
 	public void setKeywordSingleton() {
 		for (String keyword : KEYWORD_SINGLETONS) {
@@ -476,18 +525,23 @@ public class Column {
 				String.format(Locale.ROOT, "%.6f", nullRatio),
 				isNullable.toString(),
 				String.format(Locale.ROOT, "%.6f", uniqueRatio),
-				valueMin == null ? "null" : valueMin.toString(),
-				valueMax == null ? "null" : valueMax.toString(),
-				widthAvg == null ? "null" : widthAvg.toString(),
-				widthAvg == null ? "null" : Double.toString(Math.max(Math.log10(widthAvg)-1, 0)),
+				valueMin == null ? "" : valueMin.toString(),
+				valueMax == null ? "" : valueMax.toString(),
+				widthAvg == null ? "" : widthAvg.toString(),
+				widthAvg == null ? "" : (widthAvg>50 ? "true" : "false"),
 				String.valueOf(Math.abs(correlation)),
 				isKeywordSingleton.toString(),
 				isJunctionTable.toString(),
+				Double.toString(isJunctionTable2),
 				hasMultiplePK.toString(),
 				levenshteinDistance.toString(),
 				minLDOtherTable.toString(),
 				isDoppelganger.toString(),
 				contains ? "true" : "false",
+				suspiciousNullRatio == null ? "" : suspiciousNullRatio.toString(),
+				nullCountAsFirstColumn == null ? "" : nullCountAsFirstColumn.toString(),
+				previousColumnsAreNotSufficient == null ? "" : previousColumnsAreNotSufficient.toString(),
+				isEmptyTable.toString(),
 				isPrimaryKey.toString()
 		);
 	}

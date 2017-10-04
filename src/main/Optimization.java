@@ -38,13 +38,13 @@ public class Optimization {
 			table.getColumn(maxCol.getDoppelgangerName()).setEstimatedPk(true);
 		}
 
-		// If the top candidate is known to not be unique and no doppelganger was found, add the second candidate into the PK.
-		// Note: The threshold for uniqueRatio was set arbitrarily (we work with estimates -> do not make it too tight).
-		// Note: We ignore the estimated probabilities. That is not nice.
-		// Note: We do not handle scenarios where the PK is composed of more than 2 columns.
-		else if (maxCol.getUniqueRatio() != null && maxCol.getUniqueRatio() < 0.9 && table.getColumnList().size() >= 2) {
-			table.getColumnList().get(1).setEstimatedPk(true);
+		// Else if the top candidate is known to not be unique, keep adding the candidate into the PK, until
+		// we get a combination, which in theory could be unique.
+		// Note: We ignore the absolute values of estimated probabilities (we look only at the ranking). That is not nice.
+		else {
+			keepAddingAttributes(table);
 		}
+
 	}
 
 	// If the database says that the table has a PK, trust the database. Otherwise estimate the PK for the table.
@@ -60,5 +60,20 @@ public class Optimization {
 		}
 	}
 
+	// The optimistic estimate of the unique values in the PK should be ≥ than the row count.
+	private static void keepAddingAttributes(Table table) {
+		double optimisticUniqueEstimate = 1;
+		double rowCount = table.getColumnList().get(0).getRowCount();
+
+		for (Column column : table.getColumnList()) {
+			if (column.getUniqueRatio() != null) {
+				column.setEstimatedPk(true);
+				optimisticUniqueEstimate = optimisticUniqueEstimate * column.getUniqueRatio() * rowCount;
+				if (optimisticUniqueEstimate/rowCount > 0.995) {    // We work with estimates -> we are biased toward smaller count of columns in the PK. The threshold is based on tpcc database.
+					return;
+				}
+			}
+		}
+	}
 
 }

@@ -175,5 +175,7 @@ public class Oracle implements Vendor {
 			}
 		}
 
+		// Output quality control (if something turns sour, we want to know about that)
+		QualityControl.qcNumericalValues(tables);
 	}
 }

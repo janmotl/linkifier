@@ -176,6 +176,9 @@ public class MSSQL implements Vendor {
 				column.setWidthAvg(rs.getDouble(7));
 			}
 		}
+
+		// Output quality control (if something turns sour, we want to know about that)
+		QualityControl.qcNumericalValues(tables);
 	}
 
 

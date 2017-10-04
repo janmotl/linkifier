@@ -11,7 +11,9 @@ public class Logistic {
 
 		double result = sigmoid(logit);
 
-		if (Double.isNaN(result) || Double.isInfinite(result)) throw new RuntimeException("The result is not a number: " + result);
+		if (Double.isNaN(result) || Double.isInfinite(result)) {
+			throw new RuntimeException("The result is not a number: " + result);
+		}
 
 		return result;
 	}

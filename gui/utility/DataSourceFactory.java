@@ -6,11 +6,12 @@ import oracle.jdbc.pool.OracleDataSource;
 import org.postgresql.jdbc3.Jdbc3PoolingDataSource;
 
 import javax.sql.DataSource;
+import java.security.InvalidParameterException;
 import java.sql.SQLException;
 import java.util.Properties;
 
 // Returns a datasource for the selected vendor.
-// We do it in a factory function because we exploit unique method calls of the datasources (e.g. )
+// We do it in a factory function because we exploit unique method calls of the dataSources.
 // Will also provide vendor specific functionality.
 public class DataSourceFactory {
 
@@ -60,8 +61,7 @@ public class DataSourceFactory {
 				return dataSource;
 			}
 			default:
-				System.out.println("invalid db type");
-				return null;
+				throw new InvalidParameterException("Invalid db type was defined");
 		}
 	}
 }

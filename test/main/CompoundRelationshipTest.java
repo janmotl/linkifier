@@ -1,10 +1,6 @@
 package main;
 
-import main.CompoundRelationship;
 import export.SQL;
-import main.Column;
-import main.Relationship;
-import main.Table;
 import org.junit.Test;
 
 import java.util.ArrayList;

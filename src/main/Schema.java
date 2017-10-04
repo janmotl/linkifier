@@ -23,6 +23,10 @@ public class Schema {
 	public static List<Table> getPrimaryKeys(Connection connection, String databaseName, String schemaName) throws SQLException {
 		List<Table> tables = getTables(connection.getMetaData(), databaseName, schemaName);
 
+		Vendor vendor = VendorFactory.getVendor(connection.getMetaData().getDatabaseProductName());
+		vendor.getTableStatistics(databaseName, schemaName, tables, connection);
+		vendor.getColumnStatistics(databaseName, schemaName, tables, connection);
+
 		for (Table table : tables) {
 			for (Column column : table.getColumnList()) {
 				column.setLD(table.getLowerCaseTrimmedName());
@@ -30,16 +34,18 @@ public class Schema {
 				column.setKeywordSingleton();
 				column.setKeywords();
 				column.setDoppelganger(table);
+				column.setIsEmptyTable();
+				column.setSuspiciousNullRatio();
 			}
 			table.isJunctionTable(tables);
+			table.isJunctionTable2(tables);
 			table.tableContainsLob();
 			table.hasMultiplePK();
 			table.setColumnTokenWeight();
+			table.nullCountMatchesFirstColumn();
+			table.previousColumnsAreNotSufficient();
 		}
 
-		Vendor vendor = VendorFactory.getVendor(connection.getMetaData().getDatabaseProductName());
-		vendor.getTableStatistics(databaseName, schemaName, tables, connection);
-		vendor.getColumnStatistics(databaseName, schemaName, tables, connection);
 		setPkProbabilities(tables);
 		return tables;
 	}
@@ -181,8 +187,8 @@ public class Schema {
 					for (Relationship relationship : relationships) {
 						if (fkColumn.equals(relationship.getFk().getName()) &&
 							pkColumn.equals(relationship.getPk().getName()) &&
-							fkTable.equals(relationship.getFkTable()) &&
-							pkTable.equals(relationship.getPkTable())) {
+							fkTable.equals(relationship.getFkTableName()) &&
+							pkTable.equals(relationship.getPkTableName())) {
 								relationship.setForeignKey(true);
 						}
 					}

@@ -19,29 +19,31 @@ public class Relationship implements Comparable<Relationship> {
 	private static final List<String> KEYWORDS_FK = Arrays.asList("fk", "type", "eid");
 	private static final List<String> STAT_LESS_DATA_TYPE = Arrays.asList("BINARY", "LONGVARBINARY", "LONGVARCHAR");
 	public static final double[] WEIGHTS = new double[]{   // Coefficients from H20. The coefficients must NOT be standardized. Beware of changing att=false to att=true as it changes not only the sign, but also bias.
-			-0.700089536608705,     // fk_isPrimaryKey (this helps to get the direction from FK to PK right, but it does not always hold)
-			0.8083306055552485,     // fk_contains (FKs generally contains tokens like "ID", "code",...)
-			0.10629621014079517,    // fk_levenshteinDistance (FK should be named differently from it's own table name)
-			-0.002608408791982627,  // fk_ordinalPosition (FKs are generally somewhere at the beginning of the table)
-			-3.1271679052709227,    // fk_isKeywordSingleton ("id" name is commonly the name of the PK, not FK)
-			1.1263050903926626,     // fk_tableContainsLob (if a table contains LOB, it is more likely on the FK side than PK side)
-			2.080985736648847,      // fk_isDoppelganger (common in relationship tables)
-			-5.433500350930434,     // pk_isDoppelganger (entity tables do not contain doppelgangers, which are identified by their names)
-			-2.827856707221662,     // pk_hasMultiplePK (multiple PK columns are a sign of a junction table)
-			7.889218949482217,      // dataTypeCategoryAgree (should hold, but can be violated between char and varchar) MOVE TO dataTypeAgree
-			3.148549839180387,      // dataLengthAgree (desirable, but can be violated in case of varchar)
-			7.67137217122626,       // tokenShareRatioLD (FK should be similar to PK's name; works better than levenshteinColumns and tpcSimilarity)
-			6.180094171665725,      // tpcSimilarity (FK name should be composed of {fkTable, pkTable, pk, typical keywords})
-			-0.33830948191073695,   // levenshteinToTable (FK column should be similar to PK's table name)
-			0.6780118791106244,     // pkDoesNotHaveMoreTokensThanFk (PK names are generally shorter than FK names)
-			-1.796300917231083,     // violatesSpecialization (FK in is-a relationship should not have more columns than PK)
-			4.558902237589775,  	// isInRange (FK values should be in the range of PK values)
-			-1.8968522536350347, 	// avgWidthDiff (the average length of the values in FK should be close to average in PK)
-			-0.8483438241947663,    // violatesCardinalityConstraint (the count of unique values in FK should be ≤ count in PK)
-			0.27570287140420485,    // rangeCoverage (values in FK should cover a wide range of values in PK)
-			-15.271897552298254,    // isTheSameColumn (self referencing should never happen)
-			-2.7369860356123077};   // isTheSameTable (hierarchies are relatively rare in the databases)
-	private static final double BIAS = -28.846198408554553;
+			-0.6955762483277834,    // fk_isPrimaryKey (this helps to get the direction from FK to PK right, but it does not always hold)
+			0.8341590011803686,     // fk_contains (FKs generally contains tokens like "ID", "code",...)
+			0.10373063667967375,    // fk_levenshteinDistance (FK should be named differently from it's own table name)
+			-0.002876039063235576,  // fk_ordinalPosition (FKs are generally somewhere at the beginning of the table)
+			-2.8301632739037403,    // fk_isKeywordSingleton ("id" name is commonly the name of the PK, not FK)
+			-0.8568352557185934,    // fk_suspiciousNullRatio (nulls in "cancellationReason" are to be expected, but in the remaining FK columns it is suspicious)
+			1.9901515162474914,     // fk_isDoppelganger (common in relationship tables)
+			-5.193119993434845,     // pk_isDoppelganger (entity tables do not contain doppelgangers, which are identified by their names)
+			0.7824731114306701,     // pk_isEmptyTable (if the table is empty, it is likely just a log table -> no fk constraint)
+			-2.906798679098273,     // pk_hasMultiplePK (multiple PK columns are a sign of a junction table)
+			7.883346686113318,      // dataTypeCategoryAgree (should hold, but can be violated between char and varchar) MOVE TO dataTypeAgree
+			3.0648515719608516,     // dataLengthAgree (desirable, but can be violated in case of varchar)
+			7.9307749274512265,     // tokenShareRatioLD (FK should be similar to PK's name; works better than levenshteinColumns and tpcSimilarity)
+			6.491342650039756,      // tpcSimilarity (FK name should be composed of {fkTableName, pkTableName, pk, typical keywords})
+			-0.3314754188563204,    // levenshteinToTable (FK column should be similar to PK's table name)
+			0.7362776899486065,     // pkDoesNotHaveMoreTokensThanFk (PK names are generally shorter than FK names)
+			-11.87904705572841,     // violatesSpecialization (FK in is-a relationship should not have more columns than PK)
+			2.860802417953415,  	// isInRange (FK values should be in the range of PK values)
+			-1.4678037345821042, 	// avgWidthDiff (the average length of the values in FK should be close to average in PK)
+			-1.7392874610946814,    // violatesCardinalityConstraint (the count of unique values in FK should be ≤ count in PK)
+			0.24960433524612388,    // rangeCoverage (values in FK should cover a wide range of values in PK)
+			-0.3259132104678418,    // specializationTightness (when we have a deep hierarchy, prefer a parent with the lowest row count)
+			-14.467402343707146,    // isTheSameColumn (self referencing should never happen)
+			-2.7260612259001804};   // isTheSameTable (hierarchies are relatively rare in the databases)
+	private static final double BIAS = -27.50484138304173;
 
 	//	1) Do the data types agree?
 	//	2) Do the data type properties (like length, count of decimals, is signed/unsigned, text encoding) agree?
@@ -72,6 +74,8 @@ public class Relationship implements Comparable<Relationship> {
 	private double violatesCardinalityConstraint;
 	private String satisfiesFKConstraint = "untested";
 	private Boolean isInRange;
+	private Boolean isSpecialization;                   // Can be null
+	private Double specializationTightness;             // Can be null
 	private Double rangeCoverage;                       // Can be null
 	private Double histogramSimilarity;                 // Can be null
 	private Boolean violatesSpecialization = false;
@@ -79,8 +83,10 @@ public class Relationship implements Comparable<Relationship> {
 	private double avgWidthDiff;
 	private Column fk;                   // We model composite fk constraints by defining the individual relationships
 	private Column pk;
-	private String fkTable;
-	private String pkTable;
+	private Table fkTable;
+	private Table pkTable;
+	private String fkTableName;
+	private String pkTableName;
 	private String fkLowerCaseTrimmedTable;
 	private String pkLowerCaseTrimmedTable;
 	private List<String> pkTableTokenizedLowerCaseTrimmedName; // Precomputed values for Tpc similarity
@@ -114,6 +120,8 @@ public class Relationship implements Comparable<Relationship> {
 		pk = other.pk;
 		fkTable = other.fkTable;
 		pkTable = other.pkTable;
+		fkTableName = other.fkTableName;
+		pkTableName = other.pkTableName;
 		fkLowerCaseTrimmedTable = other.fkLowerCaseTrimmedTable;
 		pkLowerCaseTrimmedTable = other.pkLowerCaseTrimmedTable;
 		fkTableTokenizedLowerCaseTrimmedName = other.fkTableTokenizedLowerCaseTrimmedName;
@@ -148,6 +156,8 @@ public class Relationship implements Comparable<Relationship> {
 				"avgWidthDiff",
 				"violatesCardinalityConstraint",
 				"isInRange",
+				"isSpecialization",
+				"specializationTightness",
 				"satisfiesFKConstraint",
 				"satisfiedFKRatio",
 				"rangeCoverage",
@@ -174,22 +184,24 @@ public class Relationship implements Comparable<Relationship> {
 		this.pk = pk;
 	}
 
-	public String getFkTable() {
-		return fkTable;
+	public String getFkTableName() {
+		return fkTableName;
 	}
 
 	public void setFkTable(Table fkTable) {
-		this.fkTable = fkTable.getName();
+		this.fkTable = fkTable;
+		fkTableName = fkTable.getName();
 		fkLowerCaseTrimmedTable = fkTable.getLowerCaseTrimmedName();
 		fkTableTokenizedLowerCaseTrimmedName = fkTable.getTokenizedLowerCaseTrimmedName();
 	}
 
-	public String getPkTable() {
-		return pkTable;
+	public String getPkTableName() {
+		return pkTableName;
 	}
 
 	public void setPkTable(Table pkTable) {
-		this.pkTable = pkTable.getName();
+		this.pkTable = pkTable;
+		pkTableName = pkTable.getName();
 		pkLowerCaseTrimmedTable = pkTable.getLowerCaseTrimmedName();
 		pkTableTokenizedLowerCaseTrimmedName = pkTable.getTokenizedLowerCaseTrimmedName();
 	}
@@ -263,15 +275,55 @@ public class Relationship implements Comparable<Relationship> {
 		dataTypeCategoryAgree = getDataTypeCategory(pk.getDataTypeName()).equals(getDataTypeCategory(fk.getDataTypeName()));
 		dataLengthAgree = (pk.getColumnSize() == fk.getColumnSize());
 		decimalAgree = (pk.getDecimalDigits() == fk.getDecimalDigits());
-		isTheSameColumn = (pkTable.equals(fkTable) && pk.getName().equals(fk.getName()));
-		isTheSameTable = (pkTable.equals(fkTable));
-		violatesSpecialization = fk.getName().equals(pk.getName()) && fk.getRowCount()>(1.125*pk.getRowCount()) && fk.isBestAttemptPk() && !fk.hasMultiplePK(); // If the row counts are similar, the inequality comparison gets unreliable -> we increase the limit by 12.5% to be sure. It would be great if we could check that the FkTable contains at least one PK (sometimes there is no PK in the database AND semantically there should be a compound PK).
+		isTheSameColumn = (pkTableName.equals(fkTableName) && pk.getName().equals(fk.getName()));
+		isTheSameTable = (pkTableName.equals(fkTableName));
+		violatesSpecialization = fk.getName().equals(pk.getName()) && fk.getRowCount()>(1.125*pk.getRowCount()) && fk.isBestAttemptPk() && !fk.hasMultiplePK() && (fk.getUniqueRatio()==null || fk.getUniqueRatio()>0.95); // If the row counts are similar, the inequality comparison gets unreliable -> we increase the limit by 12.5% to be sure. Note that we currently rely on fk.hasMultiplePK(), which assumes the PKs are already set in the database. We deal with that by the requirement that the FK column is unique.
 		avgWidthDiff = getAvgWidthDiff();
 		violatesCardinalityConstraint = violatesCardinalityConstraint();
 		isInRange = isInRange();
 		rangeCoverage = getRangeCoverage();
 		histogramSimilarity = getHistogramSimilarity();
 		nameAgree = (pk.getName().equals(fk.getName()));
+		isSpecialization = isSpecialization();
+		violatesSpecialization = violatesSpecialization();
+		specializationTightness = specializationTightness();
+	}
+
+	private boolean isSpecialization() {
+		// The fkTable must have the same count of PKs as pkTable.
+		int fkBestAttemptPkCount = 0;  // The count of isBestAttemptPk (PKs may still not be set in the database)
+		for (Column column : fkTable.getColumnList()) {
+			if (column.isBestAttemptPk()) fkBestAttemptPkCount++;
+		}
+		int pkBestAttemptPkCount = 0;
+		for (Column column : pkTable.getColumnList()) {
+			if (column.isBestAttemptPk()) pkBestAttemptPkCount++;
+		}
+
+		return fk.getName().equals(pk.getName()) && fk.isBestAttemptPk() && fkBestAttemptPkCount==pkBestAttemptPkCount;
+	}
+
+
+	// If it looks like a specialization relationship, validate that the specialized table does not contain
+	// more rows than the more generic table.
+	private boolean violatesSpecialization() {
+		// If the row counts are similar, the inequality comparison gets unreliable -> we increase the limit by 12.5% to be sure.
+		return isSpecialization && fk.getRowCount()>(1.125*pk.getRowCount());
+	}
+
+	// Whenever a subclass can reference multiple superclasses, the superclass with the lowest row count,
+	// which still satisfies the FK constraint, should be selected.
+	private Double specializationTightness() {
+		if (isSpecialization) {
+			double result = (double)pk.getRowCount() / (double)fk.getRowCount();
+			if (result<1.0 || Double.isNaN(result) || Double.isInfinite(result)) {
+				return null;
+			} else {
+				return log(result);
+			}
+		} else {
+			return null;
+		}
 	}
 
 	// It is known that OpenML_2016 violates constraint: data_quality.implementation_id --> implementation.id.
@@ -397,7 +449,7 @@ public class Relationship implements Comparable<Relationship> {
 	}
 
 	public void setMediumFeatures(Chen chen) {
-		containsFKName = utility.Tokenization.contains(fk.getTokenizedLowerCaseTrimmedName(), KEYWORDS_FK);
+		containsFKName = Tokenization.contains(fk.getTokenizedLowerCaseTrimmedName(), KEYWORDS_FK);
 		levenshteinColumns = Levenshtein.getDistance(fk.getLowerCaseTrimmedName(), pk.getLowerCaseTrimmedName());
 		levenshteinToTable = Levenshtein.getDistance(fk.getLowerCaseTrimmedName(), pkLowerCaseTrimmedTable);
 		levenshteinFromTable = Levenshtein.getDistance(fkLowerCaseTrimmedTable, pk.getLowerCaseTrimmedName());  // Does not help. Included for completeness.
@@ -427,12 +479,12 @@ public class Relationship implements Comparable<Relationship> {
 	}
 
 	private void setSatisfiesFKConstraint(Connection conn) throws SQLException {
-		// Are all FK values present in pkTable.pk?
+		// Are all FK values present in pkTableName.pk?
 		// The query works in MySQL and PostgreSQL, but fails on MSSQL and Oracle because of exist clause in select.
 		String query = "SELECT not EXISTS (" +
 				"select * " +
-				"from `" + schema + "`.`" + fkTable + "` t1 " +
-				"left join `" + schema + "`.`" + pkTable + "` t2  " +
+				"from `" + schema + "`.`" + fkTableName + "` t1 " +
+				"left join `" + schema + "`.`" + pkTableName + "` t2  " +
 				"on  t1.`" + fk.getName() + "` = t2.`" + pk.getName() + "` " +
 				"where t1.`" + fk.getName() + "` is not null and t2.`" + pk.getName() + "` is null " +
 				") as satisfiesFKConstraint";
@@ -455,19 +507,19 @@ public class Relationship implements Comparable<Relationship> {
 	}
 
 	public void setRatioSatisfiedFKConstraint(Connection conn) throws SQLException {
-		// Are all FK values present in pkTable.pk?
+		// Are all FK values present in pkTableName.pk?
 		// The query works in MySQL and PostgreSQL, but fails on MSSQL and Oracle because of exist clause in select.
 		String query = "EXPLAIN SELECT 1.0*t2.cnt/t3.cnt " +
 			"FROM (" +
 				"SELECT count(*) AS cnt " +
-				"FROM `" + schema + "`.`" + fkTable + "` " +
+				"FROM `" + schema + "`.`" + fkTableName + "` " +
 			") t3," +
 			"(" +
 				"SELECT count(*) AS cnt " +
 				"FROM (" +
 					"SELECT gammagt.arg1 " +
-					"FROM `" + schema + "`.`" + fkTable + "` a " +
-					"LEFT JOIN `" + schema + "`.`" + pkTable + "` b " +
+					"FROM `" + schema + "`.`" + fkTableName + "` a " +
+					"LEFT JOIN `" + schema + "`.`" + pkTableName + "` b " +
 					"ON  a.`" + fk.getName() + "` = b.`" + pk.getName() + "` " +
 					"WHERE a.`" + fk.getName() + "` IS NOT NULL" +
 				") t1" +
@@ -488,15 +540,24 @@ public class Relationship implements Comparable<Relationship> {
 
 
 	public double[] toArray() {
+//	Features known to flip their sign because of some interaction:
+//		pk_columnSize
+//		pk_uniqueRatio
+//		pk_avgWidthBigger10
+//		pk_isJunctionTable
+//		fk_contains
+//		fk_tableContainsLob
+//		dataTypeAgree	(because of dataTypeCategoryAgree)
 		return new double[]{
 				fk.isPrimaryKey() ? 1 : 0,
 				fk.getContains() ? 1 : 0,
 				fk.getLD(),                 // Low importance
 				fk.getOrdinalPosition(),    // Low importance
 				fk.isKeywordSingleton() ? 1 : 0,
-				fk.getTableContainsLob() ? 1 : 0,
+				fk.getSuspiciousNullRatio(),
 				fk.isDoppelganger() ? 1 : 0,
 				pk.isDoppelganger() ? 1 : 0,
+				pk.isEmptyTable(),
 				pk.hasMultiplePK() ? 1 : 0,
 				dataTypeCategoryAgree ? 1 : 0,
 				dataLengthAgree ? 1 : 0,
@@ -509,6 +570,7 @@ public class Relationship implements Comparable<Relationship> {
 				avgWidthDiff,
 				violatesCardinalityConstraint,
 				rangeCoverage,
+				specializationTightness==null ? 0.45212446106465326 : specializationTightness,
 				isTheSameColumn ? 1 : 0,
 				isTheSameTable ? 1 : 0   // Other interesting features: pk_suffixSchemaCount, fk_prefixSchemaCount, fk_isDecimal, chenColumnSimilarity, fk_minLDOtherTable, fk_uniqueRatio, histogramOverlap, pk_isKeywordSingleton
 		};
@@ -517,15 +579,15 @@ public class Relationship implements Comparable<Relationship> {
 	public String toQuery(char leftQuote, char rightQuote) {
 		String fk = this.fk.getName();
 		String pk = this.pk.getName();
-		return "ALTER TABLE " + leftQuote + fkTable + rightQuote + " ADD FOREIGN KEY (" + leftQuote + fk + rightQuote + ") REFERENCES " + leftQuote + pkTable + rightQuote + "(" + leftQuote + pk + rightQuote + ");";
+		return "ALTER TABLE " + leftQuote + fkTableName + rightQuote + " ADD FOREIGN KEY (" + leftQuote + fk + rightQuote + ") REFERENCES " + leftQuote + pkTableName + rightQuote + "(" + leftQuote + pk + rightQuote + ");";
 	}
 
 	public String toFeature() {
 		return String.join(Setting.CSV_SEPARATOR,
 				Setting.CSV_QUOTE + schema + Setting.CSV_QUOTE,
-				Setting.CSV_QUOTE + pkTable + Setting.CSV_QUOTE,
+				Setting.CSV_QUOTE + pkTableName + Setting.CSV_QUOTE,
 				pk.toFeature(),
-				Setting.CSV_QUOTE + fkTable + Setting.CSV_QUOTE,
+				Setting.CSV_QUOTE + fkTableName + Setting.CSV_QUOTE,
 				fk.toFeature(),
 				dataTypeAgree ? "true" : "false",
 				dataTypeCategoryAgree ? "true" : "false",
@@ -546,6 +608,8 @@ public class Relationship implements Comparable<Relationship> {
 				Double.toString(avgWidthDiff),
 				Double.toString(violatesCardinalityConstraint),
 				isInRange ? "true" : "false",
+				isSpecialization.toString(),
+				specializationTightness != null ? specializationTightness.toString() : "",
 				satisfiesFKConstraint,
 				String.format(Locale.ROOT, "%.6f", satisfiedFKRatio),
 				rangeCoverage != null ? Double.toString(rangeCoverage) : "",
@@ -572,4 +636,6 @@ public class Relationship implements Comparable<Relationship> {
 		if (foreignKeyProbability < that.foreignKeyProbability) return 1;
 		return 0;
 	}
+
+
 }

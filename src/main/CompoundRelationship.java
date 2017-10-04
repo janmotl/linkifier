@@ -15,8 +15,8 @@ public class CompoundRelationship {
 
 	private CompoundRelationship(List<Relationship> relationships) {
 		this.relationships = relationships;
-		fkTable = relationships.get(0).getFkTable();
-		pkTable = relationships.get(0).getPkTable();
+		fkTable = relationships.get(0).getFkTableName();
+		pkTable = relationships.get(0).getPkTableName();
 		relationships.forEach(w -> fkColumns.add(w.getFk().getName()));
 		relationships.forEach(w -> pkColumns.add(w.getPk().getName()));
 	}
@@ -24,8 +24,8 @@ public class CompoundRelationship {
 	private CompoundRelationship(Relationship relationship) {
 		relationships = new ArrayList<>();
 		relationships.add(relationship);
-		fkTable = relationship.getFkTable();
-		pkTable = relationship.getPkTable();
+		fkTable = relationship.getFkTableName();
+		pkTable = relationship.getPkTableName();
 		fkColumns.add(relationship.getFk().getName());
 		pkColumns.add(relationship.getPk().getName());
 	}
@@ -54,22 +54,22 @@ public class CompoundRelationship {
 		List<CompoundRelationship> result = new ArrayList<>();
 
 		// Sort by FK and PK table names
-		relationships.sort(Comparator.comparing(Relationship::getPkTable).thenComparing(Relationship::getFkTable));
+		relationships.sort(Comparator.comparing(Relationship::getPkTableName).thenComparing(Relationship::getFkTableName));
 
 		// Loop
 		String previousPkTable = "";
 		String previousFkTable = "";
 		List<Relationship> relationshipList = new ArrayList<>();
 		for (Relationship relationship : relationships) {
-			if (!previousFkTable.isEmpty() && !(relationship.getFkTable().equals(previousFkTable) && relationship.getPkTable().equals(previousPkTable))) {
+			if (!previousFkTable.isEmpty() && !(relationship.getFkTableName().equals(previousFkTable) && relationship.getPkTableName().equals(previousPkTable))) {
 				result.add(new CompoundRelationship(relationshipList));
 				relationshipList.clear();
 			}
 
 			// Update
 			relationshipList.add(relationship);
-			previousPkTable = relationship.getPkTable();
-			previousFkTable = relationship.getFkTable();
+			previousPkTable = relationship.getPkTableName();
+			previousFkTable = relationship.getFkTableName();
 		}
 
 		// Add the last item

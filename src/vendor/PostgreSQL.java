@@ -70,6 +70,9 @@ public class PostgreSQL implements Vendor {
 				column.setTextMax(rs.getString(8));
 			}
 		}
+
+		// Output quality control (if something turns sour, we want to know about that)
+		QualityControl.qcNumericalValues(tables);
 	}
 
 }

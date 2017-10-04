@@ -1,9 +1,5 @@
 package main;
 
-import main.Column;
-import main.OptimizationRelationship;
-import main.Relationship;
-import main.Table;
 import org.junit.Assert;
 import org.junit.Test;
 

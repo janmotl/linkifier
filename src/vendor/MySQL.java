@@ -64,6 +64,7 @@ public class MySQL implements Vendor {
 				Column column = table.getColumn(rs.getString(2));
 				column.setNullRatio(rs.getDouble(3));
 				column.setUniqueRatio(1.0 / rs.getDouble(4));
+				if (column.getUniqueRatio().isInfinite()) column.setUniqueRatio(null); // We can get infinity if the column contains only nulls...
 				column.setWidthAvg(rs.getDouble(5));
 				column.setTextMin(rs.getString(6));
 				column.setTextMax(rs.getString(7));
@@ -73,6 +74,9 @@ public class MySQL implements Vendor {
 				} catch (Exception ignored) {} // The table can be empty, the statistics may not be calculated,...
 			}
 		}
+
+		// Output quality control (if something turns sour, we want to know about that)
+		QualityControl.qcNumericalValues(tables);
 	}
 
 	// Parse array into doubles

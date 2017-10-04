@@ -1,5 +1,7 @@
 package main;
 
+import utility.Levenshtein;
+
 import java.sql.DatabaseMetaData;
 import java.sql.JDBCType;
 import java.sql.ResultSet;
@@ -52,15 +54,20 @@ public class Table {
 				"minValue",
 				"maxValue",
 				"avgWidth",
-				"avgWidthBigger10",
+				"avgWidthBigger50",
 				"correlationAbs",
 				"isKeywordSingleton",
 				"isJunctionTable",
+				"isJunctionTable2",
 				"hasMultiplePK",
 				"levenshteinDistance",
 				"minLDOtherTable",
 				"isDoppelganger",
 				"contains",
+				"suspiciousNullRatio",
+				"nullCountAsFirstColumn",
+				"previousColumnsAreNotSufficient",
+				"isEmptyTable",
 				"isPrimaryKey"
 		);
 	}
@@ -186,7 +193,6 @@ public class Table {
 
 	// Identify junction table by the fact that the first two columns appear at the 1st position in some other table.
 	public void isJunctionTable(List<Table> tables) {
-
 		boolean match1 = false;
 		boolean match2 = false;
 
@@ -200,8 +206,86 @@ public class Table {
 		for (Column column : columnList) {
 			column.setJunctionTable(match1 && match2);
 		}
-
 	}
+
+	// Based on ER theory that all tables in a database either describe an Entity or a Relationship we estimate
+    // that a table describe a Relationship. The guess is based on the convention that the Relationship table name
+    // is composed of names of two other tables in the schema.
+    // Note: This can be nicely formulated with ILP since we want Hungarian best match but with the constraint
+    // that we want to reference two different tables. The following code just approximates that.
+    public double isJunctionTable2(List<Table> tables) {
+
+        // Find a combination of two tables that match best to this table name
+        int minDistance = Integer.MAX_VALUE;
+
+        for (Table tPrefix : tables) {
+            String prefix = tPrefix.getLowerCaseTrimmedName();
+            for (Table sPrefix : tables) {
+                String suffix = sPrefix.getLowerCaseTrimmedName();
+
+                int distance = Levenshtein.getDistance(prefix + "_" + suffix, lowerCaseTrimmedName);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                }
+            }
+        }
+
+        // We permit 2 errors (e.g. due to difference in singular/plural form, used separator...).
+        // To make it fuzzy we use a sigmoid.
+        double result = 1.0 / (1.0 + Math.pow(10, minDistance-2));
+
+	    // Store the result
+        for (Column column : columnList) {
+			column.setIsJunctionTable2(result);
+		}
+
+	    return result; // For better testability
+    }
+
+    // In composite FKs it should hold that a tuple contains only non-null values in the FK,
+    // or all values in the FK are null. We approximate this rule.
+	// Unfortunately, this rule is applicable only in {Mondial, Basketball_men} datasets. And in Basketball_men
+	// this rule does not hold (both, MySQL and PostgreSQL do not enforce it)... Hence, this rule is rather useless.
+    public void nullCountMatchesFirstColumn() {
+	    // The first column has it constant
+	    columnList.get(0).setNullCountAsFirstColumn(0.0);
+
+	    // Compute for the rest
+        if (columnList.size() < 2) return;
+
+        for (int i = 1; i < columnList.size(); i++) {
+	        if (columnList.get(i).getNullRatio() != null &&  columnList.get(0).getNullRatio() != null) {
+		        double absDiff = Math.abs(columnList.get(i).getNullRatio() - columnList.get(0).getNullRatio());
+		        columnList.get(i).setNullCountAsFirstColumn(absDiff);
+	        }
+        }
+    }
+
+    // If we want to look at possible composite keys, of two or more columns, we’re going to look for combinations
+    // of columns whose multiplied distinct count is equal to or greater than the table’s total row count.
+    // See: https://sqlsunday.com/2017/02/21/finding-primary-key-candidates/
+    public void previousColumnsAreNotSufficient() {
+	    // A single column?
+	    if (columnList.size()<2) {
+		    for (Column column : columnList) {
+			    column.setPreviousColumnsAreNotSufficient(0.0); // A single in the table -> must be PK.
+		    }
+	    }
+
+	    // No meta?
+	    if (columnList.get(0).getRowCount() == null) return;
+
+	    // Initialization
+        int nrow = columnList.get(0).getRowCount();
+        double optimisticUniqueRow = 1.0;
+
+	    for (int i = 1; i < columnList.size(); i++) {
+		    if (columnList.get(i-1).getUniqueRatio() != null) {
+			    optimisticUniqueRow = columnList.get(i-1).getUniqueRatio() * nrow * optimisticUniqueRow;
+			    columnList.get(i).setPreviousColumnsAreNotSufficient(optimisticUniqueRow/nrow);
+		    }
+	    }
+    }
 
 	public void tableContainsLob() {
 		boolean containsLob = false;

@@ -136,8 +136,8 @@ public class GraphML {
 	private static String getEdge(Relationship relationship, int id) {
 		String result = EDGE;
 		result = result.replace("$id", "e"+id);
-		result = result.replace("$source", relationship.getFkTable());
-		result = result.replace("$target", relationship.getPkTable());
+		result = result.replace("$source", relationship.getFkTableName());
+		result = result.replace("$target", relationship.getPkTableName());
 		result = result.replace("$text", relationship.toString());
 		if (relationship.isEstimatedFk() && relationship.isForeignKey()) {
 			result = result.replace("$color", "#000000");

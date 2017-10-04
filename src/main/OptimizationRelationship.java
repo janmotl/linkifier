@@ -9,7 +9,7 @@ public class OptimizationRelationship {
 
 	private final static Logger LOGGER = Logger.getLogger(OptimizationRelationship.class.getName());
 	private static final int MAX_FK_COUNT = 1000;   // With a higher limit the algorithm could choke
-	public static double expectedCount;
+	public static double expectedCount; // Note: static non-final variables are difficult to test - not nice
 	public static double lowerEstimate;
 	public static double upperEstimate;
 
@@ -56,7 +56,7 @@ public class OptimizationRelationship {
 			output.add(input.remove());
 			if (isAcyclic(output) && satisfiesUnity(output)) {
 				doppelgangersAreUnmatched = updateDoppelgangers(output.peek(), doppelgangers);
-				compoundPksAreUnmatched = updateCompound(output.peek(), compounds, tableMap.get(output.peek().getPkTable()));
+				compoundPksAreUnmatched = updateCompound(output.peek(), compounds, tableMap.get(output.peek().getPkTableName()));
 				newLoss = getLoss(output, doppelgangers.size(), compounds.size());
 				if (newLoss <= oldLoss) {
 					oldLoss = newLoss;
@@ -80,9 +80,9 @@ public class OptimizationRelationship {
 	// Note: doppelgangers should refer the same PK. But this is not currently enforced.
 	private static boolean updateDoppelgangers(Relationship relationship, Set<String> doppelgangers) {
 		if (relationship.getFk().isDoppelganger()) {
-			String name = relationship.getFkTable() + "." + relationship.getFk().getName();
+			String name = relationship.getFkTableName() + "." + relationship.getFk().getName();
 			if (doppelgangers.contains(name)) doppelgangers.remove(name);
-			else doppelgangers.add(relationship.getFkTable() + "." + relationship.getFk().getDoppelgangerName());
+			else doppelgangers.add(relationship.getFkTableName() + "." + relationship.getFk().getDoppelgangerName());
 		}
 		return !doppelgangers.isEmpty();
 	}
@@ -91,7 +91,7 @@ public class OptimizationRelationship {
 	// This prevents premature stopping of the algorithm.
 	// The map logic: String "FKTable.PkTable" ---> List<String>(PKLongName)
 	private static boolean updateCompound(Relationship relationship, MultiMap compounds, Table table) {
-		String FkPk = relationship.getFkTable() + " --> " + relationship.getPkTable();
+		String FkPk = relationship.getFkTableName() + " --> " + relationship.getPkTableName();
 		String PkLongName = relationship.getPk().getLongName();
 
 		// Add the PK into "compounds"
@@ -146,7 +146,7 @@ public class OptimizationRelationship {
 	private static boolean satisfiesUnity(Stack<Relationship> selected) {
 		Relationship candidate = selected.pop();
 		for (Relationship relationship : selected) {
-			if (relationship.getFkTable().equals(candidate.getFkTable()) && relationship.getFk().getName().equals(candidate.getFk().getName())) {
+			if (relationship.getFkTableName().equals(candidate.getFkTableName()) && relationship.getFk().getName().equals(candidate.getFk().getName())) {
 				selected.push(candidate);
 				return false;
 			}
