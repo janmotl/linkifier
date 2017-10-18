@@ -57,6 +57,9 @@ Once again, probabilities are estimated with logistic regression. And the most l
 ## Limitations
 If the schema quality is extremely low (e.g. all columns are typed as text and have irrelevant names), the PK and particularly FK estimates are going to be off. First, set correct data types and names to the columns. Then rerun Linkifier. [DBLint](https://dblint.codeplex.com/) may help you to identify some of the problems with your schema. 
 
+## Known issues
+If you are using MySQL and get `Access to data dictionary table 'mysql.table_stats' is rejected` then it is because MySQL, contrary to MariaDB, prevents access to internal tables. To be able to run Linkifier, [http://datacharmer.blogspot.com/2016/09/showing-hidden-tables-in-mysql-8-data.html](start the db in the debug mode).
+
 If you have any question or suggestion, let me know.
 
 ## How to cite
