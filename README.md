@@ -28,18 +28,18 @@ Primary keys are identified by:
  5. Ratio of nulls in the column from the column statistics
  6. Average column width in bytes from the column statistics (PKs are commonly short)
 
-Once these features are collected, they are passed to logistic regression to estimate the probability that the column is a primary key or is in a compound primary key. Since each table can have at most a single PK, the column with the highest probability in the table is declared to be the primary key of the table. If the estimated count of unique values in the estimated PK is smaller than the count of the rows in the table, it is a sign of a compound PK. In that case columns are incrementally added into the PK by their descending probability of being in the PK until the estimated unique row count ≥ estimated table row count. The estimate is optimistic and is defined as a product of the estimated row counts of the columns in the PK.
+Once these features are collected, they are passed to logistic regression to estimate the probability that the column is a primary key or is in a compound primary key. Since each table can have at most a single PK, the column with the highest probability in the table is declared to be the primary key of the table. If the estimated count of unique values in the estimated PK is smaller than the count of the rows in the table, it is a sign of a compound PK. In that case columns are incrementally added into the PK by their descending probability of being in the PK until the estimated unique row count ≥ estimated table row count. The estimated table row count is optimistic and is defined as a product of the estimated row counts of the columns in the PK.
 
 ### Foreign keys
 Foreign keys are identified by:
 
- 1. Known PKs (relationships must be between a PK and non-PK)
- 2. Data types (relationships must be between agreeing data types)
+ 1. Known PKs (FK should reference a PK)
+ 2. Data types (FK should reference a PK of a compatible data type)
  3. Data type properties (e.g. data type sizes should agree) 
  4. Similarity of the FK name with the PK name (should be high)
  5. Similarity of the FK name with the PK table name (should be high)
  6. Similarity of the FK name with the FK table name (should be low)
- 7. Average column width of the FK is similar to the PK width
+ 7. Average column width of the FK should be similar to the average PK width
  8. Minimum and maximum values of the FK is in the range of the PK
  9. Minimum and maximum values of the FK cover a significant range of the PK values
 
