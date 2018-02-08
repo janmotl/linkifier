@@ -9,10 +9,10 @@ Say no more.
 ## Usage
 
  1. Download the latest [release](https://github.com/janmotl/linkifier/releases)
- 2. Execute the jar file (requieres JRE 8.0 or newer; iff you are using OpenJDK, you may have to install OpenJFX: `sudo apt-get install openjfx`)
+ 2. Execute the jar file (requieres JRE 8.0 or newer)
  3. Connect to a database (Microsoft SQL Server, MySQL, Oracle or PostgreSQL)
  4. Estimate the primary and foreign key constraints
- 5. Export the estimates (multiple formats are supported including SQL alter queries and graphml for ER-diagram visualization in yEd)
+ 5. Export the estimates (multiple formats are supported including SQL alter queries and graphml for ER-diagram visualization)
   
 ## Algorithm
 The algorithm works on the *metadata* about tables and columns, which are accessible over JDBC, and column and table *statistics*, which the database use for the execution plan optimization. That means that the algorithm is blazing fast (as it does not look at the actual data).
@@ -69,4 +69,4 @@ Jan Motl and Pavel Kordík,
 ITAT 2017 Proceedings.
 
 ## Acknowledgement
-I would like to thank Aleš Fišer, Oliver Kerul’-Kmec, Jan Kukačka, Jiří Kukačka, Manuel Muñoz and Batal Thibaut for their help solving the problem. The code is using [Simmetrics](https://github.com/Simmetrics/simmetrics) for text similarity calculations.
+I would like to thank Aleš Fišer, Oliver Kerul’-Kmec, Jan Kukačka, Jiří Kukačka, Manuel Muñoz, George Papaloukopoulos and Batal Thibaut for their help. The code is using [Simmetrics](https://github.com/Simmetrics/simmetrics) for text similarity calculations.
