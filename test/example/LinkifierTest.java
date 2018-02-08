@@ -7,7 +7,9 @@ import org.junit.Test;
 import org.postgresql.jdbc3.Jdbc3PoolingDataSource;
 
 import java.sql.Connection;
+import java.util.regex.Pattern;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class LinkifierTest {
@@ -26,7 +28,7 @@ public class LinkifierTest {
 	public void mutagenesis() throws Exception {
 		dataSource.setDatabaseName("mutagenesis");
 		try (Connection connection = dataSource.getConnection()){
-			Linkifier linkifier = new Linkifier(connection, "");
+			Linkifier linkifier = new Linkifier(connection, "", Pattern.compile(""));
 			linkifier.estimatePk();
 			linkifier.estimateFk();
 
@@ -41,10 +43,11 @@ public class LinkifierTest {
 	public void financial() throws Exception {
 		dataSource.setDatabaseName("financial");
 		try (Connection connection = dataSource.getConnection()){
-			Linkifier linkifier = new Linkifier(connection, "");
+			Linkifier linkifier = new Linkifier(connection, "", Pattern.compile(""));
 			linkifier.estimatePk();
 			linkifier.estimateFk();
 
+			assertEquals(8, linkifier.getPkCount()); // There are 8 tables -> we expected 8
 			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.99);
 			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
 			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) > 0.99);
@@ -56,7 +59,7 @@ public class LinkifierTest {
 	public void pk_uni() throws Exception {
 		dataSource.setDatabaseName("UW_std");
 		try (Connection connection = dataSource.getConnection()){
-			Linkifier linkifier = new Linkifier(connection, "");
+			Linkifier linkifier = new Linkifier(connection, "", Pattern.compile(""));
 			linkifier.estimatePk();
 			linkifier.estimateFk();
 
@@ -71,7 +74,7 @@ public class LinkifierTest {
 	public void tpcc() throws Exception {
 		dataSource.setDatabaseName("tpcc");
 		try (Connection connection = dataSource.getConnection()){
-			Linkifier linkifier = new Linkifier(connection, "");
+			Linkifier linkifier = new Linkifier(connection, "", Pattern.compile(""));
 			linkifier.estimatePk();
 			linkifier.estimateFk();
 
@@ -86,7 +89,7 @@ public class LinkifierTest {
 	public void sat() throws Exception {
 		dataSource.setDatabaseName("SAT");
 		try (Connection connection = dataSource.getConnection()){
-			Linkifier linkifier = new Linkifier(connection, "");
+			Linkifier linkifier = new Linkifier(connection, "", Pattern.compile(""));
 			linkifier.estimatePk();
 			linkifier.estimateFk();
 
@@ -106,7 +109,7 @@ public class LinkifierTest {
 		dataSource.setDatabaseName("PredictorFactory");
 		dataSource.setCurrentSchema("ctu_firefox");
 		try (Connection connection = dataSource.getConnection()){
-			Linkifier linkifier = new Linkifier(connection, "ctu_firefox");
+			Linkifier linkifier = new Linkifier(connection, "ctu_firefox", Pattern.compile(""));
 			linkifier.estimatePk();
 			linkifier.estimateFk();
 
@@ -114,6 +117,22 @@ public class LinkifierTest {
 			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.99);
 			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.99);
 			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) >= 0.7); // Misses: moz_bookmarks.fk --> moz_places.id, moz_items_annos.item_id --> moz_bookmarks.id
+		}
+	}
+
+	@Test
+	public void blacklist() throws Exception {
+		dataSource.setDatabaseName("financial");
+		try (Connection connection = dataSource.getConnection()){
+			Linkifier linkifier = new Linkifier(connection, "", Pattern.compile("loan|trans"));
+			linkifier.estimatePk();
+			linkifier.estimateFk();
+
+			assertEquals(6, linkifier.getPkCount()); // There are 8 tables, but 2 are blacklisted -> we expected 6
+			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.99);
+			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
+			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) > 0.99);
+			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.99);
 		}
 	}
 }

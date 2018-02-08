@@ -3,6 +3,7 @@ package vendor;
 import main.Column;
 import main.Table;
 
+import javax.annotation.Nullable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +11,11 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class MSSQL implements Vendor {
+
+	private final static Logger LOGGER = Logger.getLogger(MSSQL.class.getName());
 
 	public void getTableStatistics(String databaseName, String schemaName, List<Table> tables, Connection connection) throws SQLException {
 
@@ -31,7 +35,9 @@ public class MSSQL implements Vendor {
 		try (Statement stmt = connection.createStatement();
 		     ResultSet rs = stmt.executeQuery(query)) {
 			while (rs.next()) {
-				for (Column column : map.get(rs.getString(1)).getColumnList()) {
+				Table table = map.get(rs.getString(1));
+				if (table == null) continue; // The table is blacklisted -> skip it
+				for (Column column : table.getColumnList()) {
 					column.setEstimatedRowCount(rs.getInt(2));
 				}
 			}
@@ -168,11 +174,16 @@ public class MSSQL implements Vendor {
 		     ResultSet rs = stmt.executeQuery(query)) {
 			while (rs.next()) {
 				Table table = tableMap.get(rs.getString(1));
-				Column column = table.getColumn(rs.getString(2));
+				if (table == null) continue; // The table is blacklisted -> skip it
+				@Nullable Column column = table.getColumn(rs.getString(2));
+				if (column == null) {
+					LOGGER.fine("The database returned a column name that was not previously observed with getColumns() JDBC call");
+					continue;
+				}
 				column.setTextMin(rs.getString(3));
 				column.setTextMax(rs.getString(4));
-				column.setNullRatio(rs.getDouble(5) / column.getRowCount());
-				column.setUniqueRatio((1/rs.getDouble(6)) / column.getRowCount());
+				column.setNullRatio(column.getRowCount()==null ? null : rs.getDouble(5) / column.getRowCount());
+				column.setUniqueRatio(column.getRowCount()==null ? null : (1/rs.getDouble(6)) / column.getRowCount());
 				column.setWidthAvg(rs.getDouble(7));
 			}
 		}

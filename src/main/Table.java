@@ -2,6 +2,7 @@ package main;
 
 import utility.Levenshtein;
 
+import javax.annotation.Nullable;
 import java.sql.DatabaseMetaData;
 import java.sql.JDBCType;
 import java.sql.ResultSet;
@@ -55,7 +56,6 @@ public class Table {
 				"maxValue",
 				"avgWidth",
 				"avgWidthBigger50",
-				"correlationAbs",
 				"isKeywordSingleton",
 				"isJunctionTable",
 				"isJunctionTable2",
@@ -72,7 +72,7 @@ public class Table {
 		);
 	}
 
-	public Column getColumn(String columnName) {
+	public @Nullable Column getColumn(String columnName) {
 		for (Column column : columnList) {
 			if (column.getName().equals(columnName)) return column;
 		}
@@ -268,21 +268,21 @@ public class Table {
 	    // A single column?
 	    if (columnList.size()<2) {
 		    for (Column column : columnList) {
-			    column.setPreviousColumnsAreNotSufficient(0.0); // A single in the table -> must be PK.
+			    column.setPreviousColumnsAreNotSufficient(0.0); // A single column in the table -> must be PK.
 		    }
 	    }
 
-	    // No meta?
+	    // No metadata?
 	    if (columnList.get(0).getRowCount() == null) return;
 
 	    // Initialization
-        int nrow = columnList.get(0).getRowCount();
+        int rowCount = columnList.get(0).getRowCount();
         double optimisticUniqueRow = 1.0;
 
 	    for (int i = 1; i < columnList.size(); i++) {
 		    if (columnList.get(i-1).getUniqueRatio() != null) {
-			    optimisticUniqueRow = columnList.get(i-1).getUniqueRatio() * nrow * optimisticUniqueRow;
-			    columnList.get(i).setPreviousColumnsAreNotSufficient(optimisticUniqueRow/nrow);
+			    optimisticUniqueRow = columnList.get(i-1).getUniqueRatio() * rowCount * optimisticUniqueRow;
+			    columnList.get(i).setPreviousColumnsAreNotSufficient(optimisticUniqueRow/rowCount);
 		    }
 	    }
     }
@@ -338,7 +338,7 @@ public class Table {
 		String keys = "";
 		String separator = leftQuote + ", " + rightQuote;
 		for (Column column : getEstimatedPk()) {
-			keys = keys + column.getName() + separator;
+			keys += column.getName() + separator;
 		}
 		keys = keys.substring(0, keys.length() - separator.length());
 		return "ALTER TABLE " + leftQuote + name + rightQuote + " ADD PRIMARY KEY (" + leftQuote + keys + rightQuote + ");";

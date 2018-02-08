@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 
 public class TrainingRelationship {
@@ -51,8 +52,8 @@ public class TrainingRelationship {
 					System.out.println(schemaName);
 
 					// Get tables
-					List<Table> tables = Schema.getPrimaryKeys(connection, schemaName, null);
-					tables = Optimization.optimize(tables);
+					List<Table> tables = Schema.getPrimaryKeys(connection, schemaName, null, Pattern.compile(""));
+					Optimization.optimize(tables);
 
 					// Get relations
 					List<Relationship> relationships = Schema.getRelationships(connection, schemaName, schemaName, tables, true);

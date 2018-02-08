@@ -7,6 +7,7 @@ import main.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Demo {
 
@@ -27,8 +28,8 @@ public class Demo {
 		try (Connection connection = dataSource.getConnection()){
 
 			// Estimate the PK and FK
-			List<Table> tables = Schema.getPrimaryKeys(connection, databaseName, schemaName);
-			tables = Optimization.optimize(tables);
+			List<Table> tables = Schema.getPrimaryKeys(connection, databaseName, schemaName, Pattern.compile(""));
+			Optimization.optimize(tables);
 			List<Relationship> relationships = Schema.getRelationships(connection, databaseName, schemaName, tables, false);
 			OptimizationRelationship.optimize(relationships, tables);
 			List<CompoundRelationship> compoundRelationships = CompoundRelationship.buildFrom(relationships);

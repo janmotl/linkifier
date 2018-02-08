@@ -1,7 +1,6 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Optimization {
@@ -9,7 +8,7 @@ public class Optimization {
 
 	// If there are PK columns in the table, setPrimaryKey=database PK.
 	// Otherwise, setPrimaryKey=predicted PK.
-	public static List<Table> optimize(List<Table> tables) {
+	public static void optimize(List<Table> tables) {
 		for (Table table : tables) {
 			List<Column> truePK = new ArrayList<>();
 			for (Column column : table.getColumnList()) {
@@ -18,8 +17,6 @@ public class Optimization {
 			setEstimatedPk(table);
 			setBestAttemptPk(table, truePK);
 		}
-
-		return tables;
 	}
 
 	// Set the single most likely PK as the PK.
@@ -27,7 +24,7 @@ public class Optimization {
 		if (table.getColumnList().isEmpty()) return;    // Nothing to optimize
 
 		// Sort columns in descending order of getPkProbability()
-		Collections.sort(table.getColumnList(), (a, b) -> a.getPkProbability() > b.getPkProbability() ? -1 : a.getPkProbability() == b.getPkProbability() ? 0 : 1 );
+		table.getColumnList().sort((a, b) -> a.getPkProbability() > b.getPkProbability() ? -1 : a.getPkProbability() == b.getPkProbability() ? 0 : 1);
 
 		// Set the single most likely column as PK
 		Column maxCol = table.getColumnList().get(0);

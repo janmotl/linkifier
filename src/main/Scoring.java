@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class Scoring {
 	private final static Logger LOGGER = Logger.getLogger(Scoring.class.getName());
@@ -28,8 +29,8 @@ public class Scoring {
 		try (Connection connection = Setting.getDataSource().getConnection()) {
 			LOGGER.info("Successfully connected to the database.");
 			identifierQuote = connection.getMetaData().getIdentifierQuoteString();
-			tables = Schema.getPrimaryKeys(connection, databaseName, schemaName);
-			tables = Optimization.optimize(tables);
+			tables = Schema.getPrimaryKeys(connection, databaseName, schemaName, Pattern.compile(""));
+			Optimization.optimize(tables);
 			relationships = Schema.getRelationships(connection, databaseName, schemaName, tables, false);
 		} catch (Exception e) {
 			e.printStackTrace();

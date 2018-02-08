@@ -17,29 +17,25 @@ public class SQL {
 		String queries = "";
 		for (Table table : tables) {
 			String comment = table.getPk().isEmpty() ? "" : "-- ";
-			queries = queries + comment + table.toQuery(leftQuote, rightQuote) + System.lineSeparator();
+			queries += comment + table.toQuery(leftQuote, rightQuote) + System.lineSeparator();
 		}
 		return queries;
 	}
 
 	public static String getFkQuery(List<CompoundRelationship> relationships, char leftQuote, char rightQuote) {
 		String queries = "";
-
 		for (CompoundRelationship relationship : relationships) {
 			String comment = relationship.isForeignKey() ? "-- " : "";
 			queries += comment + "ALTER TABLE " + leftQuote + relationship.getFkTable() + rightQuote + " ADD FOREIGN KEY (" + escapeList(relationship.getFkColumns(), leftQuote, rightQuote) + ") REFERENCES " + leftQuote + relationship.getPkTable() + rightQuote + "(" + escapeList(relationship.getPkColumns(), leftQuote, rightQuote) + ");" + System.lineSeparator();
 		}
-
 		return queries;
 	}
 
 	public static String getAllFkQuery(List<CompoundRelationship> relationships, char leftQuote, char rightQuote) {
 		String queries = "";
-
 		for (CompoundRelationship relationship : relationships) {
 			queries += "ALTER TABLE " + leftQuote + relationship.getFkTable() + rightQuote + " ADD FOREIGN KEY (" + escapeList(relationship.getFkColumns(), leftQuote, rightQuote) + ") REFERENCES " + leftQuote + relationship.getPkTable() + rightQuote + "(" + escapeList(relationship.getPkColumns(), leftQuote, rightQuote) + ");" + System.lineSeparator();
 		}
-
 		return queries;
 	}
 

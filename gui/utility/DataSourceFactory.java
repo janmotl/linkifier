@@ -8,11 +8,12 @@ import org.postgresql.jdbc3.Jdbc3PoolingDataSource;
 import javax.sql.DataSource;
 import java.security.InvalidParameterException;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Properties;
 
 // Returns a datasource for the selected vendor.
 // We do it in a factory function because we exploit unique method calls of the dataSources.
-// Will also provide vendor specific functionality.
+// The code could be distributed into files in src.vendor package.
 public class DataSourceFactory {
 
 	public static DataSource getConfiguredDataSource(Properties properties, String password) throws SQLException {
@@ -35,8 +36,10 @@ public class DataSourceFactory {
 				dataSource.setServerName(properties.getProperty("host"));
 				dataSource.setDatabaseName(properties.getProperty("database"));
 				dataSource.setPortNumber(Integer.valueOf(properties.getProperty("port")));
+				dataSource.setServiceName(properties.getProperty("servicename"));
 				dataSource.setUser(properties.getProperty("username"));
 				dataSource.setPassword(password);
+				dataSource.setDriverType("thin"); // Use "thin" (Java based driver) even when "oci" (C based driver) is available
 				return dataSource;
 			}
 			case "PostgreSQL": {

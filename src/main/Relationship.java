@@ -2,6 +2,7 @@ package main;
 
 import utility.*;
 
+import javax.annotation.Nullable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class Relationship implements Comparable<Relationship> {
 	private final static Logger LOGGER = Logger.getLogger(Scoring.class.getName());
 	private static final List<String> KEYWORDS_FK = Arrays.asList("fk", "type", "eid");
 	private static final List<String> STAT_LESS_DATA_TYPE = Arrays.asList("BINARY", "LONGVARBINARY", "LONGVARCHAR");
-	public static final double[] WEIGHTS = new double[]{   // Coefficients from H20. The coefficients must NOT be standardized. Beware of changing att=false to att=true as it changes not only the sign, but also bias.
+	public static final double[] WEIGHTS = new double[]{   // Coefficients from H2O. The coefficients must NOT be standardized. Beware of changing att=false to att=true as it changes not only the sign, but also bias.
 			-0.6955762483277834,    // fk_isPrimaryKey (this helps to get the direction from FK to PK right, but it does not always hold)
 			0.8341590011803686,     // fk_contains (FKs generally contains tokens like "ID", "code",...)
 			0.10373063667967375,    // fk_levenshteinDistance (FK should be named differently from it's own table name)
@@ -55,17 +56,17 @@ public class Relationship implements Comparable<Relationship> {
 	// + Other attributes from PK detection
 	// Note: Currently the biggest problem is a correct dealing with is-a relationship (which of the tables is at the root?).
 	// Note: We should add the "leaking" features like isGenerated....
-	private Boolean dataTypeAgree;
-	private Boolean dataTypeCategoryAgree;
-	private Boolean dataLengthAgree;
-	private Boolean decimalAgree;
-	private Boolean isTheSameColumn;
-	private Boolean isTheSameTable;
-	private Boolean firstCharAgree;
-	private Boolean nameAgree;          // Naive feature for comparison with Oracle Data Modeller
-	private Integer levenshteinColumns;
-	private Integer levenshteinToTable;
-	private Integer levenshteinFromTable;
+	private boolean dataTypeAgree;
+	private boolean dataTypeCategoryAgree;
+	private boolean dataLengthAgree;
+	private boolean decimalAgree;
+	private boolean isTheSameColumn;
+	private boolean isTheSameTable;
+	private boolean firstCharAgree;
+	private boolean nameAgree;          // Naive feature for comparison with Oracle Data Modeller
+	private int levenshteinColumns;
+	private int levenshteinToTable;
+	private int levenshteinFromTable;
 	private double tokenShareRatioLd;
 	private double chenColumnSimilarity;
 	private double chenTableSimilarity;
@@ -73,13 +74,13 @@ public class Relationship implements Comparable<Relationship> {
 	private double satisfiedFKRatio;
 	private double violatesCardinalityConstraint;
 	private String satisfiesFKConstraint = "untested";
-	private Boolean isInRange;
-	private Boolean isSpecialization;                   // Can be null
-	private Double specializationTightness;             // Can be null
-	private Double rangeCoverage;                       // Can be null
-	private Double histogramSimilarity;                 // Can be null
+	private boolean isInRange;
+	private boolean isSpecialization;
+	private @Nullable Double specializationTightness;	// These values are from database statistics -> nullable
+	private @Nullable Double rangeCoverage;
+	private @Nullable Double histogramSimilarity;
 	private Boolean violatesSpecialization = false;
-	private Boolean containsFKName;
+	private boolean containsFKName;
 	private double avgWidthDiff;
 	private Column fk;                   // We model composite fk constraints by defining the individual relationships
 	private Column pk;
@@ -222,7 +223,7 @@ public class Relationship implements Comparable<Relationship> {
 		this.schema = schema;
 	}
 
-	public Boolean getDataTypeCategoryAgree() {
+	public boolean getDataTypeCategoryAgree() {
 		return dataTypeCategoryAgree;
 	}
 
@@ -313,7 +314,7 @@ public class Relationship implements Comparable<Relationship> {
 
 	// Whenever a subclass can reference multiple superclasses, the superclass with the lowest row count,
 	// which still satisfies the FK constraint, should be selected.
-	private Double specializationTightness() {
+	private @Nullable Double specializationTightness() {
 		if (isSpecialization) {
 			double result = (double)pk.getRowCount() / (double)fk.getRowCount();
 			if (result<1.0 || Double.isNaN(result) || Double.isInfinite(result)) {
@@ -332,12 +333,12 @@ public class Relationship implements Comparable<Relationship> {
 	// These are "bugs" of the schemas, not the code.
 	public boolean isInRange() {
 		// First by a numerical comparison, if possible
-		if (fk.getValueMax() != null && pk.getValueMax() != null) {
+		if (fk.getValueMin() != null && pk.getValueMin() != null && fk.getValueMax() != null && pk.getValueMax() != null) {
 			return fk.getValueMin()>=pk.getValueMin() && fk.getValueMax()<=pk.getValueMax();
 		}
 
 		// Then by string comparison, if possible (e.g. if the row_count==0, textMin is null)
-		if (fk.getTextMax() != null && pk.getTextMax() != null) {
+		if (fk.getTextMin() != null & pk.getTextMin() != null && fk.getTextMax() != null && pk.getTextMax() != null) {
 			return (fk.getTextMin().compareTo(pk.getTextMin())>=0 && fk.getTextMax().compareTo(pk.getTextMax())<=0);
 		}
 
@@ -357,14 +358,14 @@ public class Relationship implements Comparable<Relationship> {
 			return false;
 		}
 
-		// If the FK column contains only nulls, assume true
-		if (fk.getNullRatio() != null && fk.getNullRatio() == 1.0) {
+		// If the FK column contains only nulls, assume true. Since we are using estimates, we use soft threshold.
+		if (fk.getNullRatio() != null && fk.getNullRatio() > 0.99) {
 			return true;
 		}
 
 		// Fail-safe
 		// Possible reason for this: missing statistics for the table
-		LOGGER.info("We failed to compute 'inRange' feature for: " + this + " Was statistics collected on these columns?");
+		LOGGER.fine("We failed to compute 'inRange' feature for: " + this + ". Was statistics collected on these columns?");
 		return true;    // I am optimistic...
 	}
 
@@ -408,7 +409,7 @@ public class Relationship implements Comparable<Relationship> {
 		if (fk.getRowCount()==0 || pk.getRowCount()==0) return 0.412;
 
 		// If one of the columns is binary...
-		if (fk.getValueMax() == null || pk.getValueMax() == null) return 0.0;
+		if (pk.getValueMin() == null || fk.getValueMin() == null || fk.getValueMax() == null || pk.getValueMax() == null) return 0.0;
 
 		// We cover the scenario where FK contains values out of PK range.
 		// To avoid division by zero (because PK contains only one value), we increment the denominator by one.
@@ -422,7 +423,7 @@ public class Relationship implements Comparable<Relationship> {
 		return result;
 	}
 
-	private Double getHistogramSimilarity() {
+	private @Nullable Double getHistogramSimilarity() {
 //		System.out.println(fk + " ---> " + pk);
 		try {
 			return Histogram.jaccard(fk.getHistogramBounds(), pk.getHistogramBounds());
@@ -576,12 +577,6 @@ public class Relationship implements Comparable<Relationship> {
 		};
 	}
 
-	public String toQuery(char leftQuote, char rightQuote) {
-		String fk = this.fk.getName();
-		String pk = this.pk.getName();
-		return "ALTER TABLE " + leftQuote + fkTableName + rightQuote + " ADD FOREIGN KEY (" + leftQuote + fk + rightQuote + ") REFERENCES " + leftQuote + pkTableName + rightQuote + "(" + leftQuote + pk + rightQuote + ");";
-	}
-
 	public String toFeature() {
 		return String.join(Setting.CSV_SEPARATOR,
 				Setting.CSV_QUOTE + schema + Setting.CSV_QUOTE,
@@ -593,13 +588,13 @@ public class Relationship implements Comparable<Relationship> {
 				dataTypeCategoryAgree ? "true" : "false",
 				dataLengthAgree ? "true" : "false",
 				decimalAgree ? "true" : "false",
-				isTheSameColumn.toString(),
-				isTheSameTable.toString(),
+				isTheSameColumn ? "true" : "false",
+				isTheSameTable ? "true" : "false",
 				firstCharAgree ? "true" : "false",
 				nameAgree ? "true" : "false",
-				levenshteinColumns.toString(),
-				levenshteinToTable.toString(),
-				levenshteinFromTable.toString(),
+				Integer.toString(levenshteinColumns),
+				Integer.toString(levenshteinToTable),
+				Integer.toString(levenshteinFromTable),
 				Double.toString(tpcSimilarity),
 				Double.toString(tokenShareRatioLd),
 				Double.toString(chenColumnSimilarity),
@@ -607,8 +602,8 @@ public class Relationship implements Comparable<Relationship> {
 				(pk.getTokenizedName().size() <= fk.getTokenizedName().size()) ? "true" : "false",
 				Double.toString(avgWidthDiff),
 				Double.toString(violatesCardinalityConstraint),
-				isInRange ? "true" : "false",
-				isSpecialization.toString(),
+				isInRange ? "true" : "false", // Use String.valueOf(isInRange) ??
+				isSpecialization ? "true" : "false",
 				specializationTightness != null ? specializationTightness.toString() : "",
 				satisfiesFKConstraint,
 				String.format(Locale.ROOT, "%.6f", satisfiedFKRatio),

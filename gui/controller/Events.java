@@ -24,6 +24,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 
 public class Events implements Initializable {
@@ -41,7 +42,9 @@ public class Events implements Initializable {
 	@FXML private TextField textHost;
 	@FXML private TextField textPort;
 	@FXML private TextField textDatabase;
+	@FXML private TextField textServicename;
 	@FXML private TextField textSchema;
+	@FXML private TextField textTableBlacklist;
 	@FXML private TextField textUsername;
 	@FXML private TextField textPassword;
 	@FXML private ComboBox<String> comboBoxVendor;
@@ -63,6 +66,8 @@ public class Events implements Initializable {
 		properties.setProperty("host", textHost.getText());
 		properties.setProperty("port", textPort.getText());
 		properties.setProperty("database", textDatabase.getText());
+		properties.setProperty("servicename", textServicename.getText());
+		properties.setProperty("tableBlacklist", textTableBlacklist.getText());
 		properties.setProperty("schema", textSchema.getText());
 		properties.setProperty("username", textUsername.getText());
 		writeProperties(properties);
@@ -102,6 +107,7 @@ public class Events implements Initializable {
 		String defaultFileName = ("".equals(textSchema.getText()) ? textDatabase.getText() : textSchema.getText());
 		fileChooser.setInitialFileName(defaultFileName);
 		fileChooser.getExtensionFilters().addAll(
+				// If you change the description text, update the description in linkifier.export() as well
 				new FileChooser.ExtensionFilter("GraphML (yEd)", "*.graphml"),
 				new FileChooser.ExtensionFilter("TGF (yEd)", "*.tgf"),
 				new FileChooser.ExtensionFilter("DDL (Oracle Data Modeler)", "*.ddl"),
@@ -119,10 +125,17 @@ public class Events implements Initializable {
 
 	@FXML private void vendorAction() {
 		if ("MySQL".equals(comboBoxVendor.getValue())) {
-			textSchema.setDisable(true);
+			textSchema.getParent().setVisible(false);
 			textSchema.clear();
 		} else {
-			textSchema.setDisable(false);
+			textSchema.getParent().setVisible(true);
+		}
+
+		if ("Oracle".equals(comboBoxVendor.getValue())) {
+			textServicename.getParent().setVisible(true);
+		} else {
+			textServicename.getParent().setVisible(false);
+			textServicename.clear();
 		}
 	}
 
@@ -134,9 +147,8 @@ public class Events implements Initializable {
 		// Setup logging into textArea (before any attempt to log anything)
 		try {
 			LogManager.getLogManager().readConfiguration(Events.class.getResourceAsStream("/logging.properties"));
-		} catch (IOException e) {
-			System.out.println("File 'logging.properties' was not found.");
-			e.printStackTrace();
+		} catch (IOException|SecurityException|NullPointerException e) { // Eventual failure must not be fatal
+			System.out.println("File 'logging.properties' was not found. Using system default.");
 		}
 		Logger globalLogger = Logger.getLogger("");
 		globalLogger.addHandler(new TextAreaAppender(textAreaConsole));
@@ -151,6 +163,8 @@ public class Events implements Initializable {
 		textPort.setText(properties.getProperty("port", "3306"));
 		textDatabase.setText(properties.getProperty("database", "financial"));
 		textSchema.setText(properties.getProperty("schema", ""));
+		textServicename.setText(properties.getProperty("servicename", ""));
+		textTableBlacklist.setText(properties.getProperty("tableBlacklist", ""));
 		textUsername.setText(properties.getProperty("username", "guest"));
 		if ("relational.fit.cvut.cz".equals(textHost.getText())) {
 			textPassword.setText("relational"); // Publicly known read-only access to the demo database
@@ -158,9 +172,18 @@ public class Events implements Initializable {
 			textPassword.setText(properties.getProperty("password", "")); // We do not store the password, but if the user fills it in the properties file, read it
 		}
 
-		// Disable schema combobox for MySQL
+		// When we hide a component, exclude the component from layouting
+		textSchema.getParent().managedProperty().bind(textSchema.getParent().visibleProperty());
+		textServicename.getParent().managedProperty().bind(textServicename.getParent().visibleProperty());
+
+		// Hide schema combobox for MySQL
 		if ("MySQL".equals(comboBoxVendor.getValue())) {
-			textSchema.setDisable(true);
+			textSchema.getParent().setVisible(false);
+		}
+
+		// Hide servicename for all but Oracle
+		if (!"Oracle".equals(comboBoxVendor.getValue())) {
+			textServicename.getParent().setVisible(false);
 		}
 
 		// Add ability to select an item in a combobox with a key stroke
@@ -168,6 +191,9 @@ public class Events implements Initializable {
 
 		// Add numeric validator
 		ValidatorText.addNumericValidation(textPort, Integer.MAX_VALUE);
+
+		// Add regex validator
+		ValidatorText.addRegexValidation(textTableBlacklist);
 	}
 
 
@@ -204,7 +230,7 @@ public class Events implements Initializable {
 						if (isCancelled()) return null;
 
 						LOGGER.info("Successfully connected to the database.");
-						linkifier = new Linkifier(connection, properties.getProperty("schema"));
+						linkifier = new Linkifier(connection, properties.getProperty("schema"), Pattern.compile(properties.getProperty("tableBlacklist")));
 						if (isCancelled()) return null;
 
 						linkifier.estimatePk();

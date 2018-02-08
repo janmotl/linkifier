@@ -1,8 +1,13 @@
-apply plugin: 'java'
+apply plugin: 'application'
 
-group 'linkifier'   // like company name: com.hp
-version '3.1.5'
+group 'linkifier'
+version '3.1.6'
 sourceCompatibility = 1.8
+mainClassName = 'controller.MainApp'
+
+
+// Source code is in UTF-8 (important because of comments in org.simmetrics package)
+compileJava {options.encoding = "UTF-8"}
 
 
 // Repository
@@ -19,6 +24,7 @@ dependencies {
     compile fileTree(dir: 'lib/oracle', include: '*.jar')
     compile fileTree(dir: 'lib/postgresql', include: '*.jar')
 
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2' // Used only for @Nullable annotation
     testCompile 'junit:junit:4.12'
 }
 

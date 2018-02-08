@@ -4,6 +4,7 @@ import main.Column;
 import main.Table;
 import utility.Histogram;
 
+import javax.annotation.Nullable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,29 +12,67 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class MySQL implements Vendor {
 
+	private final static Logger LOGGER = Logger.getLogger(MySQL.class.getName());
+
 	public void getTableStatistics(String databaseName, String schemaName, List<Table> tables, Connection connection) throws SQLException {
-		// This provides a rough estimate, which is, nevertheless, always up to date.
-		// String query = "select TABLE_NAME, TABLE_ROWS from INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA = '" + schemaName + "' AND TABLE_TYPE = 'BASE TABLE'";
+		// INFORMATION_SCHEMA.TABLES table provides a rough estimate, which is, nevertheless, always up to date.
+		// But we prefer to use MYSQL.TABLE_STATS table, which provides the actual value,
+		// as measured at time of statistics collection. Hence, the estimate can be terribly outdated.
+		// But we still prefer MYSQL.TABLE_STATS to INFORMATION_SCHEMA.TABLES because it is in sync with MYSQL.COLUMN_STATS
+		// and that is critical for features, where data from MYSQL.COLUMN_STATS and MYSQL.TABLE_STATS are combined.
 
-		// This provides the actual value, as measured at time of statistics collection.
-		// Hence, the estimate can be terribly outdated.
-		// Nevertheless, we prefer this (possibly outdated) data source because it is in sync with mysql.column_stats
-		// and that is critical for features, where data from mysql.column_stats and mysql.table_stats are combined.
-		String query = "select table_name, cardinality from mysql.table_stats where db_name = '" + databaseName + "'";
-
-		Map<String, Table> map = new HashMap<>();
+		// Note that MYSQL.TABLE_STATS (and MYSQL.COLUMNM_STATS) was added to MariaDB in version 10.0.1:
+		//	https://mariadb.com/kb/en/library/mysqlindex_stats-table/
+		// And in MySQL version 8.0 the table is hidden:
+		//	http://datacharmer.blogspot.cz/2016/09/showing-hidden-tables-in-mysql-8-data.html
+		// Hence, we provide fallback to INFORMATION_SCHEMA.TABLES if necessary (better something than nothing).
+		Map<String, Table> tableMap = new HashMap<>();
 		for (Table table : tables) {
-			map.put(table.getName(), table);
+			tableMap.put(table.getName(), table);
 		}
 
+		// Try MYSQL.TABLE_STATS first. But it may crash (e.g. the table does not exist) or the resultSet may not
+		// contain the desired record (e.g. stats was not calculated).
+		try {
+			useTableStats(databaseName, connection, tableMap);
+		} catch(SQLException e) {
+			LOGGER.fine("Attempt to read from MYSQL.TABLE_STATS failed:" + e.getMessage());
+		}
+
+		// Fill in the missing info with INFORMATION_SCHEMA.TABLES.
+		useTables(databaseName, connection, tableMap);
+	}
+
+	private void useTableStats(String databaseName, Connection connection, Map<String, Table> map) throws SQLException {
+		String query = "select table_name, cardinality from mysql.table_stats where db_name = '" + databaseName + "'";
+
 		try (Statement stmt = connection.createStatement();
-		     ResultSet rs = stmt.executeQuery(query)) {
+			 ResultSet rs = stmt.executeQuery(query)) {
 			while (rs.next()) {
-				for (Column column : map.get(rs.getString(1)).getColumnList()) {
+				Table table = map.get(rs.getString(1));
+				if (table == null) continue; // The table is blacklisted in Linkifier by the regex -> skip it
+				for (Column column : table.getColumnList()) {
 					column.setEstimatedRowCount(rs.getInt(2));
+				}
+			}
+		}
+	}
+
+	// Fill in as much information as possible without overwriting anything
+	private void useTables(String databaseName, Connection connection, Map<String, Table> map) throws SQLException {
+		String query = "select TABLE_NAME, TABLE_ROWS from INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA = '" + databaseName + "' AND TABLE_TYPE = 'BASE TABLE'";
+
+		try (Statement stmt = connection.createStatement();
+			 ResultSet rs = stmt.executeQuery(query)) {
+			while (rs.next()) {
+				Table table = map.get(rs.getString(1));
+				if (table == null) continue; // The table is blacklisted in Linkifier by the regex -> skip it
+				for (Column column : table.getColumnList()) {
+					if (column.getRowCount()==null || column.getRowCount()==0) column.setEstimatedRowCount(rs.getInt(2));
 				}
 			}
 		}
@@ -61,10 +100,15 @@ public class MySQL implements Vendor {
 		     ResultSet rs = stmt.executeQuery(query)) {
 			while (rs.next()) {
 				Table table = tableMap.get(rs.getString(1));
-				Column column = table.getColumn(rs.getString(2));
+				if (table == null) continue; // The table is blacklisted -> skip it
+				@Nullable Column column = table.getColumn(rs.getString(2));
+				if (column == null) {
+					LOGGER.fine("The database returned a column name that was not previously observed with getColumns() JDBC call");
+					continue;
+				}
 				column.setNullRatio(rs.getDouble(3));
 				column.setUniqueRatio(1.0 / rs.getDouble(4));
-				if (column.getUniqueRatio().isInfinite()) column.setUniqueRatio(null); // We can get infinity if the column contains only nulls...
+				if (column.getUniqueRatio() != null && column.getUniqueRatio().isInfinite()) column.setUniqueRatio(null); // We can get infinity if the column contains only nulls...
 				column.setWidthAvg(rs.getDouble(5));
 				column.setTextMin(rs.getString(6));
 				column.setTextMax(rs.getString(7));

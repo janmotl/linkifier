@@ -16,7 +16,7 @@ public class MultiMap {
 		else {
 			multimap.put(K, new ArrayList<>());
 			multimap.get(K).add(V);
-		};
+		}
 	}
 
 	public List<String> get(String K) {

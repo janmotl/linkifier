@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 
 public class Training {
@@ -29,7 +30,7 @@ public class Training {
 				while (result.next()) {
 					String schemaName = result.getString(1);
 					System.out.println(schemaName);
-					List<Table> tables = Schema.getPrimaryKeys(connection, schemaName, null);
+					List<Table> tables = Schema.getPrimaryKeys(connection, schemaName, null, Pattern.compile(""));
 //					tables = Schema.getExpensiveFeatures(tables, connection, schemaName);
 
 					for (Table table : tables) {

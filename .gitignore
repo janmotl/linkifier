@@ -1,6 +1,7 @@
-# Bytecode
-bin/
-out/
+# Bytecode (in the root directory only - not in subdirectories)
+/bin/
+/build/
+/out/
 
 # IntelliJ Idea generated files
 .idea/
@@ -10,8 +11,12 @@ out/
 .classpath
 .project
 
-# Configuration files (as they may contain sensitive information)
-*.properties
+# Gradle generated files
+.gradle
+
+# Connection configuration file (as it may contain sensitive information).
+# We intentionally share logging.properties as we want to control how do we display messages in the GUI.
+connection.properties
 
 # Large generated files
 *.csv

@@ -5,6 +5,7 @@ import utility.Logistic;
 import utility.String2Num;
 import utility.Tokenization;
 
+import javax.annotation.Nullable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,42 +53,41 @@ public class Column {
 	private Table table;                    // The father table
 	private int dataType;                   // Data type as defined by JDBC (simplified if appropriate)
 	private String dataTypeName;            // Data type as defined by JDBC
-	private Boolean isUnique = false;
-	private Double uniqueRatio;
-	private Boolean isNotNull = false;
-	private Double nullRatio;
-	private double correlation;             // From vendor database specific source
-	private Double widthAvg;                // From vendor database specific source (can be null)
-	private String textMin;                 // From vendor database specific source
-	private String textMax;                 // From vendor database specific source
-	private Double valueMin;                // From vendor database specific source (can be null)
-	private Double valueMax;                // From vendor database specific source (can be null)
-	private double[] histogramBounds;       // From vendor database specific source. Empty array if not applicable
-	private Boolean isUniqueConstraint = false;  // From getIndexInfo()
-	private Boolean isNullable;             // From getColumns()
-	private Boolean isKeywordSingleton;
-	private Boolean isJunctionTable;
+	private @Nullable Boolean isUnique;		// Expensive SQL query -> is not automatically calculated
+	private @Nullable Boolean isNotNull;	// Expensive SQL query -> is not automatically calculated
+	private @Nullable Double uniqueRatio;	// From vendor database specific source
+	private @Nullable Double nullRatio;		// From vendor database specific source
+	private @Nullable Double widthAvg;      // From vendor database specific source
+	private @Nullable String textMin;       // From vendor database specific source
+	private @Nullable String textMax;       // From vendor database specific source
+	private @Nullable Double valueMin;      // From vendor database specific source
+	private @Nullable Double valueMax;      // From vendor database specific source
+	private @Nullable double[] histogramBounds;  // From vendor database specific source
+	private boolean isUniqueConstraint = false;  // From getIndexInfo() - if there is an index, it is flipped from false
+	private boolean isNullable;             // From getColumns() JDBC call -> ought to be filled in
+	private boolean isKeywordSingleton;
+	private boolean isJunctionTable;
 	private double isJunctionTable2;
 	private Boolean hasMultiplePK;
-	private Boolean tableContainsLob;
+	private boolean tableContainsLob;
 	private int columnSize;
-	private int decimalDigits;
-	private Boolean hasDefault;
-	private Integer ordinalPosition;
-	private Integer ordinalPositionEnd;
-	private Integer tableColumnCount;
-	private Integer estimatedRowCount = 0;
-	private Boolean isAutoincrement;
+	private int decimalDigits;				// Decided based on the data type definition -> defined only for numeric/decimal data types
+	private boolean hasDefault;
+	private int ordinalPosition;
+	private int ordinalPositionEnd;
+	private int tableColumnCount;
+	private Integer estimatedRowCount = 0;	// Zero is a reasonable fallback since it suggests we have no information about the column
+	private boolean isAutoincrement;
 	private String trimmedName;             // Column name without the shared prefix in the table
 	private Boolean contains;               // Map of booleans of columnName endings
 	private Integer levenshteinDistance;    // Levenshtein Distance columnName vs. tableName
 	private Integer minLDOtherTable;        // Minimal Levenshtein Distance columnName vs. some other tableName
 	private Boolean isDoppelganger = false;
 	private String doppelgangerName;
-	private Double nullCountAsFirstColumn;
+	private @Nullable Double nullCountAsFirstColumn;
 	private Double previousColumnsAreNotSufficient;
-	private Boolean isEmptyTable;           // Nullable
-	private Double suspiciousNullRatio;     // Nullable
+	private @Nullable Boolean isEmptyTable;	// Availability depends on the availability of estimatedRowCount
+	private @Nullable Double suspiciousNullRatio;	// Availability depends on the availability of nullRatio
 	private Double primaryKeyProbability;   // Estimated probability that this column alone is a PK
 	private Boolean isEstimatedPk = false;  // Estimated binary decision whether the column is a part of PK
 	private Boolean isBestAttemptPk = false;  // If the PK is set in the database, the database PK is used. Otherwise estimate the PK
@@ -150,7 +150,7 @@ public class Column {
 		this.hasDefault = hasDefault;
 	}
 
-	public Integer getOrdinalPosition() {
+	public int getOrdinalPosition() {
 		return ordinalPosition;
 	}
 
@@ -158,11 +158,11 @@ public class Column {
 		this.ordinalPosition = ordinalPosition;
 	}
 
-	public void setOrdinalPositionEnd(Integer ordinalPositionEnd) {
+	public void setOrdinalPositionEnd(int ordinalPositionEnd) {
 		this.ordinalPositionEnd = ordinalPositionEnd;
 	}
 
-	public void setTableColumnCount(Integer tableColumnCount) {
+	public void setTableColumnCount(int tableColumnCount) {
 		this.tableColumnCount = tableColumnCount;
 	}
 
@@ -234,7 +234,7 @@ public class Column {
 		return isKeywordSingleton;
 	}
 
-	public void setJunctionTable(Boolean junctionTable) {
+	public void setJunctionTable(boolean junctionTable) {
 		isJunctionTable = junctionTable;
 	}
 
@@ -250,16 +250,16 @@ public class Column {
 		return hasMultiplePK;
 	}
 
-	public Double getUniqueRatio() {
+	public @Nullable Double getUniqueRatio() {
 		return uniqueRatio;
 	}
 
-	public void setUniqueRatio(Double uniqueRatio) {
+	public void setUniqueRatio(@Nullable Double uniqueRatio) {
 		// The passed parameter can be null (e.g. because the table contains zero rows)
 		this.uniqueRatio = uniqueRatio;
 	}
 
-	public Double getNullRatio() {
+	public @Nullable Double getNullRatio() {
 		return nullRatio;
 	}
 
@@ -267,11 +267,7 @@ public class Column {
 		this.nullRatio = nullRatio;
 	}
 
-	public void setCorrelation(Double correlation) {
-		this.correlation = correlation;
-	}
-
-	public Double getWidthAvg() {
+	public @Nullable Double getWidthAvg() {
 		return widthAvg;
 	}
 
@@ -279,7 +275,7 @@ public class Column {
 		this.widthAvg = widthAvg;
 	}
 
-	public String getTextMin() {
+	public @Nullable String getTextMin() {
 		return textMin;
 	}
 
@@ -292,7 +288,7 @@ public class Column {
 		}
 	}
 
-	public String getTextMax() {
+	public @Nullable String getTextMax() {
 		return textMax;
 	}
 
@@ -305,15 +301,15 @@ public class Column {
 		}
 	}
 
-	public Double getValueMin() {
+	public @Nullable Double getValueMin() {
 		return valueMin;
 	}
 
-	public Double getValueMax() {
+	public @Nullable Double getValueMax() {
 		return valueMax;
 	}
 
-	public double[] getHistogramBounds() {
+	public @Nullable double[] getHistogramBounds() {
 		return histogramBounds;
 	}
 
@@ -333,7 +329,7 @@ public class Column {
 		this.doppelgangerName = doppelgangerName;
 	}
 
-	public Boolean getTableContainsLob() {
+	public boolean getTableContainsLob() {
 		return tableContainsLob;
 	}
 
@@ -345,18 +341,17 @@ public class Column {
 		this.estimatedRowCount = estimatedRowCount;
 	}
 
-	public void setNullCountAsFirstColumn(Double nullCountAsFirstColumn) {
+	public void setNullCountAsFirstColumn(double nullCountAsFirstColumn) {
 		this.nullCountAsFirstColumn = nullCountAsFirstColumn;
 	}
 
-	public void setPreviousColumnsAreNotSufficient(Double previousColumnsAreNotSufficient) {
+	public void setPreviousColumnsAreNotSufficient(double previousColumnsAreNotSufficient) {
 		this.previousColumnsAreNotSufficient = previousColumnsAreNotSufficient;
 	}
 
-	// Data-based features for empty tables are null. Take it into the account in the model by building this feature.
     public void setIsEmptyTable() {
 	    if (estimatedRowCount != null) {
-		    isEmptyTable = (getRowCount() == 0);
+		    isEmptyTable = (estimatedRowCount == 0);
 	    }
     }
 
@@ -435,7 +430,7 @@ public class Column {
 		     ResultSet rs = stmt.executeQuery(query)) {
 			if (rs.next()) {
 				isUnique = (rs.getInt(1) == 1);
-				uniqueRatio = (rs.getDouble(1));
+				uniqueRatio = (rs.getDouble(1)); // We overwrite the estimate from the statics with the true value
 			}
 		}
 	}
@@ -448,7 +443,7 @@ public class Column {
 		     ResultSet rs = stmt.executeQuery(query)) {
 			if (rs.next()) {
 				isNotNull = (rs.getDouble(1) == 1.0);
-				nullRatio = 1.0 - rs.getDouble(1);
+				nullRatio = 1.0 - rs.getDouble(1); // We overwrite the estimate from the statics with the true value
 			}
 		}
 	}
@@ -509,29 +504,28 @@ public class Column {
 		return String.join(Setting.CSV_SEPARATOR,
 				Setting.CSV_QUOTE + name + Setting.CSV_QUOTE,
 				dataTypeName,
-				isUnique.toString(),
-				isUniqueConstraint.toString(),
+				isUnique == null ? "" : isUnique.toString(),
+				isUniqueConstraint ? "true" : "false",
 				Integer.toString(columnSize),
 				Integer.toString(decimalDigits),
 				(decimalDigits > 0) ? "true" : "false",
-				hasDefault.toString(),
-				ordinalPosition.toString(),
-				ordinalPositionEnd.toString(),
-				tableColumnCount.toString(),
-				tableContainsLob.toString(),
+				hasDefault ? "true" : "false",
+				Integer.toString(ordinalPosition),
+				Integer.toString(ordinalPositionEnd),
+				Integer.toString(tableColumnCount),
+				tableContainsLob ? "true" : "false",
 				estimatedRowCount.toString(),
-				isAutoincrement.toString(),
-				isNotNull.toString(),
-				String.format(Locale.ROOT, "%.6f", nullRatio),
-				isNullable.toString(),
-				String.format(Locale.ROOT, "%.6f", uniqueRatio),
+				isAutoincrement ? "true" : "false",
+				isNotNull == null ? "" : isNotNull.toString(),
+				nullRatio == null ? "" : String.format(Locale.ROOT, "%.6f", nullRatio),
+				isNullable ? "true" : "false",
+				uniqueRatio == null ? "" : String.format(Locale.ROOT, "%.6f", uniqueRatio),
 				valueMin == null ? "" : valueMin.toString(),
 				valueMax == null ? "" : valueMax.toString(),
 				widthAvg == null ? "" : widthAvg.toString(),
 				widthAvg == null ? "" : (widthAvg>50 ? "true" : "false"),
-				String.valueOf(Math.abs(correlation)),
-				isKeywordSingleton.toString(),
-				isJunctionTable.toString(),
+				isKeywordSingleton ? "true" : "false",
+				isJunctionTable ? "true" : "false",
 				Double.toString(isJunctionTable2),
 				hasMultiplePK.toString(),
 				levenshteinDistance.toString(),
@@ -541,7 +535,7 @@ public class Column {
 				suspiciousNullRatio == null ? "" : suspiciousNullRatio.toString(),
 				nullCountAsFirstColumn == null ? "" : nullCountAsFirstColumn.toString(),
 				previousColumnsAreNotSufficient == null ? "" : previousColumnsAreNotSufficient.toString(),
-				isEmptyTable.toString(),
+				isEmptyTable == null ? "" : isEmptyTable.toString(),
 				isPrimaryKey.toString()
 		);
 	}
@@ -557,11 +551,11 @@ public class Column {
 
 		Column column = (Column) o;
 
-		return longName != null ? longName.equals(column.longName) : column.longName == null;
+		return longName.equals(column.longName);
 	}
 
 	@Override public int hashCode() {
-		return longName != null ? longName.hashCode() : 0;
+		return longName.hashCode();
 	}
 
 }

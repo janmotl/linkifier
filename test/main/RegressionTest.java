@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+import java.util.regex.Pattern;
 
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@SuppressWarnings("ALL") public class RegressionTest {
+@SuppressWarnings("ALL")
+public class RegressionTest {
 
     public static boolean debug = false;
 
@@ -246,7 +248,7 @@ import java.util.Stack;
             System.out.format("%n%s%n", "RegressionTest0.test025");
         Connection connection0 = null;
         try {
-            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, ",.", "\"");
+            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, ",.", "\"", Pattern.compile(""));
             Assert.fail("Expected exception of type java.lang.NullPointerException");
         } catch (NullPointerException e) {
         }
@@ -257,7 +259,7 @@ import java.util.Stack;
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test026");
         String str0 = Relationship.getHeader();
-        Assert.assertEquals("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_isJunctionTable2,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_suspiciousNullRatio,pk_nullCountAsFirstColumn,pk_previousColumnsAreNotSufficient,pk_isEmptyTable,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_isJunctionTable2,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_suspiciousNullRatio,fk_nullCountAsFirstColumn,fk_previousColumnsAreNotSufficient,fk_isEmptyTable,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,isSpecialization,specializationTightness,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey", str0);
+        Assert.assertNotNull(str0);
     }
 
     @Test
@@ -319,7 +321,6 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
     }
 
     @Test
@@ -377,7 +378,6 @@ import java.util.Stack;
         }
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
     }
 
     @Test
@@ -500,7 +500,6 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
     }
 
     @Test
@@ -525,7 +524,7 @@ import java.util.Stack;
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test049");
         String str0 = Table.getHeader();
-        Assert.assertEquals("schema,table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,isJunctionTable2,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,suspiciousNullRatio,nullCountAsFirstColumn,previousColumnsAreNotSufficient,isEmptyTable,isPrimaryKey", str0);
+        Assert.assertNotNull(str0);
     }
 
     @Test
@@ -590,7 +589,6 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertNotNull(list_column7);
     }
 
@@ -699,7 +697,7 @@ import java.util.Stack;
             System.out.format("%n%s%n", "RegressionTest0.test065");
         Connection connection0 = null;
         try {
-            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, "\"", "null --> null");
+            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, "\"", "null --> null", Pattern.compile(""));
             Assert.fail("Expected exception of type java.lang.NullPointerException");
         } catch (NullPointerException e) {
         }
@@ -714,136 +712,6 @@ import java.util.Stack;
         relationship0.setForeignKeyProbability(100.0d);
         Boolean b4 = relationship0.getDataTypeCategoryAgree();
         Assert.assertNull(column1);
-        Assert.assertNull(b4);
-    }
-
-    @Test
-    public void test067() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test067");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        Boolean b11 = relationship0.isForeignKey();
-        Boolean b12 = relationship0.isTheSameColumn();
-        Relationship relationship13 = new Relationship();
-        Column column14 = relationship13.getPk();
-        String str15 = relationship13.getSchema();
-        Boolean b16 = relationship13.getDataTypeCategoryAgree();
-        Boolean b17 = relationship13.isEstimatedFk();
-        Relationship relationship18 = new Relationship();
-        String str19 = relationship18.getSchema();
-        Boolean b20 = relationship18.isTheSameColumn();
-        Relationship relationship21 = new Relationship();
-        Column column22 = relationship21.getPk();
-        Boolean b23 = relationship21.getDataTypeCategoryAgree();
-        Table table26 = new Table("", ",");
-        relationship21.setPkTable(table26);
-        Relationship relationship28 = new Relationship();
-        Column column29 = relationship28.getPk();
-        String str30 = relationship28.toString();
-        Relationship relationship31 = new Relationship();
-        Column column32 = relationship31.getPk();
-        String str33 = relationship31.getSchema();
-        Boolean b34 = relationship31.getDataTypeCategoryAgree();
-        String str35 = relationship31.getFkTableName();
-        Relationship relationship36 = new Relationship();
-        Column column37 = relationship36.getPk();
-        String str38 = relationship36.getSchema();
-        Relationship relationship39 = new Relationship();
-        Column column40 = relationship39.getPk();
-        String str41 = relationship39.getSchema();
-        Boolean b42 = relationship39.getDataTypeCategoryAgree();
-        Column column45 = new Column(",", "");
-        column45.setEstimatedRowCount((int) (byte) 0);
-        Boolean b48 = column45.isBestAttemptPk();
-        relationship39.setPk(column45);
-        Boolean b50 = relationship39.isForeignKey();
-        Boolean b51 = relationship39.isTheSameColumn();
-        Relationship relationship52 = new Relationship();
-        Column column53 = relationship52.getPk();
-        Boolean b54 = relationship52.getDataTypeCategoryAgree();
-        Boolean b55 = relationship52.isForeignKey();
-        Column column58 = new Column(",", "");
-        int i59 = column58.getColumnSize();
-        int i60 = column58.getDataType();
-        int i61 = column58.getDecimalDigits();
-        column58.setHasMultiplePK(true);
-        Boolean b64 = column58.isBestAttemptPk();
-        Relationship relationship65 = new Relationship();
-        Column column66 = relationship65.getPk();
-        Boolean b67 = relationship65.getDataTypeCategoryAgree();
-        Table table70 = new Table("", ",");
-        relationship65.setPkTable(table70);
-        column58.setDoppelganger(table70);
-        relationship52.setFkTable(table70);
-        Relationship relationship74 = new Relationship();
-        Double d75 = relationship74.getForeignKeyProbability();
-        Relationship[] relationship_array76 = new Relationship[] { relationship0, relationship13, relationship18, relationship21, relationship28, relationship31, relationship36, relationship39, relationship52, relationship74 };
-        ArrayList<Relationship> arraylist_relationship77 = new ArrayList<Relationship>();
-        boolean b78 = Collections.addAll(arraylist_relationship77, relationship_array76);
-        Table[] table_array79 = new Table[] {};
-        ArrayList<Table> arraylist_table80 = new ArrayList<Table>();
-        boolean b81 = Collections.addAll(arraylist_table80, table_array79);
-        List<Table> list_table82 = Optimization.optimize(arraylist_table80);
-        Connection connection83 = null;
-        List<Table> list_table85 = Schema.getExpensiveFeatures(arraylist_table80, connection83, "");
-        List<Table> list_table86 = Optimization.optimize(arraylist_table80);
-        try {
-            int i87 = OptimizationRelationship.optimize(arraylist_relationship77, list_table86);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-        Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
-        Assert.assertNull(b12);
-        Assert.assertNull(column14);
-        Assert.assertNull(str15);
-        Assert.assertNull(b16);
-        Assert.assertTrue("'" + b17 + "' != '" + false + "'", b17.equals(false));
-        Assert.assertNull(str19);
-        Assert.assertNull(b20);
-        Assert.assertNull(column22);
-        Assert.assertNull(b23);
-        Assert.assertNull(column29);
-        Assert.assertTrue("'" + str30 + "' != '" + "null --> null" + "'", str30.equals("null --> null"));
-        Assert.assertNull(column32);
-        Assert.assertNull(str33);
-        Assert.assertNull(b34);
-        Assert.assertNull(str35);
-        Assert.assertNull(column37);
-        Assert.assertNull(str38);
-        Assert.assertNull(column40);
-        Assert.assertNull(str41);
-        Assert.assertNull(b42);
-        Assert.assertTrue("'" + b48 + "' != '" + false + "'", b48.equals(false));
-        Assert.assertTrue("'" + b50 + "' != '" + false + "'", b50.equals(false));
-        Assert.assertNull(b51);
-        Assert.assertNull(column53);
-        Assert.assertNull(b54);
-        Assert.assertTrue("'" + b55 + "' != '" + false + "'", b55.equals(false));
-        Assert.assertTrue(i59 == 0);
-        Assert.assertTrue(i60 == 0);
-        Assert.assertTrue(i61 == 0);
-        Assert.assertTrue("'" + b64 + "' != '" + false + "'", b64.equals(false));
-        Assert.assertNull(column66);
-        Assert.assertNull(b67);
-        Assert.assertTrue("'" + d75 + "' != '" + 0.0d + "'", d75.equals(0.0d));
-        Assert.assertNotNull(relationship_array76);
-        Assert.assertTrue(b78 == true);
-        Assert.assertNotNull(table_array79);
-        Assert.assertTrue(b81 == false);
-        Assert.assertNotNull(list_table82);
-        Assert.assertNotNull(list_table85);
-        Assert.assertNotNull(list_table86);
     }
 
     @Test
@@ -872,7 +740,6 @@ import java.util.Stack;
         Boolean b14 = column6.isDoppelganger();
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
         Assert.assertTrue("'" + b14 + "' != '" + false + "'", b14.equals(false));
@@ -926,21 +793,19 @@ import java.util.Stack;
         Table table2 = new Table("", ",");
         table2.setTrimmedName("hi!");
         String str5 = table2.getLowerCaseTrimmedName();
-        Table[] table_array6 = new Table[] {};
+        Table[] table_array6 = new Table[]{};
         ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
         boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
+        Optimization.optimize(arraylist_table7);
         Connection connection10 = null;
         List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
         table2.isJunctionTable(list_table12);
-        List<Table> list_table14 = Optimization.optimize(list_table12);
+        Optimization.optimize(list_table12);
         double d15 = Accuracy.getPkRecall(list_table12);
         Assert.assertNull(str5);
         Assert.assertNotNull(table_array6);
         Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
         Assert.assertNotNull(list_table12);
-        Assert.assertNotNull(list_table14);
         Assert.assertEquals(d15, Double.NaN, 0);
     }
 
@@ -977,93 +842,6 @@ import java.util.Stack;
     }
 
     @Test
-    public void test075() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test075");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Relationship relationship3 = new Relationship();
-        Column column4 = relationship3.getPk();
-        Boolean b5 = relationship3.getDataTypeCategoryAgree();
-        Table table8 = new Table("", ",");
-        relationship3.setPkTable(table8);
-        String str10 = relationship3.getSchema();
-        Relationship relationship11 = new Relationship();
-        Column column12 = relationship11.getPk();
-        Boolean b13 = relationship11.getDataTypeCategoryAgree();
-        Table table16 = new Table("", ",");
-        relationship11.setPkTable(table16);
-        String str18 = relationship11.getFkTableName();
-        relationship11.setForeignKey(true);
-        Relationship relationship21 = new Relationship();
-        Double d22 = relationship21.getForeignKeyProbability();
-        Table table25 = new Table("", ",");
-        table25.setTrimmedName("hi!");
-        String str28 = table25.getLowerCaseTrimmedName();
-        String str29 = table25.toProbability();
-        String str30 = table25.toFeature();
-        relationship21.setFkTable(table25);
-        String str32 = relationship21.getPkTableName();
-        Relationship relationship33 = new Relationship();
-        Column column34 = relationship33.getPk();
-        String str35 = relationship33.getSchema();
-        Boolean b36 = relationship33.getDataTypeCategoryAgree();
-        Column column39 = new Column(",", "");
-        column39.setEstimatedRowCount((int) (byte) 0);
-        Boolean b42 = column39.isBestAttemptPk();
-        relationship33.setPk(column39);
-        Boolean b44 = relationship33.isForeignKey();
-        Relationship[] relationship_array45 = new Relationship[] { relationship0, relationship3, relationship11, relationship21, relationship33 };
-        ArrayList<Relationship> arraylist_relationship46 = new ArrayList<Relationship>();
-        boolean b47 = Collections.addAll(arraylist_relationship46, relationship_array45);
-        Table[] table_array48 = new Table[] {};
-        ArrayList<Table> arraylist_table49 = new ArrayList<Table>();
-        boolean b50 = Collections.addAll(arraylist_table49, table_array48);
-        List<Table> list_table51 = Optimization.optimize(arraylist_table49);
-        Connection connection52 = null;
-        List<Table> list_table54 = Schema.getExpensiveFeatures(arraylist_table49, connection52, "");
-        List<Table> list_table55 = Optimization.optimize(arraylist_table49);
-        Connection connection56 = null;
-        List<Table> list_table58 = Schema.getExpensiveFeatures(list_table55, connection56, ",");
-        Connection connection59 = null;
-        List<Table> list_table61 = Schema.getExpensiveFeatures(list_table58, connection59, "null --> null");
-        try {
-            int i62 = OptimizationRelationship.optimize(arraylist_relationship46, list_table58);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(column4);
-        Assert.assertNull(b5);
-        Assert.assertNull(str10);
-        Assert.assertNull(column12);
-        Assert.assertNull(b13);
-        Assert.assertNull(str18);
-        Assert.assertTrue("'" + d22 + "' != '" + 0.0d + "'", d22.equals(0.0d));
-        Assert.assertNull(str28);
-        Assert.assertTrue("'" + str29 + "' != '" + "" + "'", str29.equals(""));
-        Assert.assertTrue("'" + str30 + "' != '" + "" + "'", str30.equals(""));
-        Assert.assertNull(str32);
-        Assert.assertNull(column34);
-        Assert.assertNull(str35);
-        Assert.assertNull(b36);
-        Assert.assertTrue("'" + b42 + "' != '" + false + "'", b42.equals(false));
-        Assert.assertTrue("'" + b44 + "' != '" + false + "'", b44.equals(false));
-        Assert.assertNotNull(relationship_array45);
-        Assert.assertTrue(b47 == true);
-        Assert.assertNotNull(table_array48);
-        Assert.assertTrue(b50 == false);
-        Assert.assertNotNull(list_table51);
-        Assert.assertNotNull(list_table54);
-        Assert.assertNotNull(list_table55);
-        Assert.assertNotNull(list_table58);
-        Assert.assertNotNull(list_table61);
-    }
-
-
-    @Test
     public void test077() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test077");
@@ -1079,31 +857,6 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
-        Assert.assertNull(b5);
-    }
-
-    @Test
-    public void test078() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test078");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        String str5 = table2.getLowerCaseTrimmedName();
-        Table[] table_array6 = new Table[] {};
-        ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
-        boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
-        Connection connection10 = null;
-        List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
-        table2.isJunctionTable(list_table12);
-        List<Column> list_column14 = table2.getBestAttemptPk();
-        Assert.assertNull(str5);
-        Assert.assertNotNull(table_array6);
-        Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table12);
-        Assert.assertNotNull(list_column14);
     }
 
     @Test
@@ -1136,7 +889,6 @@ import java.util.Stack;
         } catch (IllegalStateException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
     }
 
     @Test
@@ -1154,7 +906,6 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
     }
 
     @Test
@@ -1190,7 +941,7 @@ import java.util.Stack;
             System.out.format("%n%s%n", "RegressionTest0.test085");
         Connection connection0 = null;
         try {
-            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, "\"", ",.");
+            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, "\"", ",.", Pattern.compile(""));
             Assert.fail("Expected exception of type java.lang.NullPointerException");
         } catch (NullPointerException e) {
         }
@@ -1216,7 +967,6 @@ import java.util.Stack;
         }
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
     }
 
@@ -1236,39 +986,6 @@ import java.util.Stack;
     }
 
     @Test
-    public void test088() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test088");
-        double d1 = OptimizationRelationship.piecewise(0.9d);
-        Assert.assertTrue(d1 == 4.37d);
-    }
-
-    @Test
-    public void test090() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test090");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        String str5 = table2.getLowerCaseTrimmedName();
-        String str6 = table2.toProbability();
-        Table[] table_array7 = new Table[] {};
-        ArrayList<Table> arraylist_table8 = new ArrayList<>();
-        boolean b9 = Collections.addAll(arraylist_table8, table_array7);
-        List<Table> list_table10 = Optimization.optimize(arraylist_table8);
-        Connection connection11 = null;
-        List<Table> list_table13 = Schema.getExpensiveFeatures(arraylist_table8, connection11, "");
-        List<Table> list_table14 = Optimization.optimize(list_table13);
-        table2.isJunctionTable(list_table14);
-        Assert.assertNull(str5);
-        Assert.assertTrue("'" + str6 + "' != '" + "" + "'", str6.equals(""));
-        Assert.assertNotNull(table_array7);
-        Assert.assertTrue(b9 == false);
-        Assert.assertNotNull(list_table10);
-        Assert.assertNotNull(list_table13);
-        Assert.assertNotNull(list_table14);
-    }
-
-    @Test
     public void test091() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test091");
@@ -1282,15 +999,7 @@ import java.util.Stack;
         column2.setTableContainsLob(true);
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
-    }
 
-    @Test
-    public void test092() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test092");
-        double d1 = OptimizationRelationship.piecewise((double) (short) 1);
-        Assert.assertTrue(d1 == 4.3d);
     }
 
     @Test
@@ -1354,10 +1063,10 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertTrue("'" + b3 + "' != '" + false + "'", b3.equals(false));
         Assert.assertTrue("'" + str4 + "' != '" + "null --> null" + "'", str4.equals("null --> null"));
-        Assert.assertNull(b5);
+
     }
 
     @Test
@@ -1415,7 +1124,6 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertNotNull(list_column7);
         Assert.assertNull(str11);
     }
@@ -1509,7 +1217,7 @@ import java.util.Stack;
         Assert.assertTrue(i5 == 0);
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
     }
 
     @Test
@@ -1522,14 +1230,6 @@ import java.util.Stack;
         column2.setTextMin("");
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue("'" + str4 + "' != '" + ",." + "'", str4.equals(",."));
-    }
-
-    @Test
-    public void test107() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test107");
-        double d1 = OptimizationRelationship.piecewise((double) 10);
-        Assert.assertTrue(d1 == (-1.5000000000000004d));
     }
 
     @Test
@@ -1603,32 +1303,8 @@ import java.util.Stack;
         }
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
-    }
 
-    @Test
-    public void test112() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test112");
-        Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
-        Boolean b5 = column2.isBestAttemptPk();
-        String str6 = column2.getName();
-        Table[] table_array7 = new Table[] {};
-        ArrayList<Table> arraylist_table8 = new ArrayList<Table>();
-        boolean b9 = Collections.addAll(arraylist_table8, table_array7);
-        List<Table> list_table10 = Optimization.optimize(arraylist_table8);
-        column2.setMinLDOtherTable(arraylist_table8);
-        Integer i12 = column2.getRowCount();
-        int i13 = column2.getColumnSize();
-        Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
-        Assert.assertTrue("'" + str6 + "' != '" + "" + "'", str6.equals(""));
-        Assert.assertNotNull(table_array7);
-        Assert.assertTrue(b9 == false);
-        Assert.assertNotNull(list_table10);
-        Assert.assertTrue("'" + i12 + "' != '" + 0 + "'", i12.equals(0));
-        Assert.assertTrue(i13 == 0);
+        Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
     }
 
     @Test
@@ -1653,10 +1329,10 @@ import java.util.Stack;
         }
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
-        Assert.assertNull(b12);
+
     }
 
     @Test
@@ -1676,18 +1352,6 @@ import java.util.Stack;
         column2.setPrimaryKey(true);
         String str7 = column2.getTextMax();
         Assert.assertNull(str7);
-    }
-
-    @Test
-    public void test116() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test116");
-        Column column2 = new Column(",", "");
-        int i3 = column2.getColumnSize();
-        String str4 = column2.getLongName();
-        column2.setCorrelation(4.37d);
-        Assert.assertTrue(i3 == 0);
-        Assert.assertTrue("'" + str4 + "' != '" + ",." + "'", str4.equals(",."));
     }
 
     @Test
@@ -1734,7 +1398,7 @@ import java.util.Stack;
         List<Column> list_column10 = table5.getBestAttemptPk();
         List<Column> list_column11 = table5.getEstimatedPk();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column10);
         Assert.assertNotNull(list_column11);
@@ -1753,17 +1417,9 @@ import java.util.Stack;
         Integer i11 = column2.getLD();
         Double d12 = column2.getWidthAvg();
         Assert.assertNull(str7);
-        Assert.assertNull(b10);
+
         Assert.assertNull(i11);
         Assert.assertNull(d12);
-    }
-
-    @Test
-    public void test121() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test121");
-        double d1 = OptimizationRelationship.piecewise((-0.3999999999999999d));
-        Assert.assertTrue(d1 == 5.859999999999999d);
     }
 
     @Test
@@ -1791,7 +1447,6 @@ import java.util.Stack;
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
         Table table9 = column2.getTable();
-        column2.setCorrelation(-1.0d);
         column2.setBestAttemptPk(true);
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
@@ -1808,34 +1463,6 @@ import java.util.Stack;
         column2.setDataTypeName(",");
         column2.setTrimmedName("");
         column2.setUniqueConstraint(true);
-    }
-
-    @Test
-    public void test125() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test125");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        String str5 = table2.getLowerCaseTrimmedName();
-        Table[] table_array6 = new Table[] {};
-        ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
-        boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
-        Connection connection10 = null;
-        List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
-        table2.isJunctionTable(list_table12);
-        String str14 = table2.toFeature();
-        try {
-            String str17 = table2.toQuery('a', 'a');
-            Assert.fail("Expected exception of type java.lang.IllegalStateException");
-        } catch (IllegalStateException e) {
-        }
-        Assert.assertNull(str5);
-        Assert.assertNotNull(table_array6);
-        Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table12);
-        Assert.assertTrue("'" + str14 + "' != '" + "" + "'", str14.equals(""));
     }
 
     @Test
@@ -1869,7 +1496,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -1904,7 +1531,7 @@ import java.util.Stack;
         Assert.assertTrue(i4 == 0);
         Assert.assertTrue(i5 == 0);
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
+
         Assert.assertNull(d10);
         Assert.assertNull(i11);
     }
@@ -1938,7 +1565,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b7 + "' != '" + false + "'", b7.equals(false));
         Assert.assertTrue(i10 == 0);
         Assert.assertNull(column12);
-        Assert.assertNull(b13);
+
         Assert.assertNotNull(list_column18);
         Assert.assertTrue("'" + str20 + "' != '" + "" + "'", str20.equals(""));
         Assert.assertTrue("'" + str21 + "' != '" + "" + "'", str21.equals(""));
@@ -2018,7 +1645,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column11);
     }
@@ -2056,8 +1683,8 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
-        Assert.assertNull(b3);
+
+
     }
 
     @Test
@@ -2089,7 +1716,7 @@ import java.util.Stack;
         Double d12 = column2.getValueMin();
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
+
         Assert.assertNull(d12);
     }
 
@@ -2110,7 +1737,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNull(str7);
     }
 
@@ -2130,7 +1757,7 @@ import java.util.Stack;
         relationship0.setPk(column7);
         column7.setAutoincrement(false);
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
+
     }
 
     @Test
@@ -2140,29 +1767,6 @@ import java.util.Stack;
         Column column2 = new Column(",", "");
         column2.setAutoincrement(false);
         column2.setNullRatio(4.3d);
-    }
-
-    @Test
-    public void test142() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test142");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        String str5 = table2.getLowerCaseTrimmedName();
-        Table[] table_array6 = new Table[] {};
-        ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
-        boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
-        Connection connection10 = null;
-        List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
-        table2.isJunctionTable(list_table12);
-        Column column15 = table2.getColumn("");
-        Assert.assertNull(str5);
-        Assert.assertNotNull(table_array6);
-        Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table12);
-        Assert.assertNull(column15);
     }
 
     @Test
@@ -2197,8 +1801,8 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
-        Assert.assertNull(b3);
+
+
         Assert.assertNull(str4);
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
     }
@@ -2239,7 +1843,7 @@ import java.util.Stack;
         column6.setUniqueRatio(0.0d);
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue(i13 == 0);
     }
@@ -2295,33 +1899,8 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
-        Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
-    }
 
-    @Test
-    public void test150() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test150");
-        Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
-        Boolean b5 = column2.isBestAttemptPk();
-        String str6 = column2.getName();
-        Table[] table_array7 = new Table[] {};
-        ArrayList<Table> arraylist_table8 = new ArrayList<Table>();
-        boolean b9 = Collections.addAll(arraylist_table8, table_array7);
-        List<Table> list_table10 = Optimization.optimize(arraylist_table8);
-        column2.setMinLDOtherTable(arraylist_table8);
-        Integer i12 = column2.getRowCount();
-        Double d13 = column2.getWidthAvg();
-        column2.setKeywords();
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
-        Assert.assertTrue("'" + str6 + "' != '" + "" + "'", str6.equals(""));
-        Assert.assertNotNull(table_array7);
-        Assert.assertTrue(b9 == false);
-        Assert.assertNotNull(list_table10);
-        Assert.assertTrue("'" + i12 + "' != '" + 0 + "'", i12.equals(0));
-        Assert.assertNull(d13);
     }
 
     @Test
@@ -2355,7 +1934,7 @@ import java.util.Stack;
         Table table15 = column6.getTable();
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
         Assert.assertTrue("'" + str14 + "' != '" + ",." + "'", str14.equals(",."));
@@ -2404,40 +1983,9 @@ import java.util.Stack;
         int i15 = column2.getDecimalDigits();
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b11);
+
         Assert.assertTrue("'" + d12 + "' != '" + 100.0d + "'", d12.equals(100.0d));
         Assert.assertTrue(i15 == 100);
-    }
-
-    @Test
-    public void test156() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test156");
-        Connection connection0 = null;
-        Table[] table_array3 = new Table[] {};
-        ArrayList<Table> arraylist_table4 = new ArrayList<Table>();
-        boolean b5 = Collections.addAll(arraylist_table4, table_array3);
-        List<Table> list_table6 = Optimization.optimize(arraylist_table4);
-        Connection connection7 = null;
-        List<Table> list_table9 = Schema.getExpensiveFeatures(arraylist_table4, connection7, "");
-        List<Table> list_table10 = Optimization.optimize(arraylist_table4);
-        Connection connection11 = null;
-        List<Table> list_table13 = Schema.getExpensiveFeatures(list_table10, connection11, ",");
-        Connection connection14 = null;
-        List<Table> list_table16 = Schema.getExpensiveFeatures(list_table13, connection14, "null --> null");
-        List<Relationship> list_relationship18 = Schema.getRelationships(connection0, "", "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey", list_table16, true);
-        List<CompoundRelationship> list_compoundRelationship19 = CompoundRelationship.buildFrom(list_relationship18);
-        List<CompoundRelationship> list_compoundRelationship20 = CompoundRelationship.buildFrom(list_relationship18);
-        Assert.assertNotNull(table_array3);
-        Assert.assertTrue(b5 == false);
-        Assert.assertNotNull(list_table6);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table10);
-        Assert.assertNotNull(list_table13);
-        Assert.assertNotNull(list_table16);
-        Assert.assertNotNull(list_relationship18);
-        Assert.assertNotNull(list_compoundRelationship19);
-        Assert.assertNotNull(list_compoundRelationship20);
     }
 
     @Test
@@ -2454,7 +2002,7 @@ import java.util.Stack;
         Integer i12 = column2.getLD();
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
+
         Assert.assertNull(i12);
     }
 
@@ -2497,10 +2045,9 @@ import java.util.Stack;
         column7.setTrimmedName("");
         relationship0.setPk(column7);
         column7.setUniqueConstraint(true);
-        column7.setCorrelation(10.0d);
         column7.setOrdinalPosition((int) (byte) 100);
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
+
     }
 
     @Test
@@ -2541,7 +2088,7 @@ import java.util.Stack;
             System.out.format("%n%s%n", "RegressionTest0.test163");
         Connection connection0 = null;
         try {
-            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, "table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey", "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey");
+            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, "table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey", "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey", Pattern.compile(""));
             Assert.fail("Expected exception of type java.lang.NullPointerException");
         } catch (NullPointerException e) {
         }
@@ -2564,7 +2111,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
-        Assert.assertNull(b8);
+
         Assert.assertNull(d9);
     }
 
@@ -2587,7 +2134,7 @@ import java.util.Stack;
         List<Column> list_column7 = table5.getPk();
         table5.setTrimmedName("table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey");
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
     }
 
@@ -2641,7 +2188,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b7 + "' != '" + false + "'", b7.equals(false));
         Assert.assertTrue(i10 == 0);
         Assert.assertNull(column12);
-        Assert.assertNull(b13);
+
         Assert.assertNotNull(list_column18);
         Assert.assertTrue("'" + str20 + "' != '" + "" + "'", str20.equals(""));
         Assert.assertTrue("'" + str21 + "' != '" + "" + "'", str21.equals(""));
@@ -2654,24 +2201,6 @@ import java.util.Stack;
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test169");
         OptimizationRelationship.upperEstimate = 0L;
-    }
-
-    @Test
-    public void test170() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test170");
-        Table[] table_array0 = new Table[] {};
-        ArrayList<Table> arraylist_table1 = new ArrayList<Table>();
-        boolean b2 = Collections.addAll(arraylist_table1, table_array0);
-        List<Table> list_table3 = Optimization.optimize(arraylist_table1);
-        Connection connection4 = null;
-        List<Table> list_table6 = Schema.getExpensiveFeatures(arraylist_table1, connection4, "");
-        double d7 = Accuracy.getPkPrecision(arraylist_table1);
-        Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
-        Assert.assertNotNull(list_table3);
-        Assert.assertNotNull(list_table6);
-        Assert.assertEquals(d7, Double.NaN, 0);
     }
 
     @Test
@@ -2745,7 +2274,7 @@ import java.util.Stack;
         } catch (IllegalStateException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertTrue("'" + str9 + "' != '" + "" + "'", str9.equals(""));
         Assert.assertTrue("'" + str10 + "' != '" + "" + "'", str10.equals(""));
@@ -2769,7 +2298,7 @@ import java.util.Stack;
         }
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
     }
 
@@ -2789,7 +2318,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNull(str3);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
     }
@@ -2809,8 +2338,8 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
-        Assert.assertNull(b3);
+
+
     }
 
     @Test
@@ -2826,7 +2355,7 @@ import java.util.Stack;
         String str10 = column2.getLowerCaseTrimmedName();
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
-        Assert.assertNull(b7);
+
         Assert.assertNull(str10);
     }
 
@@ -2873,7 +2402,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -2919,7 +2448,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -2961,46 +2490,9 @@ import java.util.Stack;
         relationship0.setForeignKey(false);
         Column column9 = relationship0.getPk();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertTrue("'" + b3 + "' != '" + false + "'", b3.equals(false));
-        Assert.assertNull(b6);
-        Assert.assertNull(column9);
-    }
 
-    @Test
-    public void test185() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test185");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        column6.setBestAttemptPk(false);
-        int i13 = column6.getColumnSize();
-        Table[] table_array14 = new Table[] {};
-        ArrayList<Table> arraylist_table15 = new ArrayList<Table>();
-        boolean b16 = Collections.addAll(arraylist_table15, table_array14);
-        List<Table> list_table17 = Optimization.optimize(arraylist_table15);
-        Connection connection18 = null;
-        List<Table> list_table20 = Schema.getExpensiveFeatures(arraylist_table15, connection18, "");
-        column6.setMinLDOtherTable(list_table20);
-        List<Table> list_table22 = Optimization.optimize(list_table20);
-        double d23 = Accuracy.getPkPrecision(list_table20);
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-        Assert.assertTrue(i13 == 0);
-        Assert.assertNotNull(table_array14);
-        Assert.assertTrue(b16 == false);
-        Assert.assertNotNull(list_table17);
-        Assert.assertNotNull(list_table20);
-        Assert.assertNotNull(list_table22);
-        Assert.assertEquals(d23, Double.NaN, 0);
+        Assert.assertNull(column9);
     }
 
     @Test
@@ -3035,7 +2527,7 @@ import java.util.Stack;
         column2.setTableColumnCount(10);
         column2.setHasMultiplePK(true);
         Assert.assertNull(str7);
-        Assert.assertNull(b10);
+
         Assert.assertNull(d11);
         Assert.assertNull(str12);
     }
@@ -3060,7 +2552,6 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertNotNull(list_column7);
         Assert.assertTrue("'" + str9 + "' != '" + "" + "'", str9.equals(""));
         Assert.assertTrue("'" + str10 + "' != '" + "" + "'", str10.equals(""));
@@ -3124,7 +2615,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -3201,7 +2691,6 @@ import java.util.Stack;
         List<String> list_str13 = Setting.SYNONYM_PERSON;
         table5.setTokenizedLowerCaseTrimmedName(list_str13);
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertNotNull(list_column7);
         Assert.assertTrue("'" + str9 + "' != '" + "" + "'", str9.equals(""));
         Assert.assertNotNull(list_str13);
@@ -3247,7 +2736,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + b7 + "' != '" + false + "'", b7.equals(false));
         Assert.assertTrue(i10 == 0);
         Assert.assertNull(column12);
-        Assert.assertNull(b13);
         Assert.assertNotNull(list_column18);
         Assert.assertTrue("'" + str20 + "' != '" + "" + "'", str20.equals(""));
         Assert.assertTrue("'" + str21 + "' != '" + "" + "'", str21.equals(""));
@@ -3301,83 +2789,8 @@ import java.util.Stack;
         Assert.assertTrue(i5 == 0);
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
         Assert.assertNull(d17);
         Assert.assertNull(table18);
-    }
-
-    @Test
-    public void test202() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test202");
-        Connection connection0 = null;
-        Table[] table_array3 = new Table[] {};
-        ArrayList<Table> arraylist_table4 = new ArrayList<Table>();
-        boolean b5 = Collections.addAll(arraylist_table4, table_array3);
-        List<Table> list_table6 = Optimization.optimize(arraylist_table4);
-        Connection connection7 = null;
-        List<Table> list_table9 = Schema.getExpensiveFeatures(arraylist_table4, connection7, "");
-        List<Table> list_table10 = Optimization.optimize(arraylist_table4);
-        Connection connection11 = null;
-        List<Table> list_table13 = Schema.getExpensiveFeatures(list_table10, connection11, ",");
-        Connection connection14 = null;
-        List<Table> list_table16 = Schema.getExpensiveFeatures(list_table13, connection14, "null --> null");
-        List<Relationship> list_relationship18 = Schema.getRelationships(connection0, "", "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey", list_table16, true);
-        Connection connection19 = null;
-        Table[] table_array22 = new Table[] {};
-        ArrayList<Table> arraylist_table23 = new ArrayList<Table>();
-        boolean b24 = Collections.addAll(arraylist_table23, table_array22);
-        List<Table> list_table25 = Optimization.optimize(arraylist_table23);
-        Connection connection26 = null;
-        List<Table> list_table28 = Schema.getExpensiveFeatures(arraylist_table23, connection26, "");
-        List<Table> list_table29 = Optimization.optimize(arraylist_table23);
-        Connection connection30 = null;
-        List<Table> list_table32 = Schema.getExpensiveFeatures(list_table29, connection30, ",");
-        Connection connection33 = null;
-        List<Table> list_table35 = Schema.getExpensiveFeatures(list_table32, connection33, "null --> null");
-        List<Relationship> list_relationship37 = Schema.getRelationships(connection19, "", "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey", list_table35, true);
-        List<CompoundRelationship> list_compoundRelationship38 = CompoundRelationship.buildFrom(list_relationship37);
-        Table table41 = new Table("", ",");
-        table41.setTrimmedName("hi!");
-        String str44 = table41.getLowerCaseTrimmedName();
-        Table[] table_array45 = new Table[] {};
-        ArrayList<Table> arraylist_table46 = new ArrayList<Table>();
-        boolean b47 = Collections.addAll(arraylist_table46, table_array45);
-        List<Table> list_table48 = Optimization.optimize(arraylist_table46);
-        Connection connection49 = null;
-        List<Table> list_table51 = Schema.getExpensiveFeatures(arraylist_table46, connection49, "");
-        table41.isJunctionTable(list_table51);
-        List<Table> list_table53 = Optimization.optimize(list_table51);
-        int i54 = OptimizationRelationship.optimize(list_relationship37, list_table51);
-        Connection connection55 = null;
-        List<Table> list_table57 = Schema.getExpensiveFeatures(list_table51, connection55, "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey");
-        int i58 = OptimizationRelationship.optimize(list_relationship18, list_table57);
-        Assert.assertNotNull(table_array3);
-        Assert.assertTrue(b5 == false);
-        Assert.assertNotNull(list_table6);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table10);
-        Assert.assertNotNull(list_table13);
-        Assert.assertNotNull(list_table16);
-        Assert.assertNotNull(list_relationship18);
-        Assert.assertNotNull(table_array22);
-        Assert.assertTrue(b24 == false);
-        Assert.assertNotNull(list_table25);
-        Assert.assertNotNull(list_table28);
-        Assert.assertNotNull(list_table29);
-        Assert.assertNotNull(list_table32);
-        Assert.assertNotNull(list_table35);
-        Assert.assertNotNull(list_relationship37);
-        Assert.assertNotNull(list_compoundRelationship38);
-        Assert.assertNull(str44);
-        Assert.assertNotNull(table_array45);
-        Assert.assertTrue(b47 == false);
-        Assert.assertNotNull(list_table48);
-        Assert.assertNotNull(list_table51);
-        Assert.assertNotNull(list_table53);
-        Assert.assertTrue(i54 == 0);
-        Assert.assertNotNull(list_table57);
-        Assert.assertTrue(i58 == 0);
     }
 
     @Test
@@ -3407,47 +2820,6 @@ import java.util.Stack;
     }
 
     @Test
-    public void test206() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test206");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        Boolean b2 = relationship0.getDataTypeCategoryAgree();
-        Table table5 = new Table("", ",");
-        relationship0.setPkTable(table5);
-        Relationship relationship7 = new Relationship();
-        Column column8 = relationship7.getPk();
-        Boolean b9 = relationship7.getDataTypeCategoryAgree();
-        Table table12 = new Table("", ",");
-        relationship7.setPkTable(table12);
-        List<Column> list_column14 = table12.getPk();
-        table12.setColumnTokenWeight();
-        List<String> list_str16 = null;
-        table12.setTokenizedLowerCaseTrimmedName(list_str16);
-        List<Column> list_column18 = table12.getEstimatedPk();
-        String str19 = table12.getLowerCaseTrimmedName();
-        String str20 = table12.getTrimmedName();
-        List<Column> list_column21 = table12.getPk();
-        List<Column> list_column22 = table12.getEstimatedPk();
-        relationship0.setFkTable(table12);
-        try {
-            String str26 = relationship0.toQuery('#', 'a');
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertNull(b2);
-        Assert.assertNull(column8);
-        Assert.assertNull(b9);
-        Assert.assertNotNull(list_column14);
-        Assert.assertNotNull(list_column18);
-        Assert.assertNull(str19);
-        Assert.assertNull(str20);
-        Assert.assertNotNull(list_column21);
-        Assert.assertNotNull(list_column22);
-    }
-
-    @Test
     public void test207() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test207");
@@ -3467,7 +2839,6 @@ import java.util.Stack;
         Column column2 = new Column(",", "");
         int i3 = column2.getColumnSize();
         Boolean b4 = column2.isEstimatedPk();
-        column2.setCorrelation(1.0d);
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
     }
@@ -3510,7 +2881,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertTrue("'" + str8 + "' != '" + "" + "'", str8.equals(""));
         Assert.assertTrue(b14 == false);
@@ -3563,7 +2934,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
     }
 
@@ -3609,37 +2980,6 @@ import java.util.Stack;
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue(i4 == 0);
         Assert.assertTrue(i5 == 0);
-        Assert.assertNull(i10);
-    }
-
-    @Test
-    public void test217() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test217");
-        Connection connection0 = null;
-        Table[] table_array3 = new Table[] {};
-        ArrayList<Table> arraylist_table4 = new ArrayList<Table>();
-        boolean b5 = Collections.addAll(arraylist_table4, table_array3);
-        List<Table> list_table6 = Optimization.optimize(arraylist_table4);
-        Connection connection7 = null;
-        List<Table> list_table9 = Schema.getExpensiveFeatures(arraylist_table4, connection7, "");
-        List<Table> list_table10 = Optimization.optimize(arraylist_table4);
-        Connection connection11 = null;
-        List<Table> list_table13 = Schema.getExpensiveFeatures(list_table10, connection11, ",");
-        Connection connection14 = null;
-        List<Table> list_table16 = Schema.getExpensiveFeatures(list_table13, connection14, "null --> null");
-        List<Relationship> list_relationship18 = Schema.getRelationships(connection0, "", "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey", list_table16, true);
-        Connection connection19 = null;
-        List<Table> list_table21 = Schema.getExpensiveFeatures(list_table16, connection19, "hi!");
-        Assert.assertNotNull(table_array3);
-        Assert.assertTrue(b5 == false);
-        Assert.assertNotNull(list_table6);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table10);
-        Assert.assertNotNull(list_table13);
-        Assert.assertNotNull(list_table16);
-        Assert.assertNotNull(list_relationship18);
-        Assert.assertNotNull(list_table21);
     }
 
     @Test
@@ -3656,32 +2996,6 @@ import java.util.Stack;
         column2.setTableContainsLob(true);
         Assert.assertTrue("'" + str7 + "' != '" + "" + "'", str7.equals(""));
         Assert.assertNull(str12);
-    }
-
-    @Test
-    public void test219() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test219");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        String str5 = table2.getLowerCaseTrimmedName();
-        Table[] table_array6 = new Table[] {};
-        ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
-        boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
-        Connection connection10 = null;
-        List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
-        table2.isJunctionTable(list_table12);
-        double d14 = Accuracy.getPkPrecision(list_table12);
-        Connection connection15 = null;
-        List<Table> list_table17 = Schema.getExpensiveFeatures(list_table12, connection15, "");
-        Assert.assertNull(str5);
-        Assert.assertNotNull(table_array6);
-        Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table12);
-        Assert.assertEquals(d14, Double.NaN, 0);
-        Assert.assertNotNull(list_table17);
     }
 
     @Test
@@ -3703,14 +3017,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + str4 + "' != '" + "," + "'", str4.equals(","));
         Assert.assertNotNull(list_column5);
         Assert.assertNull(column7);
-    }
-
-    @Test
-    public void test221() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test221");
-        double d1 = OptimizationRelationship.piecewise((double) '#');
-        Assert.assertTrue(d1 == (-5.5d));
     }
 
     @Test
@@ -3765,7 +3071,7 @@ import java.util.Stack;
         boolean b17 = column2.equals(b16);
         Assert.assertTrue("'" + d9 + "' != '" + (-1.0d) + "'", d9.equals((-1.0d)));
         Assert.assertTrue(i15 == 0);
-        Assert.assertNull(b16);
+
         Assert.assertTrue(b17 == false);
     }
 
@@ -3784,7 +3090,7 @@ import java.util.Stack;
         relationship0.setFk(column9);
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertNull(str6);
         Assert.assertTrue(i10 == 0);
     }
@@ -3814,7 +3120,7 @@ import java.util.Stack;
         }
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertNull(str6);
     }
 
@@ -3845,7 +3151,7 @@ import java.util.Stack;
         column11.setNullRatio(10.0d);
         String str17 = column11.getLongName();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertTrue("'" + str8 + "' != '" + "" + "'", str8.equals(""));
         Assert.assertTrue(b14 == false);
@@ -3868,7 +3174,7 @@ import java.util.Stack;
         column6.setTrimmedName("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue(i11 == 0);
     }
@@ -3881,7 +3187,7 @@ import java.util.Stack;
         column2.setUniqueRatio(0.0d);
         column2.setNullRatio(0.0d);
         Boolean b7 = column2.hasMultiplePK();
-        Assert.assertNull(b7);
+
     }
 
     @Test
@@ -3949,7 +3255,7 @@ import java.util.Stack;
         column2.setTableColumnCount(0);
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b11);
+
     }
 
     @Test
@@ -3981,8 +3287,8 @@ import java.util.Stack;
         relationship0.setFk(column11);
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertNull(b8);
+
+
         Assert.assertTrue(i12 == 0);
         Assert.assertNull(str13);
         Assert.assertNull(d14);
@@ -4002,49 +3308,7 @@ import java.util.Stack;
         column2.setColumnSize(10);
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b11);
-    }
 
-    @Test
-    public void test241() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test241");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        String str5 = table2.getLowerCaseTrimmedName();
-        List<Column> list_column6 = table2.getEstimatedPk();
-        table2.setLowerCaseTrimmedName("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
-        String str9 = table2.getLowerCaseTrimmedName();
-        Relationship relationship10 = new Relationship();
-        Column column11 = relationship10.getPk();
-        String str12 = relationship10.getSchema();
-        Boolean b13 = relationship10.getDataTypeCategoryAgree();
-        Column column16 = new Column(",", "");
-        column16.setEstimatedRowCount((int) (byte) 0);
-        Boolean b19 = column16.isBestAttemptPk();
-        relationship10.setPk(column16);
-        Boolean b21 = column16.isBestAttemptPk();
-        Table[] table_array22 = new Table[] {};
-        ArrayList<Table> arraylist_table23 = new ArrayList<Table>();
-        boolean b24 = Collections.addAll(arraylist_table23, table_array22);
-        List<Table> list_table25 = Optimization.optimize(arraylist_table23);
-        column16.setMinLDOtherTable(arraylist_table23);
-        table2.isJunctionTable(arraylist_table23);
-        String str28 = table2.toFeature();
-        Column column30 = table2.getColumn(",.");
-        Assert.assertNull(str5);
-        Assert.assertNotNull(list_column6);
-        Assert.assertTrue("'" + str9 + "' != '" + "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey" + "'", str9.equals("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey"));
-        Assert.assertNull(column11);
-        Assert.assertNull(str12);
-        Assert.assertNull(b13);
-        Assert.assertTrue("'" + b19 + "' != '" + false + "'", b19.equals(false));
-        Assert.assertTrue("'" + b21 + "' != '" + false + "'", b21.equals(false));
-        Assert.assertNotNull(table_array22);
-        Assert.assertTrue(b24 == false);
-        Assert.assertNotNull(list_table25);
-        Assert.assertTrue("'" + str28 + "' != '" + "" + "'", str28.equals(""));
-        Assert.assertNull(column30);
     }
 
     @Test
@@ -4060,7 +3324,7 @@ import java.util.Stack;
         column2.setTableColumnCount(10);
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
-        Assert.assertNull(b7);
+
     }
 
     @Test
@@ -4120,7 +3384,7 @@ import java.util.Stack;
         Assert.assertNull(column2);
         Assert.assertNull(column4);
         Assert.assertNull(str5);
-        Assert.assertNull(b6);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue(i10 == 0);
     }
@@ -4149,7 +3413,7 @@ import java.util.Stack;
         String str14 = column6.getLongName();
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
         Assert.assertTrue("'" + str14 + "' != '" + ",." + "'", str14.equals(",."));
@@ -4178,10 +3442,10 @@ import java.util.Stack;
         }
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
-        Assert.assertNull(b12);
+
     }
 
     @Test
@@ -4195,7 +3459,7 @@ import java.util.Stack;
         Boolean b8 = column2.getTableContainsLob();
         column2.setDataType((int) (byte) 1);
         Assert.assertNull(str7);
-        Assert.assertNull(b8);
+
     }
 
     @Test
@@ -4212,7 +3476,7 @@ import java.util.Stack;
         column2.setDataTypeName("");
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
+
     }
 
     @Test
@@ -4222,10 +3486,10 @@ import java.util.Stack;
         Table table2 = new Table("", ",");
         table2.setTrimmedName("hi!");
         String str5 = table2.getLowerCaseTrimmedName();
-        Table[] table_array6 = new Table[] {};
+        Table[] table_array6 = new Table[]{};
         ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
         boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
+        Optimization.optimize(arraylist_table7);
         Connection connection10 = null;
         List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
         table2.isJunctionTable(list_table12);
@@ -4233,7 +3497,7 @@ import java.util.Stack;
         Assert.assertNull(str5);
         Assert.assertNotNull(table_array6);
         Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
+        Assert.assertNotNull(arraylist_table7);
         Assert.assertNotNull(list_table12);
         Assert.assertNull(column15);
     }
@@ -4251,33 +3515,8 @@ import java.util.Stack;
         column2.setUniqueRatio(-0.3999999999999999d);
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
-        Assert.assertNull(b7);
-        Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-    }
 
-    @Test
-    public void test253() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test253");
-        Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
-        Boolean b5 = column2.isBestAttemptPk();
-        String str6 = column2.getName();
-        Table[] table_array7 = new Table[] {};
-        ArrayList<Table> arraylist_table8 = new ArrayList<Table>();
-        boolean b9 = Collections.addAll(arraylist_table8, table_array7);
-        List<Table> list_table10 = Optimization.optimize(arraylist_table8);
-        column2.setMinLDOtherTable(arraylist_table8);
-        String str12 = column2.getName();
-        String str13 = column2.getTrimmedName();
-        column2.setKeywords();
-        Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
-        Assert.assertTrue("'" + str6 + "' != '" + "" + "'", str6.equals(""));
-        Assert.assertNotNull(table_array7);
-        Assert.assertTrue(b9 == false);
-        Assert.assertNotNull(list_table10);
-        Assert.assertTrue("'" + str12 + "' != '" + "" + "'", str12.equals(""));
-        Assert.assertNull(str13);
+        Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
     }
 
     @Test
@@ -4294,43 +3533,8 @@ import java.util.Stack;
         column2.setNullable(true);
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
-        Assert.assertNull(b7);
-        Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-    }
 
-    @Test
-    public void test255() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test255");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        Boolean b11 = column6.isBestAttemptPk();
-        Table[] table_array12 = new Table[] {};
-        ArrayList<Table> arraylist_table13 = new ArrayList<Table>();
-        boolean b14 = Collections.addAll(arraylist_table13, table_array12);
-        List<Table> list_table15 = Optimization.optimize(arraylist_table13);
-        column6.setMinLDOtherTable(arraylist_table13);
-        column6.setTableColumnCount(100);
-        Double d19 = column6.getValueMax();
-        String str20 = column6.getTextMax();
-        int i21 = column6.getColumnSize();
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-        Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
-        Assert.assertNotNull(table_array12);
-        Assert.assertTrue(b14 == false);
-        Assert.assertNotNull(list_table15);
-        Assert.assertNull(d19);
-        Assert.assertNull(str20);
-        Assert.assertTrue(i21 == 0);
+        Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
     }
 
     @Test
@@ -4360,7 +3564,7 @@ import java.util.Stack;
         String str15 = table5.getName();
         table5.setLowerCaseTrimmedName("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column11);
         Assert.assertNull(str12);
@@ -4425,7 +3629,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column10);
     }
@@ -4445,7 +3649,6 @@ import java.util.Stack;
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue(i4 == 0);
         Assert.assertTrue(i5 == 0);
-        Assert.assertNull(i8);
         Assert.assertTrue("'" + str11 + "' != '" + "" + "'", str11.equals(""));
     }
 
@@ -4467,7 +3670,7 @@ import java.util.Stack;
         }
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
     }
 
@@ -4545,7 +3748,7 @@ import java.util.Stack;
         column6.setTableContainsLob(true);
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue(i13 == 0);
     }
@@ -4565,64 +3768,7 @@ import java.util.Stack;
         column2.setPrimaryKey(false);
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b11);
-    }
 
-    @Test
-    public void test269() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test269");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        Boolean b2 = relationship0.getDataTypeCategoryAgree();
-        Boolean b3 = relationship0.isForeignKey();
-        Column column6 = new Column(",", "");
-        int i7 = column6.getColumnSize();
-        int i8 = column6.getDataType();
-        int i9 = column6.getDecimalDigits();
-        column6.setHasMultiplePK(true);
-        Boolean b12 = column6.isBestAttemptPk();
-        Relationship relationship13 = new Relationship();
-        Column column14 = relationship13.getPk();
-        Boolean b15 = relationship13.getDataTypeCategoryAgree();
-        Table table18 = new Table("", ",");
-        relationship13.setPkTable(table18);
-        column6.setDoppelganger(table18);
-        relationship0.setFkTable(table18);
-        Column column24 = new Column(",", "");
-        column24.setEstimatedRowCount((int) (byte) 0);
-        column24.setNullRatio(100.0d);
-        column24.setEstimatedRowCount(10);
-        Table[] table_array31 = new Table[] {};
-        ArrayList<Table> arraylist_table32 = new ArrayList<Table>();
-        boolean b33 = Collections.addAll(arraylist_table32, table_array31);
-        List<Table> list_table34 = Optimization.optimize(arraylist_table32);
-        Connection connection35 = null;
-        List<Table> list_table37 = Schema.getExpensiveFeatures(arraylist_table32, connection35, ",.");
-        double d38 = Accuracy.getPkPrecision(list_table37);
-        column24.setMinLDOtherTable(list_table37);
-        relationship0.setPk(column24);
-        Boolean b41 = relationship0.isTheSameColumn();
-        try {
-            String str44 = relationship0.toQuery(' ', 'a');
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertNull(b2);
-        Assert.assertTrue("'" + b3 + "' != '" + false + "'", b3.equals(false));
-        Assert.assertTrue(i7 == 0);
-        Assert.assertTrue(i8 == 0);
-        Assert.assertTrue(i9 == 0);
-        Assert.assertTrue("'" + b12 + "' != '" + false + "'", b12.equals(false));
-        Assert.assertNull(column14);
-        Assert.assertNull(b15);
-        Assert.assertNotNull(table_array31);
-        Assert.assertTrue(b33 == false);
-        Assert.assertNotNull(list_table34);
-        Assert.assertNotNull(list_table37);
-        Assert.assertEquals(d38, Double.NaN, 0);
-        Assert.assertNull(b41);
     }
 
     @Test
@@ -4637,7 +3783,7 @@ import java.util.Stack;
         table5.setLowerCaseTrimmedName("schema,table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey");
         table5.setColumnTokenWeight();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
     }
 
     @Test
@@ -4706,12 +3852,9 @@ import java.util.Stack;
         column7.setTrimmedName("");
         relationship0.setPk(column7);
         column7.setUniqueConstraint(true);
-        column7.setCorrelation(10.0d);
         Boolean b21 = column7.isKeywordSingleton();
         column7.setColumnSize((int) (short) 0);
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
-        Assert.assertNull(b21);
     }
 
     @Test
@@ -4782,7 +3925,7 @@ import java.util.Stack;
         Double d10 = column2.getUniqueRatio();
         String str11 = column2.getTrimmedName();
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
-        Assert.assertNull(b8);
+
         Assert.assertNull(d9);
         Assert.assertNull(d10);
         Assert.assertNull(str11);
@@ -4811,7 +3954,7 @@ import java.util.Stack;
         }
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertNull(d11);
         Assert.assertNull(d12);
@@ -4839,7 +3982,7 @@ import java.util.Stack;
         column13.setTrimmedName("hi!");
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue(i14 == 0);
         Assert.assertTrue(i15 == 0);
@@ -4870,7 +4013,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column11);
         Assert.assertNull(str12);
@@ -4895,7 +4038,7 @@ import java.util.Stack;
         } catch (IllegalStateException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertTrue("'" + str8 + "' != '" + "" + "'", str8.equals(""));
     }
@@ -4921,7 +4064,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
     }
 
@@ -4944,7 +4087,7 @@ import java.util.Stack;
         Assert.assertTrue(i4 == 0);
         Assert.assertTrue(i5 == 0);
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
+
         Assert.assertTrue("'" + str12 + "' != '" + "" + "'", str12.equals(""));
         Assert.assertNull(table15);
     }
@@ -4972,7 +4115,7 @@ import java.util.Stack;
         Assert.assertTrue(i5 == 0);
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNull(d17);
         Assert.assertNull(i18);
     }
@@ -5008,66 +4151,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + str4 + "' != '" + "," + "'", str4.equals(","));
         Assert.assertNotNull(list_column5);
         Assert.assertNull(column7);
-    }
-
-    @Test
-    public void test289() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test289");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        int i11 = column6.getDataType();
-        String str12 = column6.getTrimmedName();
-        Boolean b13 = column6.getTableContainsLob();
-        Table[] table_array14 = new Table[] {};
-        ArrayList<Table> arraylist_table15 = new ArrayList<Table>();
-        boolean b16 = Collections.addAll(arraylist_table15, table_array14);
-        List<Table> list_table17 = Optimization.optimize(arraylist_table15);
-        Connection connection18 = null;
-        List<Table> list_table20 = Schema.getExpensiveFeatures(arraylist_table15, connection18, "");
-        List<Table> list_table21 = Optimization.optimize(list_table20);
-        double d22 = Accuracy.getPkRecall(list_table21);
-        List<Table> list_table23 = Optimization.optimize(list_table21);
-        column6.setMinLDOtherTable(list_table21);
-        Table[] table_array25 = new Table[] {};
-        ArrayList<Table> arraylist_table26 = new ArrayList<Table>();
-        boolean b27 = Collections.addAll(arraylist_table26, table_array25);
-        List<Table> list_table28 = Optimization.optimize(arraylist_table26);
-        Connection connection29 = null;
-        List<Table> list_table31 = Schema.getExpensiveFeatures(arraylist_table26, connection29, ",.");
-        double d32 = Accuracy.getPkPrecision(list_table31);
-        List<Table> list_table33 = Optimization.optimize(list_table31);
-        double d34 = Accuracy.getPkRecall(list_table33);
-        column6.setMinLDOtherTable(list_table33);
-        Boolean b36 = column6.getContains();
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-        Assert.assertTrue(i11 == 0);
-        Assert.assertNull(str12);
-        Assert.assertNull(b13);
-        Assert.assertNotNull(table_array14);
-        Assert.assertTrue(b16 == false);
-        Assert.assertNotNull(list_table17);
-        Assert.assertNotNull(list_table20);
-        Assert.assertNotNull(list_table21);
-        Assert.assertEquals(d22, Double.NaN, 0);
-        Assert.assertNotNull(list_table23);
-        Assert.assertNotNull(table_array25);
-        Assert.assertTrue(b27 == false);
-        Assert.assertNotNull(list_table28);
-        Assert.assertNotNull(list_table31);
-        Assert.assertEquals(d32, Double.NaN, 0);
-        Assert.assertNotNull(list_table33);
-        Assert.assertEquals(d34, Double.NaN, 0);
-        Assert.assertNull(b36);
     }
 
     @Test
@@ -5130,7 +4213,7 @@ import java.util.Stack;
         Boolean b22 = column13.isBestAttemptPk();
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue(i14 == 0);
         Assert.assertTrue(i15 == 0);
@@ -5173,7 +4256,6 @@ import java.util.Stack;
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
         Table table9 = column2.getTable();
-        column2.setCorrelation(-1.0d);
         String str12 = column2.getDataTypeName();
         column2.setTableContainsLob(false);
         Boolean b15 = column2.getContains();
@@ -5184,7 +4266,7 @@ import java.util.Stack;
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(table9);
         Assert.assertNull(str12);
-        Assert.assertNull(b15);
+
     }
 
     @Test
@@ -5193,7 +4275,7 @@ import java.util.Stack;
             System.out.format("%n%s%n", "RegressionTest0.test297");
         Connection connection0 = null;
         try {
-            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, ",", "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
+            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, ",", "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey", Pattern.compile(""));
             Assert.fail("Expected exception of type java.lang.NullPointerException");
         } catch (NullPointerException e) {
         }
@@ -5215,37 +4297,10 @@ import java.util.Stack;
         table5.setLowerCaseTrimmedName("");
         table5.tableContainsLob();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column10);
         Assert.assertTrue("'" + str11 + "' != '" + "" + "'", str11.equals(""));
-    }
-
-    @Test
-    public void test299() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test299");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        String str5 = table2.getLowerCaseTrimmedName();
-        Table[] table_array6 = new Table[] {};
-        ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
-        boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
-        Connection connection10 = null;
-        List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
-        table2.isJunctionTable(list_table12);
-        List<Column> list_column14 = table2.getPk();
-        String str15 = table2.toFeature();
-        String str16 = table2.getLowerCaseTrimmedName();
-        Assert.assertNull(str5);
-        Assert.assertNotNull(table_array6);
-        Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table12);
-        Assert.assertNotNull(list_column14);
-        Assert.assertTrue("'" + str15 + "' != '" + "" + "'", str15.equals(""));
-        Assert.assertNull(str16);
     }
 
     @Test
@@ -5320,41 +4375,6 @@ import java.util.Stack;
     }
 
     @Test
-    public void test304() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test304");
-        Table[] table_array0 = new Table[] {};
-        ArrayList<Table> arraylist_table1 = new ArrayList<Table>();
-        boolean b2 = Collections.addAll(arraylist_table1, table_array0);
-        List<Table> list_table3 = Optimization.optimize(arraylist_table1);
-        Connection connection4 = null;
-        List<Table> list_table6 = Schema.getExpensiveFeatures(arraylist_table1, connection4, "");
-        List<Table> list_table7 = Optimization.optimize(arraylist_table1);
-        Connection connection8 = null;
-        List<Table> list_table10 = Schema.getExpensiveFeatures(list_table7, connection8, ",");
-        Connection connection11 = null;
-        List<Table> list_table13 = Schema.getExpensiveFeatures(list_table10, connection11, "null --> null");
-        double d14 = Accuracy.getPkRecall(list_table10);
-        double d15 = Accuracy.getPkPrecision(list_table10);
-        List<Table> list_table16 = Optimization.optimize(list_table10);
-        List<Table> list_table17 = Optimization.optimize(list_table10);
-        Connection connection18 = null;
-        List<Table> list_table20 = Schema.getExpensiveFeatures(list_table17, connection18, "\"");
-        Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
-        Assert.assertNotNull(list_table3);
-        Assert.assertNotNull(list_table6);
-        Assert.assertNotNull(list_table7);
-        Assert.assertNotNull(list_table10);
-        Assert.assertNotNull(list_table13);
-        Assert.assertEquals(d14, Double.NaN, 0);
-        Assert.assertEquals(d15, Double.NaN, 0);
-        Assert.assertNotNull(list_table16);
-        Assert.assertNotNull(list_table17);
-        Assert.assertNotNull(list_table20);
-    }
-
-    @Test
     public void test305() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test305");
@@ -5365,33 +4385,6 @@ import java.util.Stack;
         Assert.assertNull(d3);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
         Assert.assertTrue("'" + i5 + "' != '" + 0 + "'", i5.equals(0));
-    }
-
-    @Test
-    public void test306() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test306");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        String str5 = table2.getLowerCaseTrimmedName();
-        Table[] table_array6 = new Table[] {};
-        ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
-        boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
-        Connection connection10 = null;
-        List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
-        table2.isJunctionTable(list_table12);
-        List<Table> list_table14 = Optimization.optimize(list_table12);
-        double d15 = Accuracy.getPkRecall(list_table14);
-        List<Table> list_table16 = Optimization.optimize(list_table14);
-        Assert.assertNull(str5);
-        Assert.assertNotNull(table_array6);
-        Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table12);
-        Assert.assertNotNull(list_table14);
-        Assert.assertEquals(d15, Double.NaN, 0);
-        Assert.assertNotNull(list_table16);
     }
 
     @Test
@@ -5418,7 +4411,7 @@ import java.util.Stack;
         column6.setLowerCaseTrimmedName("null --> null");
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
     }
@@ -5490,7 +4483,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -5521,7 +4514,7 @@ import java.util.Stack;
         column14.setTokenizedLowerCaseTrimmedName(list_str25);
         table5.setTokenizedLowerCaseTrimmedName(list_str25);
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column11);
         Assert.assertTrue("'" + b17 + "' != '" + false + "'", b17.equals(false));
@@ -5573,7 +4566,7 @@ import java.util.Stack;
         String str15 = column2.getLowerCaseTrimmedName();
         column2.setEstimatedPk(false);
         Assert.assertNull(str7);
-        Assert.assertNull(b10);
+
         Assert.assertNull(d11);
         Assert.assertNull(str12);
         Assert.assertNull(str15);
@@ -5592,7 +4585,7 @@ import java.util.Stack;
         Boolean b11 = column2.isKeywordSingleton();
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b11);
+
     }
 
     @Test
@@ -5627,7 +4620,7 @@ import java.util.Stack;
         String str12 = column2.getLongName();
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b11);
+
         Assert.assertTrue("'" + str12 + "' != '" + ",." + "'", str12.equals(",."));
     }
 
@@ -5686,9 +4679,7 @@ import java.util.Stack;
         column15.setEstimatedPk(true);
         int i21 = column15.getDecimalDigits();
         Table table22 = column15.getTable();
-        column15.setCorrelation(-1.0d);
         String str25 = column15.getDataTypeName();
-        column15.setCorrelation(10.0d);
         Table table30 = new Table("", ",");
         table30.setTrimmedName("hi!");
         String str33 = table30.getLowerCaseTrimmedName();
@@ -5700,7 +4691,6 @@ import java.util.Stack;
         Boolean b39 = relationship0.isForeignKey();
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
         Assert.assertTrue("'" + b12 + "' != '" + false + "'", b12.equals(false));
@@ -5729,7 +4719,7 @@ import java.util.Stack;
         List<Column> list_column10 = table5.getBestAttemptPk();
         String str11 = table5.toProbability();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column10);
         Assert.assertTrue("'" + str11 + "' != '" + "" + "'", str11.equals(""));
@@ -5751,44 +4741,11 @@ import java.util.Stack;
         boolean b14 = Doppelganger.isDoppelganger(table5, column11);
         List<Column> list_column15 = table5.getEstimatedPk();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertTrue("'" + str8 + "' != '" + "" + "'", str8.equals(""));
         Assert.assertTrue(b14 == false);
         Assert.assertNotNull(list_column15);
-    }
-
-    @Test
-    public void test324() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test324");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        Boolean b11 = column6.isBestAttemptPk();
-        Table[] table_array12 = new Table[] {};
-        ArrayList<Table> arraylist_table13 = new ArrayList<Table>();
-        boolean b14 = Collections.addAll(arraylist_table13, table_array12);
-        List<Table> list_table15 = Optimization.optimize(arraylist_table13);
-        column6.setMinLDOtherTable(arraylist_table13);
-        column6.setKeywords();
-        column6.setDecimalDigits((int) 'a');
-        column6.setUniqueConstraint(true);
-        Integer i22 = column6.getLD();
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-        Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
-        Assert.assertNotNull(table_array12);
-        Assert.assertTrue(b14 == false);
-        Assert.assertNotNull(list_table15);
-        Assert.assertNull(i22);
     }
 
     @Test
@@ -5807,7 +4764,7 @@ import java.util.Stack;
         String str14 = column2.getLongName();
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
+
         Assert.assertNull(str13);
         Assert.assertTrue("'" + str14 + "' != '" + ",." + "'", str14.equals(",."));
     }
@@ -5831,7 +4788,7 @@ import java.util.Stack;
         column6.setPrimaryKey(false);
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertNull(d11);
         Assert.assertNull(d12);
@@ -5871,7 +4828,7 @@ import java.util.Stack;
         column2.setDoppelganger(table13);
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertNull(column9);
-        Assert.assertNull(b10);
+
         Assert.assertNotNull(list_column15);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
     }
@@ -5907,32 +4864,6 @@ import java.util.Stack;
     }
 
     @Test
-    public void test331() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test331");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        String str5 = table2.getLowerCaseTrimmedName();
-        Table[] table_array6 = new Table[] {};
-        ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
-        boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
-        Connection connection10 = null;
-        List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
-        table2.isJunctionTable(list_table12);
-        String str14 = table2.toString();
-        table2.hasMultiplePK();
-        table2.setColumnTokenWeight();
-        Assert.assertNull(str5);
-        Assert.assertNotNull(table_array6);
-        Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table12);
-        Assert.assertTrue("'" + str14 + "' != '" + "," + "'", str14.equals(","));
-    }
-
-
-    @Test
     public void test333() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test333");
@@ -5946,7 +4877,7 @@ import java.util.Stack;
         List<Column> list_column9 = table5.getPk();
         table5.setTrimmedName("\"");
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNull(str8);
         Assert.assertNotNull(list_column9);
@@ -5965,7 +4896,7 @@ import java.util.Stack;
         Relationship relationship8 = new Relationship(relationship0);
         Double d9 = relationship0.getForeignKeyProbability();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNull(str7);
         Assert.assertTrue("'" + d9 + "' != '" + 0.0d + "'", d9.equals(0.0d));
     }
@@ -5999,58 +4930,11 @@ import java.util.Stack;
         column11.setNullRatio(10.0d);
         Integer i17 = column11.getLD();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertTrue("'" + str8 + "' != '" + "" + "'", str8.equals(""));
         Assert.assertTrue(b14 == false);
         Assert.assertNull(i17);
-    }
-
-    @Test
-    public void test337() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test337");
-        Connection connection0 = null;
-        Table[] table_array3 = new Table[] {};
-        ArrayList<Table> arraylist_table4 = new ArrayList<Table>();
-        boolean b5 = Collections.addAll(arraylist_table4, table_array3);
-        List<Table> list_table6 = Optimization.optimize(arraylist_table4);
-        Connection connection7 = null;
-        List<Table> list_table9 = Schema.getExpensiveFeatures(arraylist_table4, connection7, "");
-        List<Table> list_table10 = Optimization.optimize(arraylist_table4);
-        Connection connection11 = null;
-        List<Table> list_table13 = Schema.getExpensiveFeatures(list_table10, connection11, ",");
-        Connection connection14 = null;
-        List<Table> list_table16 = Schema.getExpensiveFeatures(list_table13, connection14, "null --> null");
-        List<Relationship> list_relationship18 = Schema.getRelationships(connection0, "", "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey", list_table16, true);
-        List<CompoundRelationship> list_compoundRelationship19 = CompoundRelationship.buildFrom(list_relationship18);
-        double d20 = Accuracy.getFkPrecision(list_relationship18);
-        Table[] table_array21 = new Table[] {};
-        ArrayList<Table> arraylist_table22 = new ArrayList<Table>();
-        boolean b23 = Collections.addAll(arraylist_table22, table_array21);
-        List<Table> list_table24 = Optimization.optimize(arraylist_table22);
-        Connection connection25 = null;
-        List<Table> list_table27 = Schema.getExpensiveFeatures(arraylist_table22, connection25, "");
-        List<Table> list_table28 = Optimization.optimize(list_table27);
-        int i29 = OptimizationRelationship.optimize(list_relationship18, list_table28);
-        double d30 = Accuracy.getPkRecall(list_table28);
-        Assert.assertNotNull(table_array3);
-        Assert.assertTrue(b5 == false);
-        Assert.assertNotNull(list_table6);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table10);
-        Assert.assertNotNull(list_table13);
-        Assert.assertNotNull(list_table16);
-        Assert.assertNotNull(list_relationship18);
-        Assert.assertNotNull(list_compoundRelationship19);
-        Assert.assertEquals(d20, Double.NaN, 0);
-        Assert.assertNotNull(table_array21);
-        Assert.assertTrue(b23 == false);
-        Assert.assertNotNull(list_table24);
-        Assert.assertNotNull(list_table27);
-        Assert.assertNotNull(list_table28);
-        Assert.assertTrue(i29 == 0);
-        Assert.assertEquals(d30, Double.NaN, 0);
     }
 
     @Test
@@ -6097,7 +4981,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertNull(str10);
         Assert.assertTrue("'" + b16 + "' != '" + false + "'", b16.equals(false));
-        Assert.assertNull(b19);
         Assert.assertNull(d20);
         Assert.assertNull(d21);
         Assert.assertNotNull(d_array22);
@@ -6115,7 +4998,7 @@ import java.util.Stack;
         Boolean b9 = column2.getContains();
         Assert.assertTrue("'" + str7 + "' != '" + "" + "'", str7.equals(""));
         Assert.assertTrue("'" + str8 + "' != '" + "" + "'", str8.equals(""));
-        Assert.assertNull(b9);
+
     }
 
     @Test
@@ -6143,7 +5026,7 @@ import java.util.Stack;
         column2.setTextMax(",");
         column2.setDataTypeName(",");
         Boolean b9 = column2.hasMultiplePK();
-        Assert.assertNull(b9);
+
     }
 
     @Test
@@ -6156,8 +5039,8 @@ import java.util.Stack;
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Boolean b4 = relationship0.isForeignKey();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
-        Assert.assertNull(b3);
+
+
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
     }
 
@@ -6167,7 +5050,7 @@ import java.util.Stack;
             System.out.format("%n%s%n", "RegressionTest0.test344");
         Connection connection0 = null;
         try {
-            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey.null --> null", "table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey");
+            List<Table> list_table3 = Schema.getPrimaryKeys(connection0, "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey.null --> null", "table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey", Pattern.compile(""));
             Assert.fail("Expected exception of type java.lang.NullPointerException");
         } catch (NullPointerException e) {
         }
@@ -6204,87 +5087,6 @@ import java.util.Stack;
     }
 
     @Test
-    public void test347() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test347");
-        Relationship relationship0 = new Relationship();
-        Double d1 = relationship0.getForeignKeyProbability();
-        Table table4 = new Table("", ",");
-        table4.setTrimmedName("hi!");
-        String str7 = table4.getLowerCaseTrimmedName();
-        String str8 = table4.toProbability();
-        String str9 = table4.toFeature();
-        relationship0.setFkTable(table4);
-        String str11 = relationship0.getPkTableName();
-        Boolean b12 = relationship0.isEstimatedFk();
-        Table table15 = new Table("", ",");
-        table15.setTrimmedName("hi!");
-        String str18 = table15.getLowerCaseTrimmedName();
-        Table[] table_array19 = new Table[] {};
-        ArrayList<Table> arraylist_table20 = new ArrayList<Table>();
-        boolean b21 = Collections.addAll(arraylist_table20, table_array19);
-        List<Table> list_table22 = Optimization.optimize(arraylist_table20);
-        Connection connection23 = null;
-        List<Table> list_table25 = Schema.getExpensiveFeatures(arraylist_table20, connection23, "");
-        table15.isJunctionTable(list_table25);
-        String str27 = table15.toString();
-        table15.hasMultiplePK();
-        relationship0.setFkTable(table15);
-        try {
-            String str32 = relationship0.toQuery('#', 'a');
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertTrue("'" + d1 + "' != '" + 0.0d + "'", d1.equals(0.0d));
-        Assert.assertNull(str7);
-        Assert.assertTrue("'" + str8 + "' != '" + "" + "'", str8.equals(""));
-        Assert.assertTrue("'" + str9 + "' != '" + "" + "'", str9.equals(""));
-        Assert.assertNull(str11);
-        Assert.assertTrue("'" + b12 + "' != '" + false + "'", b12.equals(false));
-        Assert.assertNull(str18);
-        Assert.assertNotNull(table_array19);
-        Assert.assertTrue(b21 == false);
-        Assert.assertNotNull(list_table22);
-        Assert.assertNotNull(list_table25);
-        Assert.assertTrue("'" + str27 + "' != '" + "," + "'", str27.equals(","));
-    }
-
-    @Test
-    public void test348() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test348");
-        Connection connection0 = null;
-        Table[] table_array3 = new Table[] {};
-        ArrayList<Table> arraylist_table4 = new ArrayList<Table>();
-        boolean b5 = Collections.addAll(arraylist_table4, table_array3);
-        List<Table> list_table6 = Optimization.optimize(arraylist_table4);
-        Connection connection7 = null;
-        List<Table> list_table9 = Schema.getExpensiveFeatures(arraylist_table4, connection7, "");
-        List<Table> list_table10 = Optimization.optimize(arraylist_table4);
-        Connection connection11 = null;
-        List<Table> list_table13 = Schema.getExpensiveFeatures(list_table10, connection11, ",");
-        Connection connection14 = null;
-        List<Table> list_table16 = Schema.getExpensiveFeatures(list_table13, connection14, "null --> null");
-        List<Relationship> list_relationship18 = Schema.getRelationships(connection0, "", "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey", list_table16, true);
-        List<CompoundRelationship> list_compoundRelationship19 = CompoundRelationship.buildFrom(list_relationship18);
-        double d20 = Accuracy.getFkRecall(list_relationship18);
-        double d21 = Accuracy.getFkPrecision(list_relationship18);
-        List<CompoundRelationship> list_compoundRelationship22 = CompoundRelationship.buildFrom(list_relationship18);
-        Assert.assertNotNull(table_array3);
-        Assert.assertTrue(b5 == false);
-        Assert.assertNotNull(list_table6);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table10);
-        Assert.assertNotNull(list_table13);
-        Assert.assertNotNull(list_table16);
-        Assert.assertNotNull(list_relationship18);
-        Assert.assertNotNull(list_compoundRelationship19);
-        Assert.assertEquals(d20, Double.NaN, 0);
-        Assert.assertEquals(d21, Double.NaN, 0);
-        Assert.assertNotNull(list_compoundRelationship22);
-    }
-
-    @Test
     public void test349() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test349");
@@ -6306,35 +5108,6 @@ import java.util.Stack;
             System.out.format("%n%s%n", "RegressionTest0.test350");
         Column column2 = new Column("\"", "table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey");
         column2.setUniqueRatio(4.37d);
-    }
-
-    @Test
-    public void test351() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test351");
-        Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
-        List<String> list_str5 = column2.getTokenizedLowerCaseTrimmedName();
-        column2.setPrimaryKey(true);
-        Column column10 = new Column(",", "");
-        column10.setEstimatedRowCount((int) (byte) 0);
-        column10.setNullRatio(100.0d);
-        column10.setEstimatedRowCount(10);
-        Table[] table_array17 = new Table[] {};
-        ArrayList<Table> arraylist_table18 = new ArrayList<Table>();
-        boolean b19 = Collections.addAll(arraylist_table18, table_array17);
-        List<Table> list_table20 = Optimization.optimize(arraylist_table18);
-        Connection connection21 = null;
-        List<Table> list_table23 = Schema.getExpensiveFeatures(arraylist_table18, connection21, ",.");
-        double d24 = Accuracy.getPkPrecision(list_table23);
-        column10.setMinLDOtherTable(list_table23);
-        column2.setMinLDOtherTable(list_table23);
-        Assert.assertNotNull(list_str5);
-        Assert.assertNotNull(table_array17);
-        Assert.assertTrue(b19 == false);
-        Assert.assertNotNull(list_table20);
-        Assert.assertNotNull(list_table23);
-        Assert.assertEquals(d24, Double.NaN, 0);
     }
 
     @Test
@@ -6371,7 +5144,7 @@ import java.util.Stack;
         column6.setNullable(false);
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue(i13 == 0);
     }
@@ -6387,7 +5160,7 @@ import java.util.Stack;
         Boolean b5 = relationship0.isEstimatedFk();
         String str6 = relationship0.getSchema();
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
+
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertNull(str6);
     }
@@ -6458,7 +5231,6 @@ import java.util.Stack;
         column2.setEstimatedRowCount(10);
         Integer i9 = column2.getOrdinalPosition();
         Double d10 = column2.getValueMin();
-        Assert.assertNull(i9);
         Assert.assertNull(d10);
     }
 
@@ -6478,7 +5250,6 @@ import java.util.Stack;
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue(i4 == 0);
         Assert.assertTrue(i5 == 0);
-        Assert.assertNull(i8);
         Assert.assertNull(str9);
         Assert.assertTrue("'" + b10 + "' != '" + false + "'", b10.equals(false));
         Assert.assertNotNull(list_str11);
@@ -6529,44 +5300,9 @@ import java.util.Stack;
         Assert.assertTrue(i4 == 0);
         Assert.assertTrue(i5 == 0);
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
+
         Assert.assertTrue("'" + str12 + "' != '" + "" + "'", str12.equals(""));
         Assert.assertNull(d13);
-    }
-
-    @Test
-    public void test363() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test363");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        Boolean b11 = column6.isBestAttemptPk();
-        Table[] table_array12 = new Table[] {};
-        ArrayList<Table> arraylist_table13 = new ArrayList<Table>();
-        boolean b14 = Collections.addAll(arraylist_table13, table_array12);
-        List<Table> list_table15 = Optimization.optimize(arraylist_table13);
-        column6.setMinLDOtherTable(arraylist_table13);
-        List<Table> list_table17 = Optimization.optimize(arraylist_table13);
-        Connection connection18 = null;
-        List<Table> list_table20 = Schema.getExpensiveFeatures(list_table17, connection18, "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey.null --> null");
-        double d21 = Accuracy.getPkRecall(list_table17);
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-        Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
-        Assert.assertNotNull(table_array12);
-        Assert.assertTrue(b14 == false);
-        Assert.assertNotNull(list_table15);
-        Assert.assertNotNull(list_table17);
-        Assert.assertNotNull(list_table20);
-        Assert.assertEquals(d21, Double.NaN, 0);
     }
 
     @Test
@@ -6587,7 +5323,7 @@ import java.util.Stack;
         List<String> list_str19 = column7.getTokenizedName();
         Double d20 = column7.getNullRatio();
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_str19);
         Assert.assertNull(d20);
     }
@@ -6605,7 +5341,7 @@ import java.util.Stack;
         column2.setDecimalDigits(100);
         Table table12 = column2.getTable();
         Assert.assertNull(str7);
-        Assert.assertNull(b8);
+
         Assert.assertNull(str9);
         Assert.assertNull(table12);
     }
@@ -6679,7 +5415,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -6730,51 +5466,10 @@ import java.util.Stack;
         Assert.assertTrue("'" + b26 + "' != '" + false + "'", b26.equals(false));
         Assert.assertTrue(i29 == 0);
         Assert.assertNull(column31);
-        Assert.assertNull(b32);
         Assert.assertNotNull(list_column37);
         Assert.assertTrue("'" + str39 + "' != '" + "" + "'", str39.equals(""));
         Assert.assertTrue("'" + str40 + "' != '" + "" + "'", str40.equals(""));
         Assert.assertNotNull(d_array42);
-    }
-
-    @Test
-    public void test370() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test370");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        column6.setBestAttemptPk(false);
-        int i13 = column6.getColumnSize();
-        Table[] table_array14 = new Table[] {};
-        ArrayList<Table> arraylist_table15 = new ArrayList<Table>();
-        boolean b16 = Collections.addAll(arraylist_table15, table_array14);
-        List<Table> list_table17 = Optimization.optimize(arraylist_table15);
-        Connection connection18 = null;
-        List<Table> list_table20 = Schema.getExpensiveFeatures(arraylist_table15, connection18, "");
-        column6.setMinLDOtherTable(list_table20);
-        column6.setKeywordSingleton();
-        column6.setWidthAvg(4.37d);
-        Connection connection25 = null;
-        try {
-            column6.isNotNull(connection25, "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey.null --> null", ",");
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-        Assert.assertTrue(i13 == 0);
-        Assert.assertNotNull(table_array14);
-        Assert.assertTrue(b16 == false);
-        Assert.assertNotNull(list_table17);
-        Assert.assertNotNull(list_table20);
     }
 
     @Test
@@ -6821,7 +5516,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -6840,7 +5535,7 @@ import java.util.Stack;
         column2.setUniqueRatio(Double.NaN);
         column2.setEstimatedPk(false);
         Boolean b7 = column2.getTableContainsLob();
-        Assert.assertNull(b7);
+
     }
 
     @Test
@@ -6868,7 +5563,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b7 + "' != '" + false + "'", b7.equals(false));
         Assert.assertTrue(i10 == 0);
         Assert.assertNull(column12);
-        Assert.assertNull(b13);
+
         Assert.assertNotNull(list_column18);
         Assert.assertTrue("'" + str20 + "' != '" + "" + "'", str20.equals(""));
         Assert.assertTrue("'" + str21 + "' != '" + "" + "'", str21.equals(""));
@@ -6902,7 +5597,7 @@ import java.util.Stack;
         column2.setAutoincrement(false);
         column2.setTextMin(",");
         Boolean b7 = column2.getTableContainsLob();
-        Assert.assertNull(b7);
+
     }
 
     @Test
@@ -6915,7 +5610,6 @@ import java.util.Stack;
         column2.setEstimatedRowCount(10);
         Integer i9 = column2.getOrdinalPosition();
         column2.setOrdinalPositionEnd(10);
-        Assert.assertNull(i9);
     }
 
     @Test
@@ -6964,7 +5658,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -7034,7 +5728,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertTrue("'" + b3 + "' != '" + false + "'", b3.equals(false));
         Assert.assertTrue("'" + str4 + "' != '" + "null --> null" + "'", str4.equals("null --> null"));
     }
@@ -7071,7 +5765,7 @@ import java.util.Stack;
         String str15 = column2.getLowerCaseTrimmedName();
         column2.setEstimatedRowCount((int) (byte) -1);
         Assert.assertNull(str7);
-        Assert.assertNull(b10);
+
         Assert.assertNull(d11);
         Assert.assertNull(str12);
         Assert.assertNull(str15);
@@ -7114,60 +5808,10 @@ import java.util.Stack;
         table5.setTokenizedLowerCaseTrimmedName(list_str11);
         table5.tableContainsLob();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column10);
         Assert.assertNotNull(list_str11);
-    }
-
-    @Test
-    public void test388() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test388");
-        Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
-        Boolean b5 = column2.isBestAttemptPk();
-        String str6 = column2.getName();
-        Table[] table_array7 = new Table[] {};
-        ArrayList<Table> arraylist_table8 = new ArrayList<Table>();
-        boolean b9 = Collections.addAll(arraylist_table8, table_array7);
-        List<Table> list_table10 = Optimization.optimize(arraylist_table8);
-        column2.setMinLDOtherTable(arraylist_table8);
-        Integer i12 = column2.getRowCount();
-        int i13 = column2.getDataType();
-        String str14 = column2.getDoppelgangerName();
-        Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
-        Assert.assertTrue("'" + str6 + "' != '" + "" + "'", str6.equals(""));
-        Assert.assertNotNull(table_array7);
-        Assert.assertTrue(b9 == false);
-        Assert.assertNotNull(list_table10);
-        Assert.assertTrue("'" + i12 + "' != '" + 0 + "'", i12.equals(0));
-        Assert.assertTrue(i13 == 0);
-        Assert.assertNull(str14);
-    }
-
-    @Test
-    public void test389() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test389");
-        Table[] table_array0 = new Table[] {};
-        ArrayList<Table> arraylist_table1 = new ArrayList<Table>();
-        boolean b2 = Collections.addAll(arraylist_table1, table_array0);
-        List<Table> list_table3 = Optimization.optimize(arraylist_table1);
-        Connection connection4 = null;
-        List<Table> list_table6 = Schema.getExpensiveFeatures(arraylist_table1, connection4, "");
-        List<Table> list_table7 = Optimization.optimize(list_table6);
-        double d8 = Accuracy.getPkRecall(list_table7);
-        List<Table> list_table9 = Optimization.optimize(list_table7);
-        List<Table> list_table10 = Optimization.optimize(list_table7);
-        Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
-        Assert.assertNotNull(list_table3);
-        Assert.assertNotNull(list_table6);
-        Assert.assertNotNull(list_table7);
-        Assert.assertEquals(d8, Double.NaN, 0);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table10);
     }
 
     @Test
@@ -7190,7 +5834,7 @@ import java.util.Stack;
         String str10 = column2.getDataTypeName();
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
+
         Assert.assertNull(str10);
     }
 
@@ -7238,94 +5882,6 @@ import java.util.Stack;
     }
 
     @Test
-    public void test394() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test394");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        Boolean b11 = column6.isBestAttemptPk();
-        Table[] table_array12 = new Table[] {};
-        ArrayList<Table> arraylist_table13 = new ArrayList<Table>();
-        boolean b14 = Collections.addAll(arraylist_table13, table_array12);
-        List<Table> list_table15 = Optimization.optimize(arraylist_table13);
-        column6.setMinLDOtherTable(arraylist_table13);
-        String str17 = column6.getLowerCaseTrimmedName();
-        Boolean b18 = column6.isPrimaryKey();
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-        Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
-        Assert.assertNotNull(table_array12);
-        Assert.assertTrue(b14 == false);
-        Assert.assertNotNull(list_table15);
-        Assert.assertNull(str17);
-        Assert.assertTrue("'" + b18 + "' != '" + false + "'", b18.equals(false));
-    }
-
-    @Test
-    public void test395() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test395");
-        Connection connection0 = null;
-        Table[] table_array3 = new Table[] {};
-        ArrayList<Table> arraylist_table4 = new ArrayList<Table>();
-        boolean b5 = Collections.addAll(arraylist_table4, table_array3);
-        List<Table> list_table6 = Optimization.optimize(arraylist_table4);
-        Connection connection7 = null;
-        List<Table> list_table9 = Schema.getExpensiveFeatures(arraylist_table4, connection7, "");
-        List<Table> list_table10 = Optimization.optimize(arraylist_table4);
-        Connection connection11 = null;
-        List<Table> list_table13 = Schema.getExpensiveFeatures(list_table10, connection11, ",");
-        Connection connection14 = null;
-        List<Table> list_table16 = Schema.getExpensiveFeatures(list_table13, connection14, "null --> null");
-        List<Relationship> list_relationship18 = Schema.getRelationships(connection0, "", "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey", list_table16, true);
-        List<CompoundRelationship> list_compoundRelationship19 = CompoundRelationship.buildFrom(list_relationship18);
-        Table table22 = new Table("", ",");
-        table22.setTrimmedName("hi!");
-        String str25 = table22.getLowerCaseTrimmedName();
-        Table[] table_array26 = new Table[] {};
-        ArrayList<Table> arraylist_table27 = new ArrayList<Table>();
-        boolean b28 = Collections.addAll(arraylist_table27, table_array26);
-        List<Table> list_table29 = Optimization.optimize(arraylist_table27);
-        Connection connection30 = null;
-        List<Table> list_table32 = Schema.getExpensiveFeatures(arraylist_table27, connection30, "");
-        table22.isJunctionTable(list_table32);
-        List<Table> list_table34 = Optimization.optimize(list_table32);
-        int i35 = OptimizationRelationship.optimize(list_relationship18, list_table32);
-        Connection connection36 = null;
-        List<Table> list_table38 = Schema.getExpensiveFeatures(list_table32, connection36, "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey");
-        Connection connection39 = null;
-        List<Table> list_table41 = Schema.getExpensiveFeatures(list_table38, connection39, "table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey");
-        double d42 = Accuracy.getPkPrecision(list_table38);
-        Assert.assertNotNull(table_array3);
-        Assert.assertTrue(b5 == false);
-        Assert.assertNotNull(list_table6);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table10);
-        Assert.assertNotNull(list_table13);
-        Assert.assertNotNull(list_table16);
-        Assert.assertNotNull(list_relationship18);
-        Assert.assertNotNull(list_compoundRelationship19);
-        Assert.assertNull(str25);
-        Assert.assertNotNull(table_array26);
-        Assert.assertTrue(b28 == false);
-        Assert.assertNotNull(list_table29);
-        Assert.assertNotNull(list_table32);
-        Assert.assertNotNull(list_table34);
-        Assert.assertTrue(i35 == 0);
-        Assert.assertNotNull(list_table38);
-        Assert.assertNotNull(list_table41);
-        Assert.assertEquals(d42, Double.NaN, 0);
-    }
-
-    @Test
     public void test396() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test396");
@@ -7366,7 +5922,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -7410,14 +5966,12 @@ import java.util.Stack;
         relationship0.setSchema("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey.null --> null");
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
         Assert.assertNull(column6);
-        Assert.assertNull(b7);
+
         Assert.assertNotNull(list_column12);
         Assert.assertTrue("'" + str14 + "' != '" + "" + "'", str14.equals(""));
-        Assert.assertNull(b18);
-        Assert.assertNull(b19);
     }
 
     @Test
@@ -7443,83 +5997,9 @@ import java.util.Stack;
         table5.setColumnTokenWeight();
         List<String> list_str12 = table5.getTokenizedLowerCaseTrimmedName();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNull(list_str12);
-    }
-
-    @Test
-    public void test402() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test402");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        List<Column> list_column5 = table2.getColumnList();
-        String str6 = table2.toFeature();
-        String str7 = table2.toFeature();
-        Column column9 = table2.getColumn("hi!");
-        List<Column> list_column10 = table2.getBestAttemptPk();
-        Connection connection11 = null;
-        Table[] table_array14 = new Table[] {};
-        ArrayList<Table> arraylist_table15 = new ArrayList<Table>();
-        boolean b16 = Collections.addAll(arraylist_table15, table_array14);
-        List<Table> list_table17 = Optimization.optimize(arraylist_table15);
-        Connection connection18 = null;
-        List<Table> list_table20 = Schema.getExpensiveFeatures(arraylist_table15, connection18, "");
-        List<Table> list_table21 = Optimization.optimize(arraylist_table15);
-        List<Relationship> list_relationship23 = Schema.getRelationships(connection11, "\"", "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey", list_table21, false);
-        Column column26 = new Column(",", "");
-        column26.setEstimatedRowCount((int) (byte) 0);
-        Boolean b29 = column26.isBestAttemptPk();
-        column26.setEstimatedPk(true);
-        int i32 = column26.getDecimalDigits();
-        Relationship relationship33 = new Relationship();
-        Column column34 = relationship33.getPk();
-        Boolean b35 = relationship33.getDataTypeCategoryAgree();
-        Table table38 = new Table("", ",");
-        relationship33.setPkTable(table38);
-        List<Column> list_column40 = table38.getPk();
-        table38.setColumnTokenWeight();
-        String str42 = table38.toProbability();
-        String str43 = table38.toProbability();
-        column26.setDoppelganger(table38);
-        Table[] table_array45 = new Table[] {};
-        ArrayList<Table> arraylist_table46 = new ArrayList<Table>();
-        boolean b47 = Collections.addAll(arraylist_table46, table_array45);
-        List<Table> list_table48 = Optimization.optimize(arraylist_table46);
-        Connection connection49 = null;
-        List<Table> list_table51 = Schema.getExpensiveFeatures(arraylist_table46, connection49, "");
-        List<Table> list_table52 = Optimization.optimize(arraylist_table46);
-        Connection connection53 = null;
-        List<Table> list_table55 = Schema.getExpensiveFeatures(list_table52, connection53, ",");
-        table38.isJunctionTable(list_table52);
-        int i57 = OptimizationRelationship.optimize(list_relationship23, list_table52);
-        table2.isJunctionTable(list_table52);
-        Assert.assertNotNull(list_column5);
-        Assert.assertTrue("'" + str6 + "' != '" + "" + "'", str6.equals(""));
-        Assert.assertTrue("'" + str7 + "' != '" + "" + "'", str7.equals(""));
-        Assert.assertNull(column9);
-        Assert.assertNotNull(list_column10);
-        Assert.assertNotNull(table_array14);
-        Assert.assertTrue(b16 == false);
-        Assert.assertNotNull(list_table17);
-        Assert.assertNotNull(list_table20);
-        Assert.assertNotNull(list_table21);
-        Assert.assertNotNull(list_relationship23);
-        Assert.assertTrue("'" + b29 + "' != '" + false + "'", b29.equals(false));
-        Assert.assertTrue(i32 == 0);
-        Assert.assertNull(column34);
-        Assert.assertNull(b35);
-        Assert.assertNotNull(list_column40);
-        Assert.assertTrue("'" + str42 + "' != '" + "" + "'", str42.equals(""));
-        Assert.assertTrue("'" + str43 + "' != '" + "" + "'", str43.equals(""));
-        Assert.assertNotNull(table_array45);
-        Assert.assertTrue(b47 == false);
-        Assert.assertNotNull(list_table48);
-        Assert.assertNotNull(list_table51);
-        Assert.assertNotNull(list_table52);
-        Assert.assertNotNull(list_table55);
-        Assert.assertTrue(i57 == 0);
     }
 
     @Test
@@ -7555,7 +6035,7 @@ import java.util.Stack;
         column7.setUniqueRatio(0.0d);
         List<String> list_str23 = column7.getTokenizedLowerCaseTrimmedName();
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_str23);
     }
 
@@ -7591,7 +6071,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + b13 + "' != '" + false + "'", b13.equals(false));
         Assert.assertTrue(i16 == 0);
         Assert.assertNull(column18);
-        Assert.assertNull(b19);
         Assert.assertNotNull(list_column24);
         Assert.assertTrue("'" + str26 + "' != '" + "" + "'", str26.equals(""));
         Assert.assertTrue("'" + str27 + "' != '" + "" + "'", str27.equals(""));
@@ -7621,7 +6100,7 @@ import java.util.Stack;
         String str25 = table21.getName();
         Assert.assertNull(column3);
         Assert.assertNull(str4);
-        Assert.assertNull(b5);
+
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
         Assert.assertTrue(i16 == 0);
         Assert.assertTrue(i17 == 0);
@@ -7645,7 +6124,7 @@ import java.util.Stack;
         column2.setHasDefault(true);
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
+
     }
 
     @Test
@@ -7664,7 +6143,7 @@ import java.util.Stack;
         List<String> list_str16 = column2.getTokenizedName();
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b9);
+
         Assert.assertNotNull(list_str16);
     }
 
@@ -7713,7 +6192,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b2 + "' != '" + false + "'", b2.equals(false));
         Assert.assertNull(str3);
         Assert.assertNull(str5);
-        Assert.assertNull(b6);
+
     }
 
     @Test
@@ -7739,12 +6218,12 @@ import java.util.Stack;
         Assert.assertTrue("'" + b2 + "' != '" + false + "'", b2.equals(false));
         Assert.assertNull(str3);
         Assert.assertNull(str5);
-        Assert.assertNull(b6);
+
         Assert.assertNull(column8);
-        Assert.assertNull(b9);
+
         Assert.assertTrue("'" + b10 + "' != '" + false + "'", b10.equals(false));
         Assert.assertTrue("'" + str11 + "' != '" + "null --> null" + "'", str11.equals("null --> null"));
-        Assert.assertNull(b12);
+
         Assert.assertTrue("'" + d13 + "' != '" + 0.0d + "'", d13.equals(0.0d));
         Assert.assertTrue(i14 == 0);
     }
@@ -7766,9 +6245,7 @@ import java.util.Stack;
         String str17 = relationship0.getFkTableName();
         Boolean b18 = relationship0.isTheSameColumn();
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
         Assert.assertNull(str17);
-        Assert.assertNull(b18);
     }
 
     @Test
@@ -7815,116 +6292,6 @@ import java.util.Stack;
         column2.setEstimatedPk(false);
         column2.setNullable(true);
         Assert.assertTrue("'" + str7 + "' != '" + "" + "'", str7.equals(""));
-    }
-
-    @Test
-    public void test416() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test416");
-        Connection connection0 = null;
-        Connection connection3 = null;
-        Table[] table_array6 = new Table[] {};
-        ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
-        boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
-        Connection connection10 = null;
-        List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
-        List<Table> list_table13 = Optimization.optimize(arraylist_table7);
-        Connection connection14 = null;
-        List<Table> list_table16 = Schema.getExpensiveFeatures(list_table13, connection14, ",");
-        Connection connection17 = null;
-        List<Table> list_table19 = Schema.getExpensiveFeatures(list_table16, connection17, "null --> null");
-        List<Relationship> list_relationship21 = Schema.getRelationships(connection3, "", "tablenull --> nullcolumnnull --> nulldataTypeNamenull --> nullisUniquenull --> nullisUniqueConstraintnull --> nullcolumnSizenull --> nulldecimalDigitsnull --> nullisDecimalnull --> nullhasDefaultnull --> nullordinalPositionnull --> nullordinalPositionEndnull --> nulltableColumnCountnull --> nulltableContainsLobnull --> nullestimatedRowCountnull --> nullisAutoincrementnull --> nullisNotNullnull --> nullnullRationull --> nullisNullablenull --> nulluniqueRationull --> nullminValuenull --> nullmaxValuenull --> nullavgWidthnull --> nullavgWidthBigger10null --> nullcorrelationAbsnull --> nullisKeywordSingletonnull --> nullisJunctionTablenull --> nullhasMultiplePKnull --> nulllevenshteinDistancenull --> nullminLDOtherTablenull --> nullisDoppelgangernull --> nullcontainsnull --> nullisPrimaryKey", list_table19, true);
-        List<CompoundRelationship> list_compoundRelationship22 = CompoundRelationship.buildFrom(list_relationship21);
-        double d23 = Accuracy.getFkPrecision(list_relationship21);
-        Table[] table_array24 = new Table[] {};
-        ArrayList<Table> arraylist_table25 = new ArrayList<Table>();
-        boolean b26 = Collections.addAll(arraylist_table25, table_array24);
-        List<Table> list_table27 = Optimization.optimize(arraylist_table25);
-        Connection connection28 = null;
-        List<Table> list_table30 = Schema.getExpensiveFeatures(arraylist_table25, connection28, "");
-        List<Table> list_table31 = Optimization.optimize(list_table30);
-        int i32 = OptimizationRelationship.optimize(list_relationship21, list_table31);
-        Table table35 = new Table("", ",");
-        table35.setTrimmedName("hi!");
-        String str38 = table35.getLowerCaseTrimmedName();
-        List<Column> list_column39 = table35.getEstimatedPk();
-        table35.setLowerCaseTrimmedName("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
-        String str42 = table35.getLowerCaseTrimmedName();
-        Relationship relationship43 = new Relationship();
-        Column column44 = relationship43.getPk();
-        String str45 = relationship43.getSchema();
-        Boolean b46 = relationship43.getDataTypeCategoryAgree();
-        Column column49 = new Column(",", "");
-        column49.setEstimatedRowCount((int) (byte) 0);
-        Boolean b52 = column49.isBestAttemptPk();
-        relationship43.setPk(column49);
-        Boolean b54 = column49.isBestAttemptPk();
-        Table[] table_array55 = new Table[] {};
-        ArrayList<Table> arraylist_table56 = new ArrayList<Table>();
-        boolean b57 = Collections.addAll(arraylist_table56, table_array55);
-        List<Table> list_table58 = Optimization.optimize(arraylist_table56);
-        column49.setMinLDOtherTable(arraylist_table56);
-        table35.isJunctionTable(arraylist_table56);
-        int i61 = OptimizationRelationship.optimize(list_relationship21, arraylist_table56);
-        Table[] table_array62 = new Table[] {};
-        ArrayList<Table> arraylist_table63 = new ArrayList<Table>();
-        boolean b64 = Collections.addAll(arraylist_table63, table_array62);
-        List<Table> list_table65 = Optimization.optimize(arraylist_table63);
-        Connection connection66 = null;
-        List<Table> list_table68 = Schema.getExpensiveFeatures(arraylist_table63, connection66, "");
-        List<Table> list_table69 = Optimization.optimize(arraylist_table63);
-        Connection connection70 = null;
-        List<Table> list_table72 = Schema.getExpensiveFeatures(list_table69, connection70, ",");
-        Connection connection73 = null;
-        List<Table> list_table75 = Schema.getExpensiveFeatures(list_table72, connection73, "null --> null");
-        double d76 = Accuracy.getPkRecall(list_table72);
-        double d77 = Accuracy.getPkPrecision(list_table72);
-        List<Table> list_table78 = Optimization.optimize(list_table72);
-        int i79 = OptimizationRelationship.optimize(list_relationship21, list_table78);
-        List<Relationship> list_relationship81 = Schema.getRelationships(connection0, "null --> null", ",.", list_table78, true);
-        double d82 = Accuracy.getFkPrecision(list_relationship81);
-        Assert.assertNotNull(table_array6);
-        Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table12);
-        Assert.assertNotNull(list_table13);
-        Assert.assertNotNull(list_table16);
-        Assert.assertNotNull(list_table19);
-        Assert.assertNotNull(list_relationship21);
-        Assert.assertNotNull(list_compoundRelationship22);
-        Assert.assertEquals(d23, Double.NaN, 0);
-        Assert.assertNotNull(table_array24);
-        Assert.assertTrue(b26 == false);
-        Assert.assertNotNull(list_table27);
-        Assert.assertNotNull(list_table30);
-        Assert.assertNotNull(list_table31);
-        Assert.assertTrue(i32 == 0);
-        Assert.assertNull(str38);
-        Assert.assertNotNull(list_column39);
-        Assert.assertTrue("'" + str42 + "' != '" + "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey" + "'", str42.equals("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey"));
-        Assert.assertNull(column44);
-        Assert.assertNull(str45);
-        Assert.assertNull(b46);
-        Assert.assertTrue("'" + b52 + "' != '" + false + "'", b52.equals(false));
-        Assert.assertTrue("'" + b54 + "' != '" + false + "'", b54.equals(false));
-        Assert.assertNotNull(table_array55);
-        Assert.assertTrue(b57 == false);
-        Assert.assertNotNull(list_table58);
-        Assert.assertTrue(i61 == 0);
-        Assert.assertNotNull(table_array62);
-        Assert.assertTrue(b64 == false);
-        Assert.assertNotNull(list_table65);
-        Assert.assertNotNull(list_table68);
-        Assert.assertNotNull(list_table69);
-        Assert.assertNotNull(list_table72);
-        Assert.assertNotNull(list_table75);
-        Assert.assertEquals(d76, Double.NaN, 0);
-        Assert.assertEquals(d77, Double.NaN, 0);
-        Assert.assertNotNull(list_table78);
-        Assert.assertTrue(i79 == 0);
-        Assert.assertNotNull(list_relationship81);
-        Assert.assertEquals(d82, Double.NaN, 0);
     }
 
     @Test
@@ -7984,47 +6351,11 @@ import java.util.Stack;
         Column column20 = relationship0.getPk();
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
         Assert.assertNull(column6);
-        Assert.assertNull(b7);
         Assert.assertNotNull(list_column12);
         Assert.assertTrue("'" + str14 + "' != '" + "" + "'", str14.equals(""));
-        Assert.assertNull(b18);
-        Assert.assertNull(b19);
         Assert.assertNull(column20);
-    }
-
-    @Test
-    public void test420() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test420");
-        Column column2 = new Column(",", "");
-        column2.setAutoincrement(false);
-        column2.setTextMax(",");
-        String str7 = column2.getLongName();
-        double[] d_array8 = column2.getHistogramBounds();
-        Table[] table_array9 = new Table[] {};
-        ArrayList<Table> arraylist_table10 = new ArrayList<Table>();
-        boolean b11 = Collections.addAll(arraylist_table10, table_array9);
-        List<Table> list_table12 = Optimization.optimize(arraylist_table10);
-        Connection connection13 = null;
-        List<Table> list_table15 = Schema.getExpensiveFeatures(arraylist_table10, connection13, "");
-        List<Table> list_table16 = Optimization.optimize(list_table15);
-        Connection connection17 = null;
-        List<Table> list_table19 = Schema.getExpensiveFeatures(list_table15, connection17, "hi!");
-        Connection connection20 = null;
-        List<Table> list_table22 = Schema.getExpensiveFeatures(list_table19, connection20, "table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey");
-        column2.setMinLDOtherTable(list_table22);
-        Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
-        Assert.assertNull(d_array8);
-        Assert.assertNotNull(table_array9);
-        Assert.assertTrue(b11 == false);
-        Assert.assertNotNull(list_table12);
-        Assert.assertNotNull(list_table15);
-        Assert.assertNotNull(list_table16);
-        Assert.assertNotNull(list_table19);
-        Assert.assertNotNull(list_table22);
     }
 
     @Test
@@ -8061,7 +6392,7 @@ import java.util.Stack;
         String str12 = table5.getTrimmedName();
         String str13 = table5.getLowerCaseTrimmedName();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column10);
         Assert.assertTrue("'" + str11 + "' != '" + "" + "'", str11.equals(""));
@@ -8113,7 +6444,7 @@ import java.util.Stack;
         column6.setEstimatedRowCount((int) (short) 0);
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertNull(d11);
         Assert.assertNull(d12);
@@ -8180,11 +6511,8 @@ import java.util.Stack;
         Boolean b15 = column6.isKeywordSingleton();
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
-        Assert.assertNull(i14);
-        Assert.assertNull(b15);
     }
 
     @Test
@@ -8250,7 +6578,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -8293,7 +6621,7 @@ import java.util.Stack;
         Boolean b11 = column6.isDoppelganger();
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
     }
@@ -8325,38 +6653,12 @@ import java.util.Stack;
         Boolean b27 = relationship0.isTheSameColumn();
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
         Assert.assertNull(str4);
         Assert.assertTrue(i8 == 0);
         Assert.assertTrue(i9 == 0);
         Assert.assertTrue(i10 == 0);
         Assert.assertTrue("'" + b13 + "' != '" + false + "'", b13.equals(false));
         Assert.assertNull(column15);
-        Assert.assertNull(b16);
-        Assert.assertNull(b27);
-    }
-
-    @Test
-    public void test435() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test435");
-        Table table2 = new Table("", ",");
-        table2.setTrimmedName("hi!");
-        String str5 = table2.getLowerCaseTrimmedName();
-        Table[] table_array6 = new Table[] {};
-        ArrayList<Table> arraylist_table7 = new ArrayList<Table>();
-        boolean b8 = Collections.addAll(arraylist_table7, table_array6);
-        List<Table> list_table9 = Optimization.optimize(arraylist_table7);
-        Connection connection10 = null;
-        List<Table> list_table12 = Schema.getExpensiveFeatures(arraylist_table7, connection10, "");
-        table2.isJunctionTable(list_table12);
-        List<Column> list_column14 = table2.getColumnList();
-        Assert.assertNull(str5);
-        Assert.assertNotNull(table_array6);
-        Assert.assertTrue(b8 == false);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table12);
-        Assert.assertNotNull(list_column14);
     }
 
     @Test
@@ -8406,7 +6708,7 @@ import java.util.Stack;
         String str13 = column6.getName();
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
+
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertNull(d11);
         Assert.assertNull(d12);
@@ -8425,7 +6727,6 @@ import java.util.Stack;
         column2.setNullRatio(5.859999999999999d);
         Integer i11 = column2.getOrdinalPosition();
         Assert.assertNull(str8);
-        Assert.assertNull(i11);
     }
 
     @Test
@@ -8458,7 +6759,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -8503,7 +6804,7 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
+
         Assert.assertNull(str3);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
     }
@@ -8569,7 +6870,7 @@ import java.util.Stack;
         column2.setDataType(10);
         column2.setUniqueRatio(-1.5000000000000004d);
         Assert.assertNull(str7);
-        Assert.assertNull(b10);
+
         Assert.assertNull(i11);
     }
 
@@ -8603,63 +6904,8 @@ import java.util.Stack;
         Boolean b10 = column2.getContains();
         int i11 = column2.getColumnSize();
         Assert.assertNull(str7);
-        Assert.assertNull(b10);
+
         Assert.assertTrue(i11 == 0);
-    }
-
-    @Test
-    public void test449() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test449");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        Boolean b11 = column6.isBestAttemptPk();
-        Table[] table_array12 = new Table[] {};
-        ArrayList<Table> arraylist_table13 = new ArrayList<Table>();
-        boolean b14 = Collections.addAll(arraylist_table13, table_array12);
-        List<Table> list_table15 = Optimization.optimize(arraylist_table13);
-        column6.setMinLDOtherTable(arraylist_table13);
-        column6.setKeywords();
-        column6.setDecimalDigits((int) 'a');
-        column6.setUniqueConstraint(true);
-        Connection connection22 = null;
-        try {
-            column6.isUnique(connection22, "table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey", "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey.null --> null");
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-        Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
-        Assert.assertNotNull(table_array12);
-        Assert.assertTrue(b14 == false);
-        Assert.assertNotNull(list_table15);
-    }
-
-    @Test
-    public void test450() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test450");
-        Table[] table_array0 = new Table[] {};
-        ArrayList<Table> arraylist_table1 = new ArrayList<Table>();
-        boolean b2 = Collections.addAll(arraylist_table1, table_array0);
-        List<Table> list_table3 = Optimization.optimize(arraylist_table1);
-        double d4 = Accuracy.getPkPrecision(arraylist_table1);
-        Connection connection5 = null;
-        List<Table> list_table7 = Schema.getExpensiveFeatures(arraylist_table1, connection5, "hi!");
-        Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
-        Assert.assertNotNull(list_table3);
-        Assert.assertEquals(d4, Double.NaN, 0);
-        Assert.assertNotNull(list_table7);
     }
 
     @Test
@@ -8728,7 +6974,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue(i12 == 0);
         Assert.assertNull(column14);
-        Assert.assertNull(b15);
+
         Assert.assertNotNull(list_column20);
         Assert.assertTrue("'" + str22 + "' != '" + "" + "'", str22.equals(""));
         Assert.assertTrue("'" + str23 + "' != '" + "" + "'", str23.equals(""));
@@ -8770,7 +7016,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -8825,69 +7071,6 @@ import java.util.Stack;
     }
 
     @Test
-    public void test458() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test458");
-        Connection connection0 = null;
-        Table[] table_array3 = new Table[] {};
-        ArrayList<Table> arraylist_table4 = new ArrayList<Table>();
-        boolean b5 = Collections.addAll(arraylist_table4, table_array3);
-        List<Table> list_table6 = Optimization.optimize(arraylist_table4);
-        Connection connection7 = null;
-        List<Table> list_table9 = Schema.getExpensiveFeatures(arraylist_table4, connection7, "");
-        List<Table> list_table10 = Optimization.optimize(arraylist_table4);
-        List<Relationship> list_relationship12 = Schema.getRelationships(connection0, "\"", "schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey", list_table10, false);
-        Column column15 = new Column(",", "");
-        column15.setEstimatedRowCount((int) (byte) 0);
-        Boolean b18 = column15.isBestAttemptPk();
-        column15.setEstimatedPk(true);
-        int i21 = column15.getDecimalDigits();
-        Relationship relationship22 = new Relationship();
-        Column column23 = relationship22.getPk();
-        Boolean b24 = relationship22.getDataTypeCategoryAgree();
-        Table table27 = new Table("", ",");
-        relationship22.setPkTable(table27);
-        List<Column> list_column29 = table27.getPk();
-        table27.setColumnTokenWeight();
-        String str31 = table27.toProbability();
-        String str32 = table27.toProbability();
-        column15.setDoppelganger(table27);
-        Table[] table_array34 = new Table[] {};
-        ArrayList<Table> arraylist_table35 = new ArrayList<Table>();
-        boolean b36 = Collections.addAll(arraylist_table35, table_array34);
-        List<Table> list_table37 = Optimization.optimize(arraylist_table35);
-        Connection connection38 = null;
-        List<Table> list_table40 = Schema.getExpensiveFeatures(arraylist_table35, connection38, "");
-        List<Table> list_table41 = Optimization.optimize(arraylist_table35);
-        Connection connection42 = null;
-        List<Table> list_table44 = Schema.getExpensiveFeatures(list_table41, connection42, ",");
-        table27.isJunctionTable(list_table41);
-        int i46 = OptimizationRelationship.optimize(list_relationship12, list_table41);
-        double d47 = Accuracy.getFkRecall(list_relationship12);
-        Assert.assertNotNull(table_array3);
-        Assert.assertTrue(b5 == false);
-        Assert.assertNotNull(list_table6);
-        Assert.assertNotNull(list_table9);
-        Assert.assertNotNull(list_table10);
-        Assert.assertNotNull(list_relationship12);
-        Assert.assertTrue("'" + b18 + "' != '" + false + "'", b18.equals(false));
-        Assert.assertTrue(i21 == 0);
-        Assert.assertNull(column23);
-        Assert.assertNull(b24);
-        Assert.assertNotNull(list_column29);
-        Assert.assertTrue("'" + str31 + "' != '" + "" + "'", str31.equals(""));
-        Assert.assertTrue("'" + str32 + "' != '" + "" + "'", str32.equals(""));
-        Assert.assertNotNull(table_array34);
-        Assert.assertTrue(b36 == false);
-        Assert.assertNotNull(list_table37);
-        Assert.assertNotNull(list_table40);
-        Assert.assertNotNull(list_table41);
-        Assert.assertNotNull(list_table44);
-        Assert.assertTrue(i46 == 0);
-        Assert.assertEquals(d47, Double.NaN, 0);
-    }
-
-    @Test
     public void test459() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test459");
@@ -8930,7 +7113,7 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
+
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -8970,47 +7153,12 @@ import java.util.Stack;
         relationship0.setPk(column16);
         Boolean b21 = relationship0.getDataTypeCategoryAgree();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertNull(str3);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
         Assert.assertNull(column6);
-        Assert.assertNull(b7);
         Assert.assertNotNull(list_column12);
         Assert.assertTrue("'" + str13 + "' != '" + "" + "'", str13.equals(""));
         Assert.assertTrue(b19 == false);
-        Assert.assertNull(b21);
-    }
-
-    @Test
-    public void test463() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test463");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        Boolean b11 = column6.isBestAttemptPk();
-        Table[] table_array12 = new Table[] {};
-        ArrayList<Table> arraylist_table13 = new ArrayList<Table>();
-        boolean b14 = Collections.addAll(arraylist_table13, table_array12);
-        List<Table> list_table15 = Optimization.optimize(arraylist_table13);
-        column6.setMinLDOtherTable(arraylist_table13);
-        column6.setKeywords();
-        column6.setDecimalDigits((int) 'a');
-        int i20 = column6.getColumnSize();
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertNull(b3);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-        Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
-        Assert.assertNotNull(table_array12);
-        Assert.assertTrue(b14 == false);
-        Assert.assertNotNull(list_table15);
-        Assert.assertTrue(i20 == 0);
     }
 
     @Test
@@ -9023,7 +7171,6 @@ import java.util.Stack;
         column2.setEstimatedRowCount(10);
         Integer i9 = column2.getOrdinalPosition();
         column2.setUniqueConstraint(true);
-        Assert.assertNull(i9);
     }
 
     @Test
@@ -9037,8 +7184,6 @@ import java.util.Stack;
         Boolean b5 = relationship0.getDataTypeCategoryAgree();
         Relationship relationship6 = new Relationship(relationship0);
         Assert.assertNull(str1);
-        Assert.assertNull(b2);
-        Assert.assertNull(b5);
     }
 
     @Test
@@ -9065,7 +7210,6 @@ import java.util.Stack;
         relationship0.setPk(column24);
         Assert.assertNull(column1);
         Assert.assertNull(str2);
-        Assert.assertNull(b3);
         Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
         Assert.assertTrue("'" + b11 + "' != '" + false + "'", b11.equals(false));
         Assert.assertTrue("'" + b12 + "' != '" + false + "'", b12.equals(false));
@@ -9073,42 +7217,6 @@ import java.util.Stack;
         Assert.assertNull(str14);
         Assert.assertNull(str22);
         Assert.assertNotNull(list_column23);
-    }
-
-    @Test
-    public void test467() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test467");
-        Table table4 = new Table("", ",");
-        List<String> list_str5 = table4.getTokenizedLowerCaseTrimmedName();
-        String str6 = table4.toString();
-        List<Column> list_column7 = table4.getBestAttemptPk();
-        Column column9 = table4.getColumn("table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey");
-        Column column10 = new Column("null --> null", "hi!", table4);
-        table4.setColumnTokenWeight();
-        Table[] table_array12 = new Table[] {};
-        ArrayList<Table> arraylist_table13 = new ArrayList<Table>();
-        boolean b14 = Collections.addAll(arraylist_table13, table_array12);
-        List<Table> list_table15 = Optimization.optimize(arraylist_table13);
-        Connection connection16 = null;
-        List<Table> list_table18 = Schema.getExpensiveFeatures(arraylist_table13, connection16, "");
-        List<Table> list_table19 = Optimization.optimize(arraylist_table13);
-        Connection connection20 = null;
-        List<Table> list_table22 = Schema.getExpensiveFeatures(list_table19, connection20, ",");
-        double d23 = Accuracy.getPkRecall(list_table19);
-        table4.isJunctionTable(list_table19);
-        table4.setTrimmedName("");
-        Assert.assertNull(list_str5);
-        Assert.assertTrue("'" + str6 + "' != '" + "," + "'", str6.equals(","));
-        Assert.assertNotNull(list_column7);
-        Assert.assertNull(column9);
-        Assert.assertNotNull(table_array12);
-        Assert.assertTrue(b14 == false);
-        Assert.assertNotNull(list_table15);
-        Assert.assertNotNull(list_table18);
-        Assert.assertNotNull(list_table19);
-        Assert.assertNotNull(list_table22);
-        Assert.assertEquals(d23, Double.NaN, 0);
     }
 
     @Test
@@ -9148,7 +7256,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + b20 + "' != '" + false + "'", b20.equals(false));
         Assert.assertTrue(i23 == 0);
         Assert.assertNull(column25);
-        Assert.assertNull(b26);
         Assert.assertNotNull(list_column31);
         Assert.assertTrue("'" + str33 + "' != '" + "" + "'", str33.equals(""));
         Assert.assertTrue("'" + str34 + "' != '" + "" + "'", str34.equals(""));
@@ -9225,7 +7332,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -9247,7 +7353,6 @@ import java.util.Stack;
         String str12 = column2.getTrimmedName();
         column2.setOrdinalPosition((int) '#');
         Assert.assertNull(str7);
-        Assert.assertNull(b10);
         Assert.assertNull(d11);
         Assert.assertNull(str12);
     }
@@ -9308,52 +7413,6 @@ import java.util.Stack;
     }
 
     @Test
-    public void test477() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test477");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        Boolean b2 = relationship0.getDataTypeCategoryAgree();
-        Table table5 = new Table("", ",");
-        relationship0.setPkTable(table5);
-        List<Column> list_column7 = table5.getPk();
-        table5.setLowerCaseTrimmedName("");
-        List<Column> list_column10 = table5.getBestAttemptPk();
-        List<Column> list_column11 = table5.getBestAttemptPk();
-        Column column14 = new Column(",", "");
-        column14.setEstimatedRowCount((int) (byte) 0);
-        column14.setNullRatio(100.0d);
-        String str19 = column14.getLongName();
-        Boolean b20 = column14.isPrimaryKey();
-        int i21 = column14.getDataType();
-        column14.setNullRatio(0.0d);
-        Table[] table_array24 = new Table[] {};
-        ArrayList<Table> arraylist_table25 = new ArrayList<Table>();
-        boolean b26 = Collections.addAll(arraylist_table25, table_array24);
-        List<Table> list_table27 = Optimization.optimize(arraylist_table25);
-        Connection connection28 = null;
-        List<Table> list_table30 = Schema.getExpensiveFeatures(arraylist_table25, connection28, ",.");
-        double d31 = Accuracy.getPkPrecision(list_table30);
-        column14.setMinLDOtherTable(list_table30);
-        List<String> list_str33 = column14.getTokenizedName();
-        table5.setTokenizedLowerCaseTrimmedName(list_str33);
-        Assert.assertNull(column1);
-        Assert.assertNull(b2);
-        Assert.assertNotNull(list_column7);
-        Assert.assertNotNull(list_column10);
-        Assert.assertNotNull(list_column11);
-        Assert.assertTrue("'" + str19 + "' != '" + ",." + "'", str19.equals(",."));
-        Assert.assertTrue("'" + b20 + "' != '" + false + "'", b20.equals(false));
-        Assert.assertTrue(i21 == 0);
-        Assert.assertNotNull(table_array24);
-        Assert.assertTrue(b26 == false);
-        Assert.assertNotNull(list_table27);
-        Assert.assertNotNull(list_table30);
-        Assert.assertEquals(d31, Double.NaN, 0);
-        Assert.assertNotNull(list_str33);
-    }
-
-    @Test
     public void test478() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test478");
@@ -9376,7 +7435,6 @@ import java.util.Stack;
         boolean b14 = Doppelganger.isDoppelganger(table5, column11);
         column11.setNullRatio(4.3d);
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertNotNull(list_column7);
         Assert.assertTrue("'" + str8 + "' != '" + "" + "'", str8.equals(""));
         Assert.assertTrue(b14 == false);
@@ -9399,7 +7457,6 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertTrue("'" + b3 + "' != '" + false + "'", b3.equals(false));
         Assert.assertNull(str4);
         Assert.assertTrue("'" + d5 + "' != '" + 0.0d + "'", d5.equals(0.0d));
@@ -9420,7 +7477,6 @@ import java.util.Stack;
         } catch (NullPointerException e) {
         }
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertTrue("'" + b3 + "' != '" + false + "'", b3.equals(false));
     }
 
@@ -9441,7 +7497,6 @@ import java.util.Stack;
         Column column14 = table5.getColumn("null --> null");
         List<Column> list_column15 = table5.getPk();
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertNotNull(list_column7);
         Assert.assertNull(column14);
         Assert.assertNotNull(list_column15);
@@ -9485,7 +7540,6 @@ import java.util.Stack;
         List<Column> list_column14 = table5.getEstimatedPk();
         table5.setTrimmedName("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey.null --> null");
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column10);
         Assert.assertNotNull(list_column11);
@@ -9559,7 +7613,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -9581,40 +7634,6 @@ import java.util.Stack;
         column2.setTextMin("");
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
-    }
-
-    @Test
-    public void test489() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test489");
-        Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
-        Boolean b5 = column2.isBestAttemptPk();
-        String str6 = column2.getName();
-        Table[] table_array7 = new Table[] {};
-        ArrayList<Table> arraylist_table8 = new ArrayList<Table>();
-        boolean b9 = Collections.addAll(arraylist_table8, table_array7);
-        List<Table> list_table10 = Optimization.optimize(arraylist_table8);
-        column2.setMinLDOtherTable(arraylist_table8);
-        String str12 = column2.getName();
-        column2.setColumnSize((int) (byte) 0);
-        Table table17 = new Table("", ",");
-        table17.setTrimmedName("hi!");
-        String str20 = table17.getLowerCaseTrimmedName();
-        List<Column> list_column21 = table17.getEstimatedPk();
-        table17.hasMultiplePK();
-        List<Column> list_column23 = table17.getEstimatedPk();
-        column2.setDoppelganger(table17);
-        table17.tableContainsLob();
-        Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
-        Assert.assertTrue("'" + str6 + "' != '" + "" + "'", str6.equals(""));
-        Assert.assertNotNull(table_array7);
-        Assert.assertTrue(b9 == false);
-        Assert.assertNotNull(list_table10);
-        Assert.assertTrue("'" + str12 + "' != '" + "" + "'", str12.equals(""));
-        Assert.assertNull(str20);
-        Assert.assertNotNull(list_column21);
-        Assert.assertNotNull(list_column23);
     }
 
     @Test
@@ -9678,7 +7697,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -9707,7 +7725,6 @@ import java.util.Stack;
         }
         Assert.assertTrue("'" + str7 + "' != '" + ",." + "'", str7.equals(",."));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertNull(b11);
         Assert.assertTrue("'" + d12 + "' != '" + 100.0d + "'", d12.equals(100.0d));
         Assert.assertTrue("'" + str15 + "' != '" + "" + "'", str15.equals(""));
     }
@@ -9737,7 +7754,6 @@ import java.util.Stack;
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertTrue(i8 == 0);
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
         Assert.assertNotNull(list_column16);
         Assert.assertTrue("'" + str18 + "' != '" + "" + "'", str18.equals(""));
         Assert.assertTrue("'" + str19 + "' != '" + "" + "'", str19.equals(""));
@@ -9785,7 +7801,6 @@ import java.util.Stack;
         List<String> list_str19 = column14.getTokenizedLowerCaseTrimmedName();
         table5.setTokenizedLowerCaseTrimmedName(list_str19);
         Assert.assertNull(column1);
-        Assert.assertNull(b2);
         Assert.assertNotNull(list_column7);
         Assert.assertNotNull(list_column11);
         Assert.assertNotNull(list_str19);
@@ -9821,7 +7836,6 @@ import java.util.Stack;
         Assert.assertTrue(i5 == 0);
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
     }
 
     @Test
@@ -9831,7 +7845,6 @@ import java.util.Stack;
         Column column2 = new Column(",", "");
         column2.setEstimatedRowCount((int) (byte) 0);
         column2.setNullRatio(100.0d);
-        column2.setCorrelation(-0.3999999999999999d);
         column2.setKeywordSingleton();
         Double d10 = column2.getWidthAvg();
         Assert.assertNull(d10);
@@ -9867,9 +7880,7 @@ import java.util.Stack;
         Assert.assertTrue(i5 == 0);
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
         Assert.assertNull(column10);
-        Assert.assertNull(b11);
         Assert.assertNull(str24);
-        Assert.assertNull(b27);
         Assert.assertNull(d28);
         Assert.assertTrue(b29 == false);
     }
