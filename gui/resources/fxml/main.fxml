@@ -6,8 +6,8 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Events">
     <left>
-        <TilePane orientation="VERTICAL" prefRows="9" prefTileHeight="63.0" prefTileWidth="170.0"
-                  prefWidth="200.0" tileAlignment="TOP_LEFT" BorderPane.alignment="CENTER">
+        <TilePane orientation="VERTICAL" prefRows="9" prefTileHeight="57.0" prefTileWidth="190.0"
+                  prefWidth="217.0" tileAlignment="TOP_LEFT" BorderPane.alignment="CENTER">
             <padding>
                 <Insets left="14.0" top="10.0"/>
             </padding>
@@ -17,7 +17,7 @@
                         <Insets bottom="3.0"/>
                     </padding>
                 </Label>
-                <ComboBox fx:id="comboBoxVendor" onAction="#vendorAction" prefWidth="170.0"/>
+                <ComboBox fx:id="comboBoxVendor" onAction="#vendorAction" prefWidth="217.0"/>
             </VBox>
             <VBox>
                 <Label text="Host name/IP address">
@@ -43,7 +43,7 @@
                 </Label>
                 <TextField fx:id="textDatabase"/>
             </VBox>
-            <VBox fx:id="boxServiceName">
+            <VBox>
                 <Label text="Service name (optional)">
                     <padding>
                         <Insets bottom="3.0"/>

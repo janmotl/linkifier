@@ -11,13 +11,13 @@ import java.util.List;
 // The credentials give read-only access and they are publicly known.
 // The rest of the credentials are to local databases for compatibility testing.
 public class Setting {
-	public static final String CSV_SEPARATOR = ",";
+	public static final String CSV_SEPARATOR = ","; // We like the US format even on non-US localizations
 	public static final String CSV_QUOTE = "\"";
-	public static final List<String> SYNONYM_PERSON = Arrays.asList("employee", "manager", "person", "people", "user", "follower", "player", "goalie", "entity", "owner");
+	public static final List<String> SYNONYM_PERSON = Arrays.asList("employee", "manager", "person", "people", "user", "follower", "player", "goalie", "entity", "owner"); // Poor-man's list of related terms (synonyms, hypernyms and hyponyms)
 	public static final List<String> SYNONYM_PRODUCT = Arrays.asList("product", "component");
 	public static final List<String> SYNONYM_COUNTRY = Arrays.asList("country", "nation");
 	public static final List<String> SYNONYM_CITY = Arrays.asList("city", "capitol");
-	public static final List<String> KEYWORD_RELATIONSHIP = Arrays.asList("to", "from", "1", "2", "3", "4", "a", "b", "x", "y", "origin", "dest", "div", "departure", "arrival", "winner", "loser", "via", "original", "sales", "opp", "home", "away", "draft", "other", "bill", "ship", "shipto", "assembly", "unit", "close", "open", "creation", "excerpt", "parent", "child", "returning", "start", "end", "sold", "draft", "refunded", "current", "access", "reports", "cited", "citing", "last", "first", "related"); // E.g. creation_date, open_date...
+	public static final List<String> KEYWORD_RELATIONSHIP = Arrays.asList("to", "from", "1", "2", "3", "4", "a", "b", "x", "y", "origin", "dest", "div", "departure", "arrival", "winner", "loser", "via", "original", "sales", "opp", "home", "away", "draft", "other", "bill", "ship", "shipto", "assembly", "unit", "close", "open", "creation", "excerpt", "parent", "child", "returning", "start", "end", "sold", "draft", "refunded", "current", "access", "reports", "cited", "citing", "last", "first", "related"); // StopWords - these keywords are (almost) ignored in string similarity computations to make the FK more similar to PK
 
 	public static DataSource getDataSource() throws SQLException {
 		MysqlConnectionPoolDataSource dataSource = new MysqlConnectionPoolDataSource();

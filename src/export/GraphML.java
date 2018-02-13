@@ -14,6 +14,7 @@ import java.util.List;
 // A good layout in yEd is "BPMN".
 // The class is based around Relationship and not around CompoundRelationship to be able to display false negatives
 // (CompoundRelationship filters out rejected FK constrains -> we would not be able to print them out).
+// Columns are wrongly sorted by PK probability instead of by position in the table.
 public class GraphML {
 
 	final static private String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
@@ -37,8 +38,8 @@ public class GraphML {
 			"          <y:Geometry height=\"$height\" width=\"150.0\" x=\"$x\" y=\"20.0\"/>\n" +
 			"          <y:Fill color=\"#E8EEF7\" color2=\"#B7C9E3\" transparent=\"false\"/>\n" +
 			"          <y:BorderStyle color=\"#000000\" type=\"line\" width=\"1.0\"/>\n" +
-			"          <y:NodeLabel alignment=\"center\" autoSizePolicy=\"content\" backgroundColor=\"#B7C9E3\" configuration=\"com.yworks.entityRelationship.label.name\" fontFamily=\"Dialog\" fontSize=\"12\" fontStyle=\"plain\" hasLineColor=\"false\" height=\"18.1328125\" modelName=\"internal\" modelPosition=\"t\" textColor=\"#000000\" visible=\"true\" width=\"36.666015625\" x=\"21.6669921875\" y=\"4.0\">$name</y:NodeLabel>\n" +
-			"          <y:NodeLabel alignment=\"left\" autoSizePolicy=\"content\" configuration=\"com.yworks.entityRelationship.label.attributes\" fontFamily=\"Dialog\" fontSize=\"12\" fontStyle=\"plain\" hasBackgroundColor=\"false\" hasLineColor=\"false\" height=\"46.3984375\" modelName=\"custom\" textColor=\"#000000\" visible=\"true\" width=\"65.541015625\" x=\"2.0\" y=\"30.1328125\"><![CDATA[$text]]><y:LabelModel>\n" +
+			"          <y:NodeLabel configuration=\"com.yworks.entityRelationship.label.name\" modelName=\"internal\" modelPosition=\"t\">$name</y:NodeLabel>\n" +
+			"          <y:NodeLabel alignment=\"left\" configuration=\"com.yworks.entityRelationship.label.attributes\" modelName=\"custom\"><![CDATA[$text]]><y:LabelModel>\n" +
 			"              <y:ErdAttributesNodeLabelModel/>\n" +
 			"            </y:LabelModel>\n" +
 			"            <y:ModelParameter>\n" +
