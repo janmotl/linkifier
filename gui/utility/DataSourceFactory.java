@@ -8,7 +8,6 @@ import org.postgresql.jdbc3.Jdbc3PoolingDataSource;
 import javax.sql.DataSource;
 import java.security.InvalidParameterException;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.Properties;
 
 // Returns a datasource for the selected vendor.
@@ -31,6 +30,10 @@ public class DataSourceFactory {
 				return dataSource;
 			}
 			case "Oracle": {
+				// Oracle does not return number length and count of digits always in the expected format.
+				// We use a following workaround (it is not perfect but good enough):
+				System.getProperties().setProperty("oracle.jdbc.J2EE13Compliant", "true");
+
 				OracleDataSource dataSource = new OracleDataSource();
 				dataSource.setDescription("Linkifier");
 				dataSource.setServerName(properties.getProperty("host"));
