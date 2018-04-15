@@ -60,6 +60,8 @@ If the schema quality is extremely low (e.g. all columns are typed as text and h
 ## Known issues
 If you are using MySQL and get `Access to data dictionary table 'mysql.table_stats' is rejected` then it is because MySQL, contrary to MariaDB, prevents access to internal tables. To be able to run Linkifier, start the db in the [debug mode](http://datacharmer.blogspot.com/2016/09/showing-hidden-tables-in-mysql-8-data.html).
 
+If you have problems to connect to MSSQL, make sure login with [username-password](https://serverfault.com/questions/246951/set-a-login-with-username-password-for-sql-server-2008-express) combination is permitted and [TCP/IP](https://stackoverflow.com/questions/18841744/jdbc-connection-failed-error-tcp-ip-connection-to-host-failed) protocol is permitted.
+
 If you have any question or suggestion, let me know.
 
 ## How to cite
