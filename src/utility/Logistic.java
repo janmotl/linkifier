@@ -1,5 +1,7 @@
 package utility;
 
+import java.util.Arrays;
+
 public class Logistic {
 	public static double classify(double[] x, double[] weights, double bias) {
 		if (x.length != weights.length) throw new RuntimeException("Vectors have different lengths: " + x.length + " and " + weights.length);
@@ -12,7 +14,7 @@ public class Logistic {
 		double result = sigmoid(logit);
 
 		if (Double.isNaN(result) || Double.isInfinite(result)) {
-			throw new RuntimeException("The result is not a number: " + result);
+			throw new RuntimeException("The result is not a number: " + result + ". The input vector that caused the error: " + Arrays.toString(x) + ".");
 		}
 
 		return result;
