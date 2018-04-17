@@ -139,7 +139,7 @@ public class MSSQL implements Vendor {
 				"\t) nullCounter\n" +
 				"\n" +
 				" \tDELETE FROM #Density\n" +
-				" \tdelete FROM #Histogram\n" +
+				" \tDELETE FROM #Histogram\n" +
 				"-- End\n" +
 				"FETCH NEXT FROM MY_CURSOR INTO @TABLE_NAME, @STAT_NAME\n" +
 				"END\n" +
@@ -182,8 +182,8 @@ public class MSSQL implements Vendor {
 				}
 				column.setTextMin(rs.getString(3));
 				column.setTextMax(rs.getString(4));
-				column.setNullRatio(column.getRowCount()==null ? null : rs.getDouble(5) / column.getRowCount());
-				column.setUniqueRatio(column.getRowCount()==null ? null : (1/rs.getDouble(6)) / column.getRowCount());
+				column.setNullRatio((column.getRowCount()==null || column.getRowCount()==0) ? null : rs.getDouble(5) / column.getRowCount());
+				column.setUniqueRatio(column.getRowCount()==null || column.getRowCount()==0 ? null : (1/rs.getDouble(6)) / column.getRowCount());
 				column.setWidthAvg(rs.getDouble(7));
 			}
 		}

@@ -193,10 +193,10 @@ public class Oracle implements Vendor {
 				if (table == null) continue; // The table is blacklisted -> skip it
 				@Nullable Column column = table.getColumn(rs.getString(2)); // Oracle supports "hidden" columns that are by default not listed in getColumns() JDBC call but statistics is still calculated on them
 				if (column == null) continue;
-				column.setUniqueRatio(column.getRowCount()==null ? null : rs.getDouble(3) / column.getRowCount()); // If we have no knowledge about the column, return null
+				column.setUniqueRatio(column.getRowCount()==null || column.getRowCount()==0 ? null : rs.getDouble(3) / column.getRowCount()); // If we have no knowledge about the column, return null
 				column.setTextMin(rs.getString(4));
 				column.setTextMax(rs.getString(5));
-				column.setNullRatio(column.getRowCount()==null ? null : rs.getDouble(6) / column.getRowCount());
+				column.setNullRatio(column.getRowCount()==null || column.getRowCount()==0 ? null : rs.getDouble(6) / column.getRowCount());
 				column.setWidthAvg(rs.getDouble(7));
 			}
 		}
