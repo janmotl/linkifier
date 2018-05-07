@@ -56,7 +56,7 @@ public class MySQL implements Vendor {
 				Table table = map.get(rs.getString(1));
 				if (table == null) continue; // The table is blacklisted in Linkifier by the regex -> skip it
 				for (Column column : table.getColumnList()) {
-					column.setEstimatedRowCount(rs.getInt(2));
+					column.setEstimatedRowCount(rs.getLong(2));
 				}
 			}
 		}
@@ -72,7 +72,7 @@ public class MySQL implements Vendor {
 				Table table = map.get(rs.getString(1));
 				if (table == null) continue; // The table is blacklisted in Linkifier by the regex -> skip it
 				for (Column column : table.getColumnList()) {
-					if (column.getRowCount()==null || column.getRowCount()==0) column.setEstimatedRowCount(rs.getInt(2));
+					if (column.getRowCount()==null || column.getRowCount()==0) column.setEstimatedRowCount(rs.getLong(2));
 				}
 			}
 		}

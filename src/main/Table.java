@@ -276,7 +276,7 @@ public class Table {
 	    if (columnList.get(0).getRowCount() == null) return;
 
 	    // Initialization
-        int rowCount = columnList.get(0).getRowCount();
+        long rowCount = columnList.get(0).getRowCount();
         double optimisticUniqueRow = 1.0;
 
 	    for (int i = 1; i < columnList.size(); i++) {

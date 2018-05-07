@@ -28,7 +28,7 @@ public class Oracle implements Vendor {
 				Table table = map.get(rs.getString(1));
 				if (table == null) continue; // The table is blacklisted -> skip it
 				for (Column column : table.getColumnList()) {
-					column.setEstimatedRowCount(rs.getInt(2));
+					column.setEstimatedRowCount(rs.getLong(2));
 				}
 			}
 		}

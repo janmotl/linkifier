@@ -88,38 +88,38 @@ public class RelationshipTest {
 		relationship.setFastFeatures("mutagenesis");
 		assertEquals(0.958, relationship.violatesCardinalityConstraint(), 0.0001);   // Strange -> returns average
 
-		relationship.getPk().setEstimatedRowCount(1000);
+		relationship.getPk().setEstimatedRowCount(1000L);
 		relationship.setFastFeatures("mutagenesis");
 		assertEquals(0.0, relationship.violatesCardinalityConstraint(), 0.0001);     // Valid -> returns low value
 
-		relationship.getFk().setEstimatedRowCount(100);
+		relationship.getFk().setEstimatedRowCount(100L);
 		relationship.setFastFeatures("mutagenesis");
 		assertEquals(0.0, relationship.violatesCardinalityConstraint(), 0.0001);     // Valid -> returns low value
 
-		relationship.getFk().setEstimatedRowCount(2000);
+		relationship.getFk().setEstimatedRowCount(2000L);
 		relationship.setFastFeatures("mutagenesis");
 		assertEquals(0.0, relationship.violatesCardinalityConstraint(), 0.0001);     // Good (nullRatio=0.12, uniqueRatio=0.5)
 
 		relationship.getFk().setNullRatio(0.5);
-		relationship.getFk().setEstimatedRowCount(4000);
+		relationship.getFk().setEstimatedRowCount(4000L);
 		relationship.setFastFeatures("mutagenesis");
 		assertEquals(0.0, relationship.violatesCardinalityConstraint(), 0.0001);     // Borderline good (nullRatio=0.5, uniqueRatio=0.5)
 
-		relationship.getFk().setEstimatedRowCount(4001);
+		relationship.getFk().setEstimatedRowCount(4001L);
 		relationship.setFastFeatures("mutagenesis");
 		assertEquals(0.0002, relationship.violatesCardinalityConstraint(), 0.0001);  // Borderline bad (nullRatio=0.5, uniqueRatio=0.5)
 
 		relationship.getFk().setNullRatio(0.0);
 		relationship.getFk().setUniqueRatio(1.0);
-		relationship.getFk().setEstimatedRowCount(1000);
+		relationship.getFk().setEstimatedRowCount(1000L);
 		relationship.setFastFeatures("mutagenesis");
 		assertEquals(0.0, relationship.violatesCardinalityConstraint(), 0.0001);     // Borderline good -> returns low value
 
-		relationship.getFk().setEstimatedRowCount(1001);
+		relationship.getFk().setEstimatedRowCount(1001L);
 		relationship.setFastFeatures("mutagenesis");
 		assertEquals(0.001, relationship.violatesCardinalityConstraint(), 0.0001);   // Borderline bad -> non-zero return value
 
-		relationship.getFk().setEstimatedRowCount(10000);
+		relationship.getFk().setEstimatedRowCount(10000L);
 		relationship.setFastFeatures("mutagenesis");
 		assertEquals(2.3025, relationship.violatesCardinalityConstraint(), 0.0001);   // Bad -> return high value
 	}

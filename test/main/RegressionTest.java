@@ -201,7 +201,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test021");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         Connection connection6 = null;
         try {
@@ -350,7 +350,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test034");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         double[] d_array7 = null;
         column2.setHistogramBounds(d_array7);
@@ -473,9 +473,9 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test045");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
-        column2.setEstimatedRowCount(10);
+        column2.setEstimatedRowCount(10L);
         Connection connection9 = null;
         try {
             column2.isNotNull(connection9, "", "hi!");
@@ -565,7 +565,7 @@ public class RegressionTest {
         Relationship relationship0 = new Relationship();
         Column column1 = relationship0.getPk();
         Column column4 = new Column(",", "");
-        column4.setEstimatedRowCount((int) (byte) 0);
+        column4.setEstimatedRowCount((long) 0);
         relationship0.setFk(column4);
         Boolean b8 = column4.isPrimaryKey();
         Assert.assertNull(column1);
@@ -659,7 +659,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test062");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         column2.setTextMax("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
@@ -732,7 +732,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = column6.isBestAttemptPk();
@@ -750,7 +750,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test070");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         column2.setTextMax("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
@@ -864,14 +864,14 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test079");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         Boolean b8 = column2.isEstimatedPk();
-        Integer i9 = column2.getRowCount();
+        Long i9 = column2.getRowCount();
         Assert.assertTrue("'" + str7 + "' != '" + "" + "'", str7.equals(""));
         Assert.assertTrue("'" + b8 + "' != '" + false + "'", b8.equals(false));
-        Assert.assertTrue("'" + i9 + "' != '" + 0 + "'", i9.equals(0));
+        Assert.assertTrue("'" + i9 + "' != '" + 0 + "'", i9.equals(0L));
     }
 
     @Test
@@ -956,7 +956,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Connection connection11 = null;
@@ -990,7 +990,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test091");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -1007,7 +1007,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test093");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         String str6 = column2.getName();
         Double d7 = column2.getUniqueRatio();
@@ -1037,7 +1037,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test095");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         column2.setTextMax("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
@@ -1096,7 +1096,7 @@ public class RegressionTest {
         Relationship relationship0 = new Relationship();
         Column column1 = relationship0.getPk();
         Column column4 = new Column(",", "");
-        column4.setEstimatedRowCount((int) (byte) 0);
+        column4.setEstimatedRowCount((long) 0);
         relationship0.setFk(column4);
         column4.setDataType((int) (byte) 100);
         column4.setDataType((int) (byte) 1);
@@ -1183,7 +1183,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test104");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         List<String> list_str5 = column2.getTokenizedLowerCaseTrimmedName();
         column2.setDecimalDigits((int) ' ');
         column2.setHasDefault(false);
@@ -1237,7 +1237,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test108");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         Boolean b8 = column2.isEstimatedPk();
@@ -1316,7 +1316,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = relationship0.isForeignKey();
@@ -1348,7 +1348,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test115");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setPrimaryKey(true);
         String str7 = column2.getTextMax();
         Assert.assertNull(str7);
@@ -1359,7 +1359,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test117");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setPrimaryKey(true);
         column2.setKeywordSingleton();
         String str8 = column2.getTextMin();
@@ -1373,7 +1373,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test118");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         column2.setTextMin("null --> null");
         Connection connection9 = null;
@@ -1442,7 +1442,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test123");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -1477,7 +1477,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test127");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -1508,7 +1508,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test128");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         List<String> list_str5 = column2.getTokenizedLowerCaseTrimmedName();
         column2.setNullRatio(-1.5000000000000004d);
         Assert.assertNotNull(list_str5);
@@ -1541,7 +1541,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test130");
         Column column4 = new Column(",", "");
-        column4.setEstimatedRowCount((int) (byte) 0);
+        column4.setEstimatedRowCount((long) 0);
         Boolean b7 = column4.isBestAttemptPk();
         column4.setEstimatedPk(true);
         int i10 = column4.getDecimalDigits();
@@ -1655,11 +1655,11 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test135");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         Column column10 = new Column(",", "");
-        column10.setEstimatedRowCount((int) (byte) 0);
+        column10.setEstimatedRowCount((long) 0);
         List<String> list_str13 = column10.getTokenizedLowerCaseTrimmedName();
         column2.setTokenizedLowerCaseTrimmedName(list_str13);
         column2.setTableColumnCount(10);
@@ -1692,7 +1692,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test137");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         String str8 = column2.getDataTypeName();
@@ -1707,7 +1707,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test138");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -1774,7 +1774,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test143");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         column2.setTableContainsLob(true);
@@ -1812,7 +1812,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test145");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -1835,7 +1835,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         column6.setBestAttemptPk(false);
@@ -1860,7 +1860,7 @@ public class RegressionTest {
         Boolean b8 = column2.isBestAttemptPk();
         column2.setKeywordSingleton();
         boolean b11 = column2.equals(false);
-        column2.setEstimatedRowCount(10);
+        column2.setEstimatedRowCount(10L);
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue(i4 == 0);
         Assert.assertTrue(i5 == 0);
@@ -1925,11 +1925,11 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = column6.isBestAttemptPk();
-        column6.setEstimatedRowCount((int) ' ');
+        column6.setEstimatedRowCount(null);
         String str14 = column6.toString();
         Table table15 = column6.getTable();
         Assert.assertNull(column1);
@@ -1972,7 +1972,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test155");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -1993,7 +1993,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test157");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -2018,7 +2018,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test159");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -2099,7 +2099,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test164");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         Boolean b8 = column2.isKeywordSingleton();
@@ -2159,7 +2159,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test168");
         Column column4 = new Column(",", "");
-        column4.setEstimatedRowCount((int) (byte) 0);
+        column4.setEstimatedRowCount((long) 0);
         Boolean b7 = column4.isBestAttemptPk();
         column4.setEstimatedPk(true);
         int i10 = column4.getDecimalDigits();
@@ -2364,7 +2364,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test179");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         List<String> list_str5 = column2.getTokenizedLowerCaseTrimmedName();
         column2.setDecimalDigits((int) ' ');
         column2.setTableContainsLob(false);
@@ -2378,7 +2378,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test180");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -2423,7 +2423,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test182");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -2588,7 +2588,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test191");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -2712,7 +2712,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test198");
         Column column4 = new Column(",", "");
-        column4.setEstimatedRowCount((int) (byte) 0);
+        column4.setEstimatedRowCount((long) 0);
         Boolean b7 = column4.isBestAttemptPk();
         column4.setEstimatedPk(true);
         int i10 = column4.getDecimalDigits();
@@ -2848,7 +2848,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test209");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -2892,7 +2892,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test211");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         List<String> list_str5 = column2.getTokenizedLowerCaseTrimmedName();
         column2.setPrimaryKey(true);
         column2.setPrimaryKey(false);
@@ -2987,7 +2987,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test218");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         column2.setTableContainsLob(true);
@@ -3064,7 +3064,7 @@ public class RegressionTest {
         column2.setTextMax(",");
         column2.setNullRatio(4.37d);
         Double d9 = column2.getValueMax();
-        column2.setEstimatedRowCount((int) (short) 10);
+        column2.setEstimatedRowCount((long) 10);
         Column column14 = new Column(",", "");
         int i15 = column14.getColumnSize();
         Boolean b16 = column14.getContains();
@@ -3167,7 +3167,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         int i11 = column6.getDataType();
@@ -3246,7 +3246,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test237");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -3299,7 +3299,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test240");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -3405,7 +3405,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = column6.isBestAttemptPk();
@@ -3428,7 +3428,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = relationship0.isForeignKey();
@@ -3453,7 +3453,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test249");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getTextMax();
         Boolean b8 = column2.getTableContainsLob();
@@ -3467,7 +3467,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test250");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -3644,7 +3644,7 @@ public class RegressionTest {
         int i5 = column2.getDecimalDigits();
         column2.setHasMultiplePK(true);
         Integer i8 = column2.getOrdinalPosition();
-        column2.setEstimatedRowCount((int) (byte) 1);
+        column2.setEstimatedRowCount((long) 1);
         String str11 = column2.getName();
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue(i4 == 0);
@@ -3705,7 +3705,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test265");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -3740,7 +3740,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         column6.setBestAttemptPk(false);
@@ -3758,7 +3758,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test268");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -3862,7 +3862,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test275");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         column2.setTextMax("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
@@ -3871,7 +3871,7 @@ public class RegressionTest {
         List<String> list_str13 = Setting.SYNONYM_CITY;
         column2.setTokenizedLowerCaseTrimmedName(list_str13);
         int i15 = column2.getDecimalDigits();
-        column2.setEstimatedRowCount((int) (short) 10);
+        column2.setEstimatedRowCount((long) 10);
         double[] d_array18 = column2.getHistogramBounds();
         String str19 = column2.getName();
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
@@ -3917,7 +3917,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test279");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         Boolean b8 = column2.isKeywordSingleton();
@@ -3940,7 +3940,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Double d11 = column6.getWidthAvg();
@@ -3969,7 +3969,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Column column13 = new Column(",", "");
@@ -4200,7 +4200,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Column column13 = new Column(",", "");
@@ -4251,7 +4251,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test296");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -4326,7 +4326,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test301");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         List<String> list_str5 = column2.getTokenizedLowerCaseTrimmedName();
         column2.setPrimaryKey(true);
         column2.setNullable(false);
@@ -4334,7 +4334,7 @@ public class RegressionTest {
         List<String> list_str12 = Setting.SYNONYM_CITY;
         column2.setTokenizedLowerCaseTrimmedName(list_str12);
         Column column16 = new Column(",", "");
-        column16.setEstimatedRowCount((int) (byte) 0);
+        column16.setEstimatedRowCount((long) 0);
         column16.setPrimaryKey(true);
         column16.setKeywordSingleton();
         String str22 = column16.getDataTypeName();
@@ -4381,10 +4381,10 @@ public class RegressionTest {
         Column column2 = new Column("null --> null", "table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey");
         Double d3 = column2.getValueMax();
         Boolean b4 = column2.isBestAttemptPk();
-        Integer i5 = column2.getRowCount();
+        Long i5 = column2.getRowCount();
         Assert.assertNull(d3);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
-        Assert.assertTrue("'" + i5 + "' != '" + 0 + "'", i5.equals(0));
+        Assert.assertTrue("'" + i5 + "' != '" + 0 + "'", i5.equals(0L));
     }
 
     @Test
@@ -4403,7 +4403,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = column6.isBestAttemptPk();
@@ -4463,7 +4463,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test311");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -4504,7 +4504,7 @@ public class RegressionTest {
         table5.setTokenizedLowerCaseTrimmedName(list_str9);
         List<Column> list_column11 = table5.getEstimatedPk();
         Column column14 = new Column(",", "");
-        column14.setEstimatedRowCount((int) (byte) 0);
+        column14.setEstimatedRowCount((long) 0);
         Boolean b17 = column14.isBestAttemptPk();
         column14.setEstimatedPk(true);
         column14.setTextMax("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
@@ -4538,7 +4538,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test314");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         column2.setTableContainsLob(true);
@@ -4577,7 +4577,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test316");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -4599,7 +4599,7 @@ public class RegressionTest {
         column2.setHasMultiplePK(true);
         Boolean b8 = column2.isBestAttemptPk();
         column2.setKeywordSingleton();
-        column2.setEstimatedRowCount((int) (byte) 100);
+        column2.setEstimatedRowCount((long) 100);
         Assert.assertTrue(i3 == 0);
         Assert.assertTrue(i4 == 0);
         Assert.assertTrue(i5 == 0);
@@ -4611,7 +4611,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test318");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -4647,7 +4647,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test320");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         String str6 = column2.getName();
         column2.setKeywords();
@@ -4668,13 +4668,13 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = relationship0.isForeignKey();
         Boolean b12 = relationship0.isEstimatedFk();
         Column column15 = new Column(",", "");
-        column15.setEstimatedRowCount((int) (byte) 0);
+        column15.setEstimatedRowCount((long) 0);
         Boolean b18 = column15.isBestAttemptPk();
         column15.setEstimatedPk(true);
         int i21 = column15.getDecimalDigits();
@@ -4753,7 +4753,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test325");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -4778,7 +4778,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Double d11 = column6.getWidthAvg();
@@ -4800,7 +4800,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test327");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setPrimaryKey(true);
         column2.setKeywordSingleton();
         String str8 = column2.getDataTypeName();
@@ -4814,7 +4814,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test328");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         Relationship relationship8 = new Relationship();
@@ -4942,7 +4942,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test338");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         column2.setTableContainsLob(true);
@@ -4963,13 +4963,13 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test339");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         column2.setDataType((int) (byte) -1);
         String str10 = column2.getDoppelgangerName();
         Column column13 = new Column(",", "");
-        column13.setEstimatedRowCount((int) (byte) 0);
+        column13.setEstimatedRowCount((long) 0);
         Boolean b16 = column13.isBestAttemptPk();
         column13.setEstimatedPk(true);
         Boolean b19 = column13.isKeywordSingleton();
@@ -4991,7 +4991,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test340");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         String str8 = column2.getName();
@@ -5006,7 +5006,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test341");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setPrimaryKey(true);
         column2.setKeywordSingleton();
         String str8 = column2.getTextMin();
@@ -5115,7 +5115,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test352");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         double[] d_array7 = null;
         column2.setHistogramBounds(d_array7);
@@ -5135,7 +5135,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         column6.setBestAttemptPk(false);
@@ -5170,7 +5170,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test355");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setAutoincrement(true);
         column2.setTableColumnCount(1);
@@ -5182,7 +5182,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test356");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         column2.setTableContainsLob(true);
@@ -5226,9 +5226,9 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test358");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
-        column2.setEstimatedRowCount(10);
+        column2.setEstimatedRowCount(10L);
         Integer i9 = column2.getOrdinalPosition();
         Double d10 = column2.getValueMin();
         Assert.assertNull(d10);
@@ -5333,7 +5333,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test365");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getTextMax();
         Boolean b8 = column2.getContains();
@@ -5379,7 +5379,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test367");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         column2.setTableContainsLob(true);
@@ -5395,7 +5395,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test368");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -5434,13 +5434,13 @@ public class RegressionTest {
         Boolean b9 = column2.isBestAttemptPk();
         Boolean b10 = column2.isDoppelganger();
         Column column13 = new Column(",", "");
-        column13.setEstimatedRowCount((int) (byte) 0);
+        column13.setEstimatedRowCount((long) 0);
         Boolean b16 = column13.isBestAttemptPk();
         column13.setEstimatedPk(true);
         int i19 = column13.getDecimalDigits();
         String str20 = column13.getTextMin();
         Column column23 = new Column(",", "");
-        column23.setEstimatedRowCount((int) (byte) 0);
+        column23.setEstimatedRowCount((long) 0);
         Boolean b26 = column23.isBestAttemptPk();
         column23.setEstimatedPk(true);
         int i29 = column23.getDecimalDigits();
@@ -5484,7 +5484,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test372");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -5543,7 +5543,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test374");
         Column column4 = new Column(",", "");
-        column4.setEstimatedRowCount((int) (byte) 0);
+        column4.setEstimatedRowCount((long) 0);
         Boolean b7 = column4.isBestAttemptPk();
         column4.setEstimatedPk(true);
         int i10 = column4.getDecimalDigits();
@@ -5576,7 +5576,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test375");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         Integer i7 = column2.getLD();
         column2.setEstimatedPk(true);
@@ -5605,9 +5605,9 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test377");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
-        column2.setEstimatedRowCount(10);
+        column2.setEstimatedRowCount(10L);
         Integer i9 = column2.getOrdinalPosition();
         column2.setOrdinalPositionEnd(10);
     }
@@ -5632,7 +5632,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test379");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -5678,7 +5678,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test381");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         column2.setTextMax("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
@@ -5738,7 +5738,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test384");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -5763,7 +5763,7 @@ public class RegressionTest {
         String str12 = column2.getTrimmedName();
         column2.setTableColumnCount(10);
         String str15 = column2.getLowerCaseTrimmedName();
-        column2.setEstimatedRowCount((int) (byte) -1);
+        column2.setEstimatedRowCount((long) -1);
         Assert.assertNull(str7);
 
         Assert.assertNull(d11);
@@ -5826,7 +5826,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test391");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -5896,7 +5896,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test397");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -6007,7 +6007,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test403");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         column2.setTextMax("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
@@ -6049,7 +6049,7 @@ public class RegressionTest {
         String str6 = table2.toProbability();
         String str7 = table2.toFeature();
         Column column10 = new Column(",", "");
-        column10.setEstimatedRowCount((int) (byte) 0);
+        column10.setEstimatedRowCount((long) 0);
         Boolean b13 = column10.isBestAttemptPk();
         column10.setEstimatedPk(true);
         int i16 = column10.getDecimalDigits();
@@ -6086,7 +6086,7 @@ public class RegressionTest {
         String str4 = relationship2.getSchema();
         Boolean b5 = relationship2.getDataTypeCategoryAgree();
         Column column8 = new Column(",", "");
-        column8.setEstimatedRowCount((int) (byte) 0);
+        column8.setEstimatedRowCount((long) 0);
         Boolean b11 = column8.isBestAttemptPk();
         relationship2.setPk(column8);
         Column column15 = new Column(",", "");
@@ -6113,7 +6113,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test407");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -6132,7 +6132,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test408");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -6152,7 +6152,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test409");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         column2.setTextMax("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
@@ -6285,7 +6285,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test415");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         column2.setTableContainsLob(true);
@@ -6299,7 +6299,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test417");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -6405,7 +6405,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test423");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         column2.setTextMax("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
@@ -6434,14 +6434,14 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Double d11 = column6.getWidthAvg();
         Double d12 = column6.getWidthAvg();
         column6.setOrdinalPosition((int) (short) 0);
         String str15 = column6.getTextMax();
-        column6.setEstimatedRowCount((int) (short) 0);
+        column6.setEstimatedRowCount((long) 0);
         Assert.assertNull(column1);
         Assert.assertNull(str2);
 
@@ -6502,7 +6502,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = column6.isBestAttemptPk();
@@ -6549,7 +6549,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test431");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -6615,7 +6615,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = column6.isDoppelganger();
@@ -6700,7 +6700,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Double d11 = column6.getWidthAvg();
@@ -6720,7 +6720,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test439");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setPrimaryKey(true);
         column2.setKeywordSingleton();
         String str8 = column2.getTextMin();
@@ -6734,7 +6734,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test440");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -6814,11 +6814,11 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test443");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         Column column10 = new Column(",", "");
-        column10.setEstimatedRowCount((int) (byte) 0);
+        column10.setEstimatedRowCount((long) 0);
         List<String> list_str13 = column10.getTokenizedLowerCaseTrimmedName();
         column2.setTokenizedLowerCaseTrimmedName(list_str13);
         String str15 = column2.getDoppelgangerName();
@@ -6832,7 +6832,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test444");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         double[] d_array7 = null;
         column2.setHistogramBounds(d_array7);
@@ -6879,7 +6879,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test447");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -6954,7 +6954,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test453");
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         column6.setEstimatedPk(true);
         int i12 = column6.getDecimalDigits();
@@ -6986,7 +6986,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test454");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -7087,7 +7087,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test460");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -7166,9 +7166,9 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test464");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
-        column2.setEstimatedRowCount(10);
+        column2.setEstimatedRowCount(10L);
         Integer i9 = column2.getOrdinalPosition();
         column2.setUniqueConstraint(true);
     }
@@ -7195,7 +7195,7 @@ public class RegressionTest {
         String str2 = relationship0.getSchema();
         Boolean b3 = relationship0.getDataTypeCategoryAgree();
         Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((int) (byte) 0);
+        column6.setEstimatedRowCount((long) 0);
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = relationship0.isForeignKey();
@@ -7226,13 +7226,13 @@ public class RegressionTest {
         Table table2 = new Table("", ",");
         table2.setTrimmedName("hi!");
         Column column7 = new Column(",", "");
-        column7.setEstimatedRowCount((int) (byte) 0);
+        column7.setEstimatedRowCount((long) 0);
         List<String> list_str10 = column7.getTokenizedLowerCaseTrimmedName();
         column7.setDecimalDigits((int) ' ');
         boolean b13 = Doppelganger.isDoppelganger(table2, column7);
         String str14 = column7.getDataTypeName();
         Column column17 = new Column(",", "");
-        column17.setEstimatedRowCount((int) (byte) 0);
+        column17.setEstimatedRowCount((long) 0);
         Boolean b20 = column17.isBestAttemptPk();
         column17.setEstimatedPk(true);
         int i23 = column17.getDecimalDigits();
@@ -7301,7 +7301,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test471");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         List<String> list_str5 = column2.getTokenizedLowerCaseTrimmedName();
         column2.setKeywords();
         Assert.assertNotNull(list_str5);
@@ -7312,7 +7312,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test472");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -7365,7 +7365,7 @@ public class RegressionTest {
         List<Column> list_column3 = table2.getBestAttemptPk();
         String str4 = table2.toProbability();
         Column column7 = new Column(",", "");
-        column7.setEstimatedRowCount((int) (byte) 0);
+        column7.setEstimatedRowCount((long) 0);
         column7.setBestAttemptPk(false);
         String str12 = column7.getName();
         Boolean b13 = column7.isEstimatedPk();
@@ -7400,7 +7400,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test476");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setBestAttemptPk(false);
         String str7 = column2.getName();
         column2.setTableContainsLob(true);
@@ -7507,7 +7507,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test483");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         column2.setTextMax("schema,pk_table,pk_column,pk_dataTypeName,pk_isUnique,pk_isUniqueConstraint,pk_columnSize,pk_decimalDigits,pk_isDecimal,pk_hasDefault,pk_ordinalPosition,pk_ordinalPositionEnd,pk_tableColumnCount,pk_tableContainsLob,pk_estimatedRowCount,pk_isAutoincrement,pk_isNotNull,pk_nullRatio,pk_isNullable,pk_uniqueRatio,pk_minValue,pk_maxValue,pk_avgWidth,pk_avgWidthBigger10,pk_correlationAbs,pk_isKeywordSingleton,pk_isJunctionTable,pk_hasMultiplePK,pk_levenshteinDistance,pk_minLDOtherTable,pk_isDoppelganger,pk_contains,pk_isPrimaryKey,fk_table,fk_column,fk_dataTypeName,fk_isUnique,fk_isUniqueConstraint,fk_columnSize,fk_decimalDigits,fk_isDecimal,fk_hasDefault,fk_ordinalPosition,fk_ordinalPositionEnd,fk_tableColumnCount,fk_tableContainsLob,fk_estimatedRowCount,fk_isAutoincrement,fk_isNotNull,fk_nullRatio,fk_isNullable,fk_uniqueRatio,fk_minValue,fk_maxValue,fk_avgWidth,fk_avgWidthBigger10,fk_correlationAbs,fk_isKeywordSingleton,fk_isJunctionTable,fk_hasMultiplePK,fk_levenshteinDistance,fk_minLDOtherTable,fk_isDoppelganger,fk_contains,fk_isPrimaryKey,dataTypeAgree,dataTypeCategoryAgree,dataLengthAgree,decimalAgree,isTheSameColumn,isTheSameTable,firstCharAgree,nameAgree,levenshteinColumns,levenshteinToTable,levenshteinFromTable,tpcSimilarity,tokenShareRatioLd,chenColumnSimilarity,chenTableSimilarity,pkDoesNotHaveMoreTokensThanFk,avgWidthDiff,violatesCardinalityConstraint,isInRange,satisfiesFKConstraint,satisfiedFKRatio,rangeCoverage,histogramOverlap,violatesSpecialization,contains,isForeignKey");
@@ -7590,7 +7590,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test487");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -7679,7 +7679,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test492");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -7708,7 +7708,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test493");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         String str7 = column2.getLongName();
         Boolean b8 = column2.isPrimaryKey();
@@ -7734,7 +7734,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test494");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         Boolean b5 = column2.isBestAttemptPk();
         column2.setEstimatedPk(true);
         int i8 = column2.getDecimalDigits();
@@ -7796,7 +7796,7 @@ public class RegressionTest {
         table5.setTokenizedLowerCaseTrimmedName(list_str9);
         List<Column> list_column11 = table5.getEstimatedPk();
         Column column14 = new Column(",", "");
-        column14.setEstimatedRowCount((int) (byte) 0);
+        column14.setEstimatedRowCount((long) 0);
         column14.setDataType((int) (short) 10);
         List<String> list_str19 = column14.getTokenizedLowerCaseTrimmedName();
         table5.setTokenizedLowerCaseTrimmedName(list_str19);
@@ -7843,7 +7843,7 @@ public class RegressionTest {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test499");
         Column column2 = new Column(",", "");
-        column2.setEstimatedRowCount((int) (byte) 0);
+        column2.setEstimatedRowCount((long) 0);
         column2.setNullRatio(100.0d);
         column2.setKeywordSingleton();
         Double d10 = column2.getWidthAvg();

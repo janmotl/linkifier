@@ -76,7 +76,7 @@ public class Column {
 	private int ordinalPosition;
 	private int ordinalPositionEnd;
 	private int tableColumnCount;
-	private Integer estimatedRowCount = 0;	// Zero is a reasonable fallback since it suggests we have no information about the column
+	private Long estimatedRowCount = 0L;	// Zero is a reasonable fallback since it suggests we have no information about the column
 	private boolean isAutoincrement;
 	private String trimmedName;             // Column name without the shared prefix in the table
 	private Boolean contains;               // Map of booleans of columnName endings
@@ -166,7 +166,7 @@ public class Column {
 		this.tableColumnCount = tableColumnCount;
 	}
 
-	public Integer getRowCount() {
+	public Long getRowCount() {
 		return estimatedRowCount;
 	}
 
@@ -337,7 +337,7 @@ public class Column {
 		this.tableContainsLob = tableContainsLob;
 	}
 
-	public void setEstimatedRowCount(int estimatedRowCount) {
+	public void setEstimatedRowCount(long estimatedRowCount) {
 		this.estimatedRowCount = estimatedRowCount;
 	}
 
