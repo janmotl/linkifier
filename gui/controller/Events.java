@@ -6,10 +6,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import utility.DataSourceFactory;
 import utility.PrefixSelectionCustomizer;
@@ -31,7 +28,7 @@ public class Events implements Initializable {
 	private final static Logger LOGGER = Logger.getLogger(Events.class.getName());
 
 	// Global variables
-	private Events.RunService runService = new Events.RunService();
+	private RunService runService = new RunService();
 	private Properties properties = new Properties();
 	private Linkifier linkifier;
 
@@ -42,13 +39,14 @@ public class Events implements Initializable {
 	@FXML private TextField textHost;
 	@FXML private TextField textPort;
 	@FXML private TextField textDatabase;
-	@FXML private TextField textServicename;
+	@FXML private TextField textServiceName;
 	@FXML private TextField textSchema;
 	@FXML private TextField textTableBlacklist;
 	@FXML private TextField textUsername;
 	@FXML private TextField textPassword;
 	@FXML private ComboBox<String> comboBoxVendor;
 	@FXML private TextArea textAreaConsole;
+	@FXML private CheckBox checkBoxWindowsAuthentication;
 
 	// Event handlers
 	@FXML private void runAction() {
@@ -66,10 +64,11 @@ public class Events implements Initializable {
 		properties.setProperty("host", textHost.getText());
 		properties.setProperty("port", textPort.getText());
 		properties.setProperty("database", textDatabase.getText());
-		properties.setProperty("servicename", textServicename.getText());
+		properties.setProperty("serviceName", textServiceName.getText());
 		properties.setProperty("tableBlacklist", textTableBlacklist.getText());
 		properties.setProperty("schema", textSchema.getText());
 		properties.setProperty("username", textUsername.getText());
+		properties.setProperty("integratedSecurity", checkBoxWindowsAuthentication.getText());
 		writeProperties(properties);
 
 		// Estimate the PK and FK
@@ -132,10 +131,31 @@ public class Events implements Initializable {
 		}
 
 		if ("Oracle".equals(comboBoxVendor.getValue())) {
-			textServicename.getParent().setVisible(true);
+			textServiceName.getParent().setVisible(true);
 		} else {
-			textServicename.getParent().setVisible(false);
-			textServicename.clear();
+			textServiceName.getParent().setVisible(false);
+			textServiceName.clear();
+		}
+
+		if ("Microsoft SQL Server".equals(comboBoxVendor.getValue())) {
+			checkBoxWindowsAuthentication.getParent().setVisible(true);
+			checkBoxWindowsAuthentication.setSelected(false);
+		} else {
+			checkBoxWindowsAuthentication.getParent().setVisible(false);
+			textPassword.setDisable(false); // For other vendors, these must be permitted
+			textUsername.setDisable(false);
+		}
+	}
+
+	@FXML private void windowsAuthenticationAction() {
+		if ("Microsoft SQL Server".equals(comboBoxVendor.getValue())) {
+			if (checkBoxWindowsAuthentication.isSelected()) {
+				textPassword.setDisable(true);
+				textUsername.setDisable(true);
+			} else {
+				textPassword.setDisable(false);
+				textUsername.setDisable(false);
+			}
 		}
 	}
 
@@ -163,7 +183,7 @@ public class Events implements Initializable {
 		textPort.setText(properties.getProperty("port", "3306"));
 		textDatabase.setText(properties.getProperty("database", "financial"));
 		textSchema.setText(properties.getProperty("schema", ""));
-		textServicename.setText(properties.getProperty("servicename", ""));
+		textServiceName.setText(properties.getProperty("serviceName", ""));
 		textTableBlacklist.setText(properties.getProperty("tableBlacklist", ""));
 		textUsername.setText(properties.getProperty("username", "guest"));
 		if ("relational.fit.cvut.cz".equals(textHost.getText())) {
@@ -174,16 +194,22 @@ public class Events implements Initializable {
 
 		// When we hide a component, exclude the component from layouting
 		textSchema.getParent().managedProperty().bind(textSchema.getParent().visibleProperty());
-		textServicename.getParent().managedProperty().bind(textServicename.getParent().visibleProperty());
+		textServiceName.getParent().managedProperty().bind(textServiceName.getParent().visibleProperty());
+		checkBoxWindowsAuthentication.getParent().managedProperty().bind(checkBoxWindowsAuthentication.getParent().visibleProperty());
 
 		// Hide schema combobox for MySQL
 		if ("MySQL".equals(comboBoxVendor.getValue())) {
 			textSchema.getParent().setVisible(false);
 		}
 
-		// Hide servicename for all but Oracle
+		// Hide serviceName for all but Oracle
 		if (!"Oracle".equals(comboBoxVendor.getValue())) {
-			textServicename.getParent().setVisible(false);
+			textServiceName.getParent().setVisible(false);
+		}
+
+		// Hide windowsAuthentication for all but Microsoft SQL Server
+		if (!"Microsoft SQL Server".equals(comboBoxVendor.getValue())) {
+			checkBoxWindowsAuthentication.getParent().setVisible(false);
 		}
 
 		// Add ability to select an item in a combobox with a key stroke

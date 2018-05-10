@@ -39,7 +39,7 @@ public class DataSourceFactory {
 				dataSource.setServerName(properties.getProperty("host"));
 				dataSource.setDatabaseName(properties.getProperty("database"));
 				dataSource.setPortNumber(Integer.valueOf(properties.getProperty("port")));
-				dataSource.setServiceName(properties.getProperty("servicename"));
+				dataSource.setServiceName(properties.getProperty("serviceName"));
 				dataSource.setUser(properties.getProperty("username"));
 				dataSource.setPassword(password);
 				dataSource.setDriverType("thin"); // Use "thin" (Java based driver) even when "oci" (C based driver) is available
@@ -62,6 +62,7 @@ public class DataSourceFactory {
 				dataSource.setServerName(properties.getProperty("host"));
 				dataSource.setDatabaseName(properties.getProperty("database"));
 				dataSource.setPortNumber(Integer.valueOf(properties.getProperty("port")));
+				dataSource.setIntegratedSecurity(Boolean.valueOf(properties.getProperty("windowsAuthentication")));
 				dataSource.setUser(properties.getProperty("username"));
 				dataSource.setPassword(password);
 				return dataSource;

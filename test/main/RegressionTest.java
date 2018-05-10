@@ -1929,7 +1929,7 @@ public class RegressionTest {
         Boolean b9 = column6.isBestAttemptPk();
         relationship0.setPk(column6);
         Boolean b11 = column6.isBestAttemptPk();
-        column6.setEstimatedRowCount(null);
+        column6.setEstimatedRowCount((long) 0);
         String str14 = column6.toString();
         Table table15 = column6.getTable();
         Assert.assertNull(column1);
