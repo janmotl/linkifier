@@ -1,5 +1,6 @@
 MS SQL Server JDBC Driver
 ----------------------------------------------------
-Version:    6.0.8112.100
+Version:    6.0.8112.200
 Files:      sqljdbc42.jar
 Reference:  https://www.microsoft.com/en-us/download/details.aspx?displaylang=en&id=11774
+Note:		To get Windows Authentication working, copy a correct version of sqljdbc_auth.dll from auth directory into java bin directory (e.g. into c:\Program Files\Java\jdk1.8.0_131\bin\).

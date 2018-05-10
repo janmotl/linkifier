@@ -68,7 +68,7 @@ public class Events implements Initializable {
 		properties.setProperty("tableBlacklist", textTableBlacklist.getText());
 		properties.setProperty("schema", textSchema.getText());
 		properties.setProperty("username", textUsername.getText());
-		properties.setProperty("integratedSecurity", checkBoxWindowsAuthentication.getText());
+		properties.setProperty("windowsAuthentication", Boolean.toString(checkBoxWindowsAuthentication.isSelected()));
 		writeProperties(properties);
 
 		// Estimate the PK and FK
@@ -139,23 +139,23 @@ public class Events implements Initializable {
 
 		if ("Microsoft SQL Server".equals(comboBoxVendor.getValue())) {
 			checkBoxWindowsAuthentication.getParent().setVisible(true);
-			checkBoxWindowsAuthentication.setSelected(false);
+			// Disable username & password inputs based on checkBoxWindowsAuthentication state
+			windowsAuthenticationAction();
 		} else {
 			checkBoxWindowsAuthentication.getParent().setVisible(false);
-			textPassword.setDisable(false); // For other vendors, these must be permitted
+			// For other vendors, username & password inputs must be always permitted
+			textPassword.setDisable(false);
 			textUsername.setDisable(false);
 		}
 	}
 
 	@FXML private void windowsAuthenticationAction() {
-		if ("Microsoft SQL Server".equals(comboBoxVendor.getValue())) {
-			if (checkBoxWindowsAuthentication.isSelected()) {
-				textPassword.setDisable(true);
-				textUsername.setDisable(true);
-			} else {
-				textPassword.setDisable(false);
-				textUsername.setDisable(false);
-			}
+		if (checkBoxWindowsAuthentication.isSelected()) {
+			textPassword.setDisable(true);
+			textUsername.setDisable(true);
+		} else {
+			textPassword.setDisable(false);
+			textUsername.setDisable(false);
 		}
 	}
 
@@ -191,6 +191,10 @@ public class Events implements Initializable {
 		} else {
 			textPassword.setText(properties.getProperty("password", "")); // We do not store the password, but if the user fills it in the properties file, read it
 		}
+		checkBoxWindowsAuthentication.setSelected(Boolean.valueOf(properties.getProperty("windowsAuthentication")));
+
+		// Disable username & password inputs if checkBoxWindowsAuthentication is selected
+		windowsAuthenticationAction();
 
 		// When we hide a component, exclude the component from layouting
 		textSchema.getParent().managedProperty().bind(textSchema.getParent().visibleProperty());
