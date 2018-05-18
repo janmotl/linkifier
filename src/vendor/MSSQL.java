@@ -19,13 +19,13 @@ public class MSSQL implements Vendor {
 
 	public void getTableStatistics(String databaseName, String schemaName, List<Table> tables, Connection connection) throws SQLException {
 
-		// Requires VIEW DATABASE STATE permission
-		// Other approaches how to get an estimate exist. But this approach is fast and reasonably accurate.
-		String query = "SELECT OBJECT_NAME(object_id), sum(row_count) " +
-				"FROM sys.dm_db_partition_stats " +
-				"WHERE index_id < 2 " +
-				"AND OBJECT_SCHEMA_NAME(object_id) = '" + schemaName + "' " +
-				"GROUP BY object_id ";
+		// Worse alternatives:
+		// 1) sys.dm_db_partition_stats requires VIEW DATABASE STATE permission
+		// 2) sys.sysindexes is not supported by Azure
+		String query = "SELECT OBJECT_NAME(object_id), Rows " +
+				       "FROM sys.partitions " +
+				       "WHERE OBJECT_SCHEMA_NAME(object_id) = '" + schemaName + "' " +
+				       "AND index_id < 2";
 
 		Map<String, Table> map = new HashMap<>();
 		for (Table table : tables) {
