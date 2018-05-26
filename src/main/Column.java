@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.*;
 
 public class Column {
-	public static final List<String> KEYWORDS = Arrays.asList("aux", "code", "id", "key", "name", "nbr", "no", "nr", "num", "number", "pk", "sk", "symb", "type", "cis");
+	public static final List<String> KEYWORDS = Arrays.asList("aux", "code", "id", "key", "name", "nbr", "no", "nr", "num", "number", "pk", "sk", "symb", "type");
 	private static final List<String> KEYWORD_SINGLETONS = Arrays.asList("code", "id");
 	public static final double[] WEIGHTS = new double[]{   // Scores trained with RapidMiner on estimatePK_v12.csv. The prediction were checked for match with RapidMiner.
 			-1.255989036611402,     // BigInt

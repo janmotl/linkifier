@@ -56,6 +56,24 @@ public class LinkifierTest {
 	}
 
 	@Test
+	public void northwind() throws Exception {
+		// This table contains empty tables (e.g. CustomerDemographics).
+		// And we have to test that Linkifier does not crash on the empty tables.
+		dataSource.setDatabaseName("northwind");
+		try (Connection connection = dataSource.getConnection()){
+			Linkifier linkifier = new Linkifier(connection, "", Pattern.compile(""));
+			linkifier.estimatePk();
+			linkifier.estimateFk();
+
+			assertEquals(13, linkifier.getPkCount()); // There are 13 tables -> we expected 13
+			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.92); // One column in the empty relationship table is missed
+			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
+			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) > 0.69);
+			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.99);
+		}
+	}
+
+	@Test
 	public void pk_uni() throws Exception {
 		dataSource.setDatabaseName("UW_std");
 		try (Connection connection = dataSource.getConnection()){

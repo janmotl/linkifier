@@ -113,7 +113,7 @@ public class MySQL implements Vendor {
 				// distinctCountIn, not nullRatio. Nevertheless, the code we assumes that distinctRatio is over all
 				// rows in the table, no matter whether they contain null or not.
 				// uniqueRatioForWholeColumn = uniqueRatioForNonNull * (1-nullRatio)
-				if (column.getNullRatio() != null) column.setUniqueRatio(column.getUniqueRatio() * (1-column.getNullRatio()));
+				if (column.getNullRatio() != null && column.getUniqueRatio() != null) column.setUniqueRatio(column.getUniqueRatio() * (1-column.getNullRatio()));
 				column.setWidthAvg(rs.getDouble(5));
 				column.setTextMin(rs.getString(6));
 				column.setTextMax(rs.getString(7));
