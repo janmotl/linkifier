@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import static java.lang.Math.*;
 
 public class Relationship implements Comparable<Relationship> {
-	private final static Logger LOGGER = Logger.getLogger(Scoring.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(Relationship.class.getName());
 	private static final List<String> KEYWORDS_FK = Arrays.asList("fk", "type", "eid");
 	private static final List<String> STAT_LESS_DATA_TYPE = Arrays.asList("BINARY", "LONGVARBINARY", "LONGVARCHAR");
 	public static final double[] WEIGHTS = new double[]{   // Coefficients from H2O. The coefficients must NOT be standardized. Beware of changing att=false to att=true as it changes not only the sign, but also bias.
@@ -390,7 +390,7 @@ public class Relationship implements Comparable<Relationship> {
 		// We are returning a continuous value (and not a binary decision) because we are using merely estimated values
 		// (e.g. the nullRatios, uniqueRatios and rowCounts can be estimated from obsolete statistics).
 		// We logarithm the estimate to dampen the high values. It helps the regression model.
-		double result = log(1.0+ max(0.0, (fkUniqueCount-pkUniqueCount)/pkUniqueCount));
+		double result = log(1.0 + max(0.0, (fkUniqueCount-pkUniqueCount)/pkUniqueCount));
 
 		if (Double.isNaN(result) || Double.isInfinite(result)) {
 			result = 0.958; // We replace missing values with the average computed over 40 databases

@@ -129,7 +129,7 @@ public class GraphML {
 		}
 		text += "</body></html>";
 		result = result.replace("$text", text);
-		result = result.replace("$height", Integer.toString(36+15*table.getColumnList().size()));
+		result = result.replace("$height", Integer.toString(36+15*table.getColumnList().size())); // The optimal multiplier on MacOs is 15, on Windows 16. I have no idea why.
 		result = result.replace("$x", Integer.toString(170*xPosition));
 		return result;
 	}

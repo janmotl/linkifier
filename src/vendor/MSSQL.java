@@ -20,8 +20,8 @@ public class MSSQL implements Vendor {
 	public void getTableStatistics(String databaseName, String schemaName, List<Table> tables, Connection connection) throws SQLException {
 
 		// Worse alternatives:
-		// 1) sys.dm_db_partition_stats requires VIEW DATABASE STATE permission
-		// 2) sys.sysindexes is not supported by Azure
+		// 1) sys.dm_db_partition_stats requires VIEW DATABASE STATE permission.
+		// 2) sys.sysindexes is not supported by Azure.
 		String query = "SELECT OBJECT_NAME(object_id), Rows " +
 				       "FROM sys.partitions " +
 				       "WHERE OBJECT_SCHEMA_NAME(object_id) = '" + schemaName + "' " +
@@ -44,7 +44,8 @@ public class MSSQL implements Vendor {
 		}
 	}
 
-	// SLOW. Could use sys.dm_db_stats_histogram together with cross apply to get everything (with exception of avgWidth)..
+	// SLOW. Could use sys.dm_db_stats_histogram together with cross apply to get everything (with exception of avgWidth).
+	// But sys.dm_db_stats_histogram requires VIEW DATABASE STATE permission.
 	// It returns different values than MySQL for columns containing null values (e.g. financial.trans.account).
 	// Nulls in MSSQL decrease AvgWidth. But nulls in MySQL do not decrease AvgWidth.
 	// Nulls in MSSQL affect UniqueRatio. But nulls in MySQL are excluded from calculation of UniqueRatio.
@@ -56,11 +57,11 @@ public class MSSQL implements Vendor {
 				"CREATE TABLE #Histogram\n" +
 				"(\n" +
 				"-- The output table\n" +
-				"\tRangeHiKey sql_variant,\n" +
-				"\tRangeRow REAL,\n" +
-				"\tEqRows REAL,\n" +
-				"\tDistinctRangeRow BIGINT,\n" +
-				"\tAvgRangeRow REAL\n" +
+				"  RangeHiKey sql_variant,\n" +
+				"  RangeRow REAL,\n" +
+				"  EqRows REAL,\n" +
+				"  DistinctRangeRow BIGINT,\n" +
+				"  AvgRangeRow REAL\n" +
 				"-- End\n" +
 				")\n" +
 				"\n" +
@@ -68,9 +69,9 @@ public class MSSQL implements Vendor {
 				"CREATE TABLE #Density\n" +
 				"(\n" +
 				"-- The result table\n" +
-				"\tAllDensity REAL,\n" +
-				"\tAvgLength REAL,\n" +
-				"\tCOLUMNS NVARCHAR(4000)\n" +
+				"  AllDensity REAL,\n" +
+				"  AvgLength REAL,\n" +
+				"  COLUMNS NVARCHAR(4000)\n" +
 				"-- End\n" +
 				")\n" +
 				"\n" +
@@ -78,14 +79,14 @@ public class MSSQL implements Vendor {
 				"CREATE TABLE #Result\n" +
 				"(\n" +
 				"-- The result table\n" +
-				"\tTableName NVARCHAR(255),\n" +
-				"\tCOLUMNS NVARCHAR(255),\n" +
-				"\tStatName NVARCHAR(255),\n" +
-				"\tMinValue NVARCHAR(255),\n" +
-				"\tMaxValue NVARCHAR(255),\n" +
-				"\tNullCount INT,\n" +
-				"\tAllDensity REAL,\n" +
-				"\tAvgLength REAL\n" +
+				"  TableName NVARCHAR(255),\n" +
+				"  COLUMNS NVARCHAR(255),\n" +
+				"  StatName NVARCHAR(255),\n" +
+				"  MinValue NVARCHAR(255),\n" +
+				"  MaxValue NVARCHAR(255),\n" +
+				"  NullCount INT,\n" +
+				"  AllDensity REAL,\n" +
+				"  AvgLength REAL\n" +
 				"-- End\n" +
 				")\n" +
 				"\n" +
@@ -95,51 +96,51 @@ public class MSSQL implements Vendor {
 				"LOCAL STATIC READ_ONLY FORWARD_ONLY\n" +
 				"FOR\n" +
 				"-- The table with the variable\n" +
-				"\tSELECT TABLES.TABLE_NAME\n" +
-				"\t\t, stats.name\n" +
-				"\tFROM sys.stats\n" +
-				"\tJOIN INFORMATION_SCHEMA.TABLES\n" +
-				"\tON OBJECT_NAME(stats.object_id)=TABLES.TABLE_NAME\n" +
-				"\tWHERE TABLES.TABLE_SCHEMA = '" + schemaName +"'\n" +
-				"\tAND TABLES.TABLE_CATALOG = '" + databaseName +"'\n" +
+				"  SELECT TABLES.TABLE_NAME\n" +
+				"    , stats.name\n" +
+				"  FROM sys.stats\n" +
+				"  JOIN INFORMATION_SCHEMA.TABLES\n" +
+				"  ON OBJECT_NAME(stats.object_id)=TABLES.TABLE_NAME\n" +
+				"  WHERE TABLES.TABLE_SCHEMA = '" + schemaName +"'\n" +
+				"  AND TABLES.TABLE_CATALOG = '" + databaseName +"'\n" +
 				"-- End\n" +
 				"\n" +
 				"OPEN MY_CURSOR\n" +
 				"FETCH NEXT FROM MY_CURSOR INTO @TABLE_NAME, @STAT_NAME\n" +
 				"WHILE @@FETCH_STATUS = 0 \n" +
 				"BEGIN\n" +
-				"-- Our select statement (here you can do whatever work you wish)\n" +
-				"\tINSERT INTO #Density \n" +
-				"\texec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with DENSITY_VECTOR')\n" +
+				"-- Our select statement \n" +
+				"  INSERT INTO #Density \n" +
+				"  exec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with DENSITY_VECTOR')\n" +
 				"\n" +
-				"\tINSERT INTO #Histogram \n" +
-				"\texec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with HISTOGRAM')\n" +
+				"  INSERT INTO #Histogram \n" +
+				"  exec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with HISTOGRAM')\n" +
 				"\n" +
-				" \tINSERT INTO #Result\n" +
-				" \tSELECT @TABLE_NAME AS TableName\n" +
-				" \t\t, #Density.Columns\n" +
-				" \t\t, @STAT_NAME AS StatName\n" +
-				" \t\t, cast(minimum.minValue as nvarchar(255))\n" +
-				" \t\t, cast(maximum.maxValue as nvarchar(255))\n" +
-				" \t\t, coalesce(nullCounter.nullCount, 0)\n" +
-				"\t\t, #Density.AllDensity\n" +
-				"\t\t, #Density.AvgLength\n" +
-				" \tFROM #Density, (\n" +
-				" \t\tselect top 1 RangeHiKey AS minValue\n" +
-				" \t\tFROM #Histogram where RangeHiKey is not null \n" +
-				" \t) minimum, (\n" +
-				" \t\tSELECT max(RangeHiKey) AS MAXVALUE\n" +
-				" \t\tFROM #Histogram\n" +
-				" \t) maximum , (\n" +
-				"\t\tselect coalesce((\n" +
-				"\t\t\tselect EqRows \n" +
-				"\t\t\tFROM #Histogram\n" +
-				"\t\t\twhere RangeHiKey is null)\n" +
-				"\t\t, 0) AS nullCount\n" +
-				"\t) nullCounter\n" +
+				"   INSERT INTO #Result\n" +
+				"   SELECT @TABLE_NAME AS TableName\n" +
+				"     , #Density.Columns\n" +
+				"     , @STAT_NAME AS StatName\n" +
+				"     , cast(minimum.minValue as nvarchar(255))\n" +
+				"     , cast(maximum.maxValue as nvarchar(255))\n" +
+				"     , coalesce(nullCounter.nullCount, 0)\n" +
+				"    , #Density.AllDensity\n" +
+				"    , #Density.AvgLength\n" +
+				"   FROM #Density, (\n" +
+				"     select top 1 RangeHiKey AS minValue\n" +
+				"     FROM #Histogram where RangeHiKey is not null \n" +
+				"   ) minimum, (\n" +
+				"     SELECT max(RangeHiKey) AS MAXVALUE\n" +
+				"     FROM #Histogram\n" +
+				"   ) maximum , (\n" +
+				"    select coalesce((\n" +
+				"      select EqRows \n" +
+				"      FROM #Histogram\n" +
+				"      where RangeHiKey is null)\n" +
+				"    , 0) AS nullCount\n" +
+				"  ) nullCounter\n" +
 				"\n" +
-				" \tDELETE FROM #Density\n" +
-				" \tDELETE FROM #Histogram\n" +
+				"   DELETE FROM #Density\n" +
+				"   DELETE FROM #Histogram\n" +
 				"-- End\n" +
 				"FETCH NEXT FROM MY_CURSOR INTO @TABLE_NAME, @STAT_NAME\n" +
 				"END\n" +
@@ -157,17 +158,17 @@ public class MSSQL implements Vendor {
 
 		// Since statistics can be calculated for a set of columns, select only statistics at individual columns.
 		// Since multiple statistics can be available for a single column, deduplicate the result.
-		query = "SELECT DISTINCT \n" +
-				"\t   result.TableName,\n" +
-				"\t   result.Columns,\n" +
-				"\t   result.MinValue,\n" +
-				"\t   result.MaxValue,\n" +
-				"\t   result.NullCount,\n" +
-				"\t   result.AllDensity,\n" +
-				"\t   result.AvgLength\n" +
-				"FROM #Result result\n" +
-				"JOIN INFORMATION_SCHEMA.COLUMNS\n" +
-				"ON result.TableName=COLUMNS.TABLE_NAME AND result.Columns=COLUMNS.COLUMN_NAME\n" +
+		query = "SELECT DISTINCT  " +
+				"   result.TableName, " +
+				"   result.Columns, " +
+				"   result.MinValue, " +
+				"   result.MaxValue, " +
+				"   result.NullCount, " +
+				"   result.AllDensity, " +
+				"   result.AvgLength " +
+				"FROM #Result result " +
+				"JOIN INFORMATION_SCHEMA.COLUMNS " +
+				"ON result.TableName=COLUMNS.TABLE_NAME AND result.Columns=COLUMNS.COLUMN_NAME " +
 				"ORDER BY 1,2";
 
 		try (Statement stmt = connection.createStatement();
@@ -184,19 +185,14 @@ public class MSSQL implements Vendor {
 				column.setTextMax(rs.getString(4));
 				column.setNullRatio((column.getRowCount()==null || column.getRowCount()==0) ? null : rs.getDouble(5) / column.getRowCount());
 				column.setUniqueRatio(column.getRowCount()==null || column.getRowCount()==0 ? null : (1/rs.getDouble(6)) / column.getRowCount());
-				column.setWidthAvg(rs.getDouble(7));
+				// Azure counts nulls in widthAvg. But for FK-PK match detection it is better to exclude nulls from widthAvg
+				// as PK should not contain nulls but FK may contain nulls.
+				// WidthAvgWithoutNulls = widthAvg/(1-nullRatio)
+				column.setWidthAvg(column.getNullRatio()==null || column.getNullRatio()==1 ? null : rs.getDouble(7)/(1-column.getNullRatio()));
 			}
 		}
 
 		// Output quality control (if something turns sour, we want to know about that)
 		QualityControl.qcNumericalValues(tables);
 	}
-
-
-
-
-
-
-
-
 }

@@ -8,6 +8,7 @@ import java.sql.JDBCType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.Map.Entry;
 
 
 public class Table {
@@ -184,7 +185,7 @@ public class Table {
 			}
 		}
 
-		for (Map.Entry<String, Double> entry : multiSet.entrySet()) {
+		for (Entry<String, Double> entry : multiSet.entrySet()) {
 			entry.setValue(Math.log(columnList.size()/entry.getValue()));
 		}
 	}

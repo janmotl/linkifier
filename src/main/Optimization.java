@@ -65,7 +65,7 @@ public class Optimization {
 		for (Column column : table.getColumnList()) {
 			if (column.getUniqueRatio() != null) {
 				column.setEstimatedPk(true);
-				optimisticUniqueEstimate = optimisticUniqueEstimate * column.getUniqueRatio() * rowCount;
+				optimisticUniqueEstimate = optimisticUniqueEstimate * column.getUniqueRatio() * rowCount; // We assume that PKs do not contain nulls -> no correction for nulls
 				if (optimisticUniqueEstimate/rowCount > 0.995) {    // We work with estimates -> we are biased toward smaller count of columns in the PK. The threshold is based on tpcc database.
 					return;
 				}

@@ -23,11 +23,11 @@ public class PostgreSQL implements Vendor {
 	public void getTableStatistics(String databaseName, String schemaName, List<Table> tables, Connection connection) throws SQLException {
 
 		String query = "SELECT relname as table_name" +
-				"      , c.reltuples::bigint AS row_count " +
-				"FROM   pg_class c " +
-				"JOIN   pg_namespace n " +
-				"ON n.oid = c.relnamespace " +
-				"WHERE nspname ='" + schemaName + "' AND relkind = 'r'";
+				       "     , c.reltuples::bigint AS row_count " +
+				       "FROM   pg_class c " +
+				       "JOIN   pg_namespace n " +
+				       "ON n.oid = c.relnamespace " +
+				       "WHERE nspname ='" + schemaName + "' AND relkind = 'r'";
 
 		Map<String, Table> map = new HashMap<>();
 		for (Table table : tables) {
@@ -48,15 +48,29 @@ public class PostgreSQL implements Vendor {
 
 	public void getColumnStatistics(String databaseName, String schemaName, List<Table> tables, Connection connection) throws SQLException {
 
-		String query = "SELECT tablename as table_name" +
-				"     , attname as column_name" +
-				"     , null_frac" +
-				"     , n_distinct" +
-				"     , avg_width " +
-				"     , coalesce((histogram_bounds::varchar::varchar[])[1], (most_common_vals::varchar::varchar[])[1]) as min_value " +
-				"     , coalesce((histogram_bounds::varchar::varchar[])[array_length(histogram_bounds::varchar::varchar[], 1)], (most_common_vals::varchar::varchar[])[array_length(most_common_vals::varchar::varchar[], 1)]) as max_value " +
+		// If possible, we prefer numeric bounds from "histogram_bounds" to varchars from "most_common_values"
+		// because "histogram_bounds" sorts numbers like {2,100} correctly.
+		// However, "histogram_bounds" does not include most common values. Hence, we have to coalesce in coalesce.
+		String query =
+				"SELECT tablename as table_name " +
+				"    , attname as column_name " +
+				"    , null_frac " +
+				"    , n_distinct " +
+				"    , avg_width " +
+				"    , coalesce(least((histogram_bounds::varchar::varchar[])[1], varchar_min_value), varchar_min_value) as min_value " +
+				"    , coalesce(greatest((histogram_bounds::varchar::varchar[])[array_length(histogram_bounds::varchar::varchar[], 1)], varchar_max_value), varchar_max_value) as max_value " +
 				"FROM pg_stats " +
-				"WHERE schemaname ='" + schemaName + "'";
+				"LEFT JOIN ( " +
+				"  SELECT tablename, attname " +
+				"    , min(list) As varchar_min_value " +
+				"    , max(list) As varchar_max_value " +
+				"  FROM  pg_stats, unnest(pg_stats.most_common_vals::varchar::varchar[]) list " + // implicit LATERAL join
+				"  WHERE schemaname = '" + schemaName + "' " +
+				"  GROUP BY tablename, attname " +
+				") most_common_values " +
+				"USING(tablename, attname) " +
+				"WHERE schemaname = '" + schemaName + "'";
+		
 
 		Map<String, Table> tableMap = new HashMap<>();
 		for (Table table : tables) {
