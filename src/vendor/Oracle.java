@@ -157,26 +157,26 @@ public class Oracle implements Vendor {
 
 
 			// All to string
-			decodeLow = "case \n" +
-					"\t\t\t\t\t\t\t\twhen data_type = 'NVARCHAR2' then to_char(raw_to_nvarchar2(low_value))\n" +
-					"                when data_type = 'VARCHAR2' then to_char(raw_to_varchar2(low_value)||'')\n" +
-					"\t\t\t\t\t\t\t\twhen data_type = 'CHAR' then to_char(raw_to_varchar2(low_value))\n" +
-					"                when data_type = 'DATE' then to_char(raw_to_date(low_value), 'YYYYMMDD')\n" +
-					"                when data_type = 'NUMBER' then to_char(raw_to_num(low_value))\n" +
-					"\t\t\t\t\t\t\t\twhen data_type = 'FLOAT' then to_char(raw_to_float(low_value))\n" +
-					"\t\t\t\t\t\t\t\twhen data_type like 'TIMESTAMP%' then to_char(raw_to_timestamp(low_value), 'YYYYMMDDHH24MISS')\n" +
-					" \t\t\t\t\t\t\t\telse to_char(raw_to_nvarchar2(low_value))\n" +
-					"\t\t\t\tend";
-			decodeHigh = "case \n" +
-					"\t\t\t\t\t\t\t\twhen data_type = 'NVARCHAR2' then to_char(raw_to_nvarchar2(high_value))\n" +
-					"                when data_type = 'VARCHAR2' then to_char(raw_to_varchar2(high_value)||'')\n" +
-					"\t\t\t\t\t\t\t\twhen data_type = 'CHAR' then to_char(raw_to_varchar2(high_value))\n" +
-					"                when data_type = 'DATE' then to_char(raw_to_date(high_value), 'YYYYMMDD')\n" +
-					"                when data_type = 'NUMBER' then to_char(raw_to_num(high_value))\n" +
-					"\t\t\t\t\t\t\t\twhen data_type = 'FLOAT' then to_char(raw_to_float(high_value))\n" +
-					"\t\t\t\t\t\t\t\twhen data_type like 'TIMESTAMP%' then to_char(raw_to_timestamp(high_value), 'YYYYMMDDHH24MISS')\n" +
-					" \t\t\t\t\t\t\t\telse to_char(raw_to_nvarchar2(high_value))\n" +
-					"\t\t\t\tend";
+			decodeLow = "case  " +
+					"                when data_type = 'NVARCHAR2' then to_char(raw_to_nvarchar2(low_value)) " +
+					"                when data_type = 'VARCHAR2' then to_char(raw_to_varchar2(low_value)||'') " +
+					"                when data_type = 'CHAR' then to_char(raw_to_varchar2(low_value)) " +
+					"                when data_type = 'DATE' then to_char(raw_to_date(low_value), 'YYYYMMDD') " +
+					"                when data_type = 'NUMBER' then to_char(raw_to_num(low_value)) " +
+					"                when data_type = 'FLOAT' then to_char(raw_to_float(low_value)) " +
+					"                when data_type like 'TIMESTAMP%' then to_char(raw_to_timestamp(low_value), 'YYYYMMDDHH24MISS') " +
+					"                else to_char(raw_to_nvarchar2(low_value)) " +
+					"        end";
+			decodeHigh = "case  " +
+					"                when data_type = 'NVARCHAR2' then to_char(raw_to_nvarchar2(high_value)) " +
+					"                when data_type = 'VARCHAR2' then to_char(raw_to_varchar2(high_value)||'') " +
+					"                when data_type = 'CHAR' then to_char(raw_to_varchar2(high_value)) " +
+					"                when data_type = 'DATE' then to_char(raw_to_date(high_value), 'YYYYMMDD') " +
+					"                when data_type = 'NUMBER' then to_char(raw_to_num(high_value)) " +
+					"                when data_type = 'FLOAT' then to_char(raw_to_float(high_value)) " +
+					"                when data_type like 'TIMESTAMP%' then to_char(raw_to_timestamp(high_value), 'YYYYMMDDHH24MISS') " +
+					"                else to_char(raw_to_nvarchar2(high_value)) " +
+					"        end";
 		}
 
 		query = "select TABLE_NAME, COLUMN_NAME, NUM_DISTINCT, " + decodeLow + " LOW_VALUE, " + decodeHigh + " HIGH_VALUE, NUM_NULLS, AVG_COL_LEN from SYS.ALL_TAB_COLUMNS where OWNER = '" + schemaName + "'";
@@ -197,7 +197,10 @@ public class Oracle implements Vendor {
 				column.setTextMin(rs.getString(4));
 				column.setTextMax(rs.getString(5));
 				column.setNullRatio(column.getRowCount()==null || column.getRowCount()==0 ? null : rs.getDouble(6) / column.getRowCount());
-				column.setWidthAvg(rs.getDouble(7));
+				// Oracle counts nulls in widthAvg. But for FK-PK match detection it is better to exclude nulls from widthAvg
+				// as PK should not contain nulls but FK may contain nulls.
+				// WidthAvgWithoutNulls = widthAvg/(1-nullRatio)
+				column.setWidthAvg(column.getNullRatio()==null || column.getNullRatio()==1 ? null : rs.getDouble(7)/(1-column.getNullRatio()));
 			}
 		}
 

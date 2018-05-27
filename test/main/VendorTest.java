@@ -3,13 +3,11 @@ package main;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import oracle.jdbc.pool.OracleConnectionPoolDataSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.postgresql.jdbc3.Jdbc3PoolingDataSource;
-import vendor.MSSQL;
-import vendor.MySQL;
-import vendor.PostgreSQL;
-import vendor.Vendor;
+import vendor.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -113,6 +111,33 @@ public class VendorTest {
         assertEquals("UVER", tables.get(0).getColumn("k_symbol").getTextMax());
 	}
 
+    @Test
+    public void Oracle() throws Exception {
+        // Oracle does not return number length and count of digits always in the expected format.
+        // We use a following workaround (not perfect but good enough):
+		System.getProperties().setProperty("oracle.jdbc.J2EE13Compliant", "true");
+		OracleConnectionPoolDataSource dataSource = new OracleConnectionPoolDataSource();
+		dataSource.setURL("jdbc:oracle:thin:@localhost:1521:XE");
+		dataSource.setUser("SYSTEM");
+		dataSource.setPassword("******");
+
+        try (Connection connection = dataSource.getConnection()){
+            Vendor vendor = new Oracle();
+            vendor.getTableStatistics("XE", "FINANCIAL", tables, connection);
+            vendor.getColumnStatistics("XE", "FINANCIAL", tables, connection);
+        }
+
+        // There are 481881 null records
+        assertEquals(481881/1056320.0, tables.get(0).getColumn("k_symbol").getNullRatio(), 0.0000001);
+        // There are 8 different non-null records
+        assertEquals(8/1056320.0, tables.get(0).getColumn("k_symbol").getUniqueRatio(), 0.000001);
+        // We used nvarchar2, not varchar2 -> it takes twice as much space.
+        // Note that the statistics value is always rounded (the rules of rounding are unknown).
+        assertEquals(2*4.5172, tables.get(0).getColumn("k_symbol").getWidthAvg(), 0.2);
+        assertEquals(" ", tables.get(0).getColumn("k_symbol").getTextMin());
+        assertEquals("UVER", tables.get(0).getColumn("k_symbol").getTextMax());
+    }
+
 
     @Test
 	public void MySQL_numbers() throws Exception {
@@ -182,4 +207,32 @@ public class VendorTest {
         assertEquals(0, tables.get(0).getColumn("account").getValueMin(), 0.00001);
         assertEquals(99994199, tables.get(0).getColumn("account").getValueMax(), 0.00001);
 	}
+
+    @Test
+    public void Oracle_number() throws Exception {
+        // Oracle does not return number length and count of digits always in the expected format.
+        // We use a following workaround (not perfect but good enough):
+        System.getProperties().setProperty("oracle.jdbc.J2EE13Compliant", "true");
+        OracleConnectionPoolDataSource dataSource = new OracleConnectionPoolDataSource();
+        dataSource.setURL("jdbc:oracle:thin:@localhost:1521:XE");
+        dataSource.setUser("SYSTEM");
+        dataSource.setPassword("******");
+
+        try (Connection connection = dataSource.getConnection()){
+            Vendor vendor = new Oracle();
+            vendor.getTableStatistics("XE", "FINANCIAL", tables, connection);
+            vendor.getColumnStatistics("XE", "FINANCIAL", tables, connection);
+        }
+
+        // There are 760931 null records
+        assertEquals(760931.0/1056320.0, tables.get(0).getColumn("account").getNullRatio(), 0.0001);
+        // There are 7665 non-null unique records from all records
+        assertEquals(7665.0/1056320.0, tables.get(0).getColumn("account").getUniqueRatio(), 0.000001);
+        // Value as returned with: select avg(lengthb("account")) from "trans"
+        // Oracle uses a variable length NUMBER data type -> the returned value is not a whole number.
+        // Note that the statistics value is always rounded (the rules of rounding are unknown).
+        assertEquals(7.37469912555985, tables.get(0).getColumn("account").getWidthAvg(), 0.5);
+        assertEquals(0, tables.get(0).getColumn("account").getValueMin(), 0.00001);
+        assertEquals(99994199, tables.get(0).getColumn("account").getValueMax(), 0.00001);
+    }
 }

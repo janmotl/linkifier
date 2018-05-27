@@ -1,5 +1,6 @@
 package main;
 
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 
 import javax.sql.DataSource;
@@ -20,16 +21,16 @@ public class Setting {
 	public static final List<String> KEYWORD_RELATIONSHIP = Arrays.asList("to", "from", "1", "2", "3", "4", "a", "b", "x", "y", "origin", "dest", "div", "departure", "arrival", "winner", "loser", "via", "original", "sales", "opp", "home", "away", "draft", "other", "bill", "ship", "shipto", "assembly", "unit", "close", "open", "creation", "excerpt", "parent", "child", "returning", "start", "end", "sold", "draft", "refunded", "current", "access", "reports", "cited", "citing", "last", "first", "related"); // StopWords - these keywords are (almost) ignored in string similarity computations to make the FK more similar to PK
 
 	public static DataSource getDataSource() throws SQLException {
-		MysqlConnectionPoolDataSource dataSource = new MysqlConnectionPoolDataSource();
-		dataSource.setUrl("jdbc:mysql://relational.fit.cvut.cz");
-		dataSource.setUser("guest");
-		dataSource.setPassword("relational");
+//		MysqlConnectionPoolDataSource dataSource = new MysqlConnectionPoolDataSource();
+//		dataSource.setUrl("jdbc:mysql://relational.fit.cvut.cz");
+//		dataSource.setUser("guest");
+//		dataSource.setPassword("relational");
 
 		// MSSQL
-//		SQLServerDataSource dataSource = new SQLServerDataSource();
-//		dataSource.setURL("jdbc:sqlserver://localhost:1433;DatabaseName=PredictorFactory");
-//		dataSource.setUser("sa");
-//		dataSource.setPassword("");
+		SQLServerDataSource dataSource = new SQLServerDataSource();
+		dataSource.setURL("jdbc:sqlserver://localhost:1433;DatabaseName=PredictorFactory");
+		dataSource.setUser("sa");
+		dataSource.setPassword("");
 
 		// Oracle
 		// Oracle does not return number length and count of digits always in the expected format.

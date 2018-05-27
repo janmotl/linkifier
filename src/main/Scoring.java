@@ -19,8 +19,8 @@ public class Scoring {
 		long startTime = System.nanoTime();
 
 		// Parameters
-		String databaseName = "UW_std";		// For MySQL set only databaseName and set schemaName="".
-		String schemaName = "";                         // For other databases, set both databaseName and schemaName.
+		String databaseName = "PredictorFactory";		// For MySQL set only databaseName and set schemaName="".
+		String schemaName = "mutagenesis";                         // For other databases, set both databaseName and schemaName.
 
 		// Collect metadata
 		String identifierQuote = "\"\"";
