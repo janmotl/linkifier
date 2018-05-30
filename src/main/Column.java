@@ -279,8 +279,14 @@ public class Column {
 		return textMin;
 	}
 
-	public void setTextMin(String textMin) {
+	public void setTextMin(@Nullable String textMin) {
 		this.textMin = textMin;
+
+		// JDBC may return nulls (e.g. for binary data)
+		if (textMin==null) {
+			return;
+		}
+
 		try {
 			valueMin = Double.valueOf(textMin);
 		} catch (Exception ignored) {
@@ -292,8 +298,14 @@ public class Column {
 		return textMax;
 	}
 
-	public void setTextMax(String textMax) {
+	public void setTextMax(@Nullable String textMax) {
 		this.textMax = textMax;
+
+		// JDBC may return nulls (e.g. for binary data)
+		if (textMax==null) {
+			return;
+		}
+
 		try {
 			valueMax = Double.valueOf(textMax);
 		} catch (Exception ignored) {

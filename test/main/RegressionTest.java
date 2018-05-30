@@ -3069,7 +3069,7 @@ public class RegressionTest {
         int i15 = column14.getColumnSize();
         Boolean b16 = column14.getContains();
         boolean b17 = column2.equals(b16);
-        Assert.assertTrue("'" + d9 + "' != '" + (-1.0d) + "'", d9.equals((-1.0d)));
+        Assert.assertTrue("'" + d9 + "' != '" + (44.0d) + "'", d9.equals((44.0d)));
         Assert.assertTrue(i15 == 0);
 
         Assert.assertTrue(b17 == false);
@@ -4318,7 +4318,7 @@ public class RegressionTest {
         column2.setDataType((int) (byte) 10);
         Assert.assertNull(str7);
         Assert.assertNull(str12);
-        Assert.assertTrue("'" + d13 + "' != '" + (-1.0d) + "'", d13.equals((-1.0d)));
+        Assert.assertTrue("'" + d13 + "' != '" + (44.0d) + "'", d13.equals((44.0d)));
     }
 
     @Test
@@ -6603,7 +6603,7 @@ public class RegressionTest {
         column2.setTableColumnCount(0);
         Assert.assertNull(str7);
         Assert.assertNull(str12);
-        Assert.assertTrue("'" + d13 + "' != '" + (-1.0d) + "'", d13.equals((-1.0d)));
+        Assert.assertTrue("'" + d13 + "' != '" + (44.0d) + "'", d13.equals((44.0d)));
     }
 
     @Test

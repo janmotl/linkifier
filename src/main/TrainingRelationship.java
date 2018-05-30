@@ -20,7 +20,7 @@ public class TrainingRelationship {
 				+ " WHERE TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'predictor_factory', 'mysql', 'meta', 'Phishing', 'fairytale', 'KRK', 'genes', 'Mesh', 'YelpDataset3', 'Seznam', 'TalkingData', 'lahman_2014', 'Hockey', 'Bench')"
 				+ " AND TABLE_SCHEMA NOT LIKE 'arnaud_%' AND TABLE_SCHEMA NOT LIKE 'ctu_%' ";
 //				+ " AND TABLE_SCHEMA  IN ('Yelp', 'mutagenesis', 'financial', 'tpcd', 'tpce')";
-//				+ " AND TABLE_SCHEMA  IN ('AdventureWorks2014')";
+//				+ " AND TABLE_SCHEMA  IN ('OpenML_2016')";
 //				+ " AND BINARY TABLE_SCHEMA  = 'mutagenesis'";
 
 
@@ -39,6 +39,7 @@ public class TrainingRelationship {
 		// YelpDataset3 does not have set up FK
 		// Carcinogenesis: violate FK constraint -> use them to prove that metadata approach is useful
 		// Toxicology: violate FK constraint -> use them to prove that metadata approach is useful
+		// Medical: violates FK constraint in Examination.ID->Patient.ID
 
 		try (Connection connection = Setting.getDataSource().getConnection();
 		     Statement stmt = connection.createStatement();

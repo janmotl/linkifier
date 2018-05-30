@@ -68,7 +68,7 @@ public class LinkifierTest {
 			assertEquals(13, linkifier.getPkCount()); // There are 13 tables -> we expected 13
 			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.92); // One column in the empty relationship table is missed
 			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
-			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) > 0.69);
+			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) > 0.76);
 			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.99);
 		}
 	}
@@ -83,7 +83,7 @@ public class LinkifierTest {
 
 			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.99);
 			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
-			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.99);
+			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) > 0.74);
 			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.99);
 		}
 	}
@@ -96,10 +96,10 @@ public class LinkifierTest {
 			linkifier.estimatePk();
 			linkifier.estimateFk();
 
-			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) >= 0.875);    // History table does not have a defined PK (as the TPCC benchmark definition specifies)
 			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) >= 0.736);
-			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) >= 0.205);
-			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) >= 0.4);
+			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) >= 0.875);    // History table does not have a defined PK (as the TPCC benchmark definition specifies)
+			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) >= 0.45);
+			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) >= 0.230);
 		}
 	}
 
@@ -111,10 +111,10 @@ public class LinkifierTest {
 			linkifier.estimatePk();
 			linkifier.estimateFk();
 
-			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) >= 0.875);
-			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) >= 0.53);
+			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.999);
+			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.999);
+			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) >= 0.98);
 			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.999);
-			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) >= 0.97);
 		}
 	}
 
@@ -131,10 +131,10 @@ public class LinkifierTest {
 			linkifier.estimatePk();
 			linkifier.estimateFk();
 
-			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
 			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.99);
-			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.99);
+			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
 			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) >= 0.7); // Misses: moz_bookmarks.fk --> moz_places.id, moz_items_annos.item_id --> moz_bookmarks.id
+			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.99);
 		}
 	}
 

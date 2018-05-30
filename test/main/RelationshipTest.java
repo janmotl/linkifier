@@ -25,7 +25,7 @@ public class RelationshipTest {
 		relationship.getPk().setTextMin("1");
 		relationship.getPk().setTextMax("11382");
 
-		assertTrue(relationship.isInRange());
+		assertTrue(relationship.violatesRange()==0);
 	}
 
 	@Test
@@ -36,7 +36,7 @@ public class RelationshipTest {
 		relationship.getPk().setTextMin("1");
 		relationship.getPk().setTextMax("10");
 
-		assertTrue(relationship.isInRange());
+		assertTrue(relationship.violatesRange()==0);
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class RelationshipTest {
 		relationship.getPk().setTextMin("2");
 		relationship.getPk().setTextMax("10");
 
-		assertFalse(relationship.isInRange());
+		assertTrue(relationship.violatesRange()>0);
 	}
 
 	@Test
@@ -58,7 +58,18 @@ public class RelationshipTest {
 		relationship.getPk().setTextMin("1");
 		relationship.getPk().setTextMax("10");
 
-		assertFalse(relationship.isInRange());
+		assertTrue(relationship.violatesRange()>0);
+	}
+
+	@Test
+	public void isConstant() {
+		relationship.getFk().setTextMin("1");
+		relationship.getFk().setTextMax("1");
+
+		relationship.getPk().setTextMin("1");
+		relationship.getPk().setTextMax("1");
+
+		assertTrue(relationship.violatesRange()==0);
 	}
 
 	@Test

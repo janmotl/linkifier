@@ -1,11 +1,13 @@
 package utility;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class Histogram {
 
 	// Get generalized Jaccard similarity between two equal-height histograms.
-	public static Double jaccard(double[] hist_1, double[] hist_2) {
+	//
+	@Nullable public static Double jaccard(@Nullable double[] hist_1, @Nullable double[] hist_2) {
 		// Input parameter validation
 		if (hist_1 == null || hist_2 == null) return null;
 

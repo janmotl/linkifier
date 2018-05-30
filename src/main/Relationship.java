@@ -20,31 +20,31 @@ public class Relationship implements Comparable<Relationship> {
 	private static final List<String> KEYWORDS_FK = Arrays.asList("fk", "type", "eid");
 	private static final List<String> STAT_LESS_DATA_TYPE = Arrays.asList("BINARY", "LONGVARBINARY", "LONGVARCHAR");
 	public static final double[] WEIGHTS = new double[]{   // Coefficients from H2O. The coefficients must NOT be standardized. Beware of changing att=false to att=true as it changes not only the sign, but also bias.
-			-0.6955762483277834,    // fk_isPrimaryKey (this helps to get the direction from FK to PK right, but it does not always hold)
-			0.8341590011803686,     // fk_contains (FKs generally contains tokens like "ID", "code",...)
-			0.10373063667967375,    // fk_levenshteinDistance (FK should be named differently from it's own table name)
-			-0.002876039063235576,  // fk_ordinalPosition (FKs are generally somewhere at the beginning of the table)
-			-2.8301632739037403,    // fk_isKeywordSingleton ("id" name is commonly the name of the PK, not FK)
-			-0.8568352557185934,    // fk_suspiciousNullRatio (nulls in "cancellationReason" are to be expected, but in the remaining FK columns it is suspicious)
-			1.9901515162474914,     // fk_isDoppelganger (common in relationship tables)
-			-5.193119993434845,     // pk_isDoppelganger (entity tables do not contain doppelgangers, which are identified by their names)
-			0.7824731114306701,     // pk_isEmptyTable (if the table is empty, it is likely just a log table -> no fk constraint)
-			-2.906798679098273,     // pk_hasMultiplePK (multiple PK columns are a sign of a junction table)
-			7.883346686113318,      // dataTypeCategoryAgree (should hold, but can be violated between char and varchar) MOVE TO dataTypeAgree
-			3.0648515719608516,     // dataLengthAgree (desirable, but can be violated in case of varchar)
-			7.9307749274512265,     // tokenShareRatioLD (FK should be similar to PK's name; works better than levenshteinColumns and tpcSimilarity)
-			6.491342650039756,      // tpcSimilarity (FK name should be composed of {fkTableName, pkTableName, pk, typical keywords})
-			-0.3314754188563204,    // levenshteinToTable (FK column should be similar to PK's table name)
-			0.7362776899486065,     // pkDoesNotHaveMoreTokensThanFk (PK names are generally shorter than FK names)
-			-11.87904705572841,     // violatesSpecialization (FK in is-a relationship should not have more columns than PK)
-			2.860802417953415,  	// isInRange (FK values should be in the range of PK values)
-			-1.4678037345821042, 	// avgWidthDiff (the average length of the values in FK should be close to average in PK)
-			-1.7392874610946814,    // violatesCardinalityConstraint (the count of unique values in FK should be ≤ count in PK)
-			0.24960433524612388,    // rangeCoverage (values in FK should cover a wide range of values in PK)
-			-0.3259132104678418,    // specializationTightness (when we have a deep hierarchy, prefer a parent with the lowest row count)
-			-14.467402343707146,    // isTheSameColumn (self referencing should never happen)
-			-2.7260612259001804};   // isTheSameTable (hierarchies are relatively rare in the databases)
-	private static final double BIAS = -27.50484138304173;
+			-0.9051092393103701,    // fk_isPrimaryKey (this helps to get the direction from FK to PK right, but it does not always hold)
+			1.4800963756732868,     // fk_contains (FKs generally contains tokens like "ID", "code",...)
+			0.1121816844016589,    // fk_levenshteinDistance (FK should be named differently from it's own table name)
+			-0.003360204542325813,  // fk_ordinalPosition (FKs are generally somewhere at the beginning of the table)
+			-2.4185131888467026,    // fk_isKeywordSingleton ("id" name is commonly the name of the PK, not FK)
+			-0.7966380124498442,    // fk_suspiciousNullRatio (nulls in "cancellationReason" are to be expected, but in the remaining FK columns it is suspicious)
+			1.9988684844900322,     // fk_isDoppelganger (common in relationship tables)
+			-5.936077562897998,     // pk_isDoppelganger (entity tables do not contain doppelgangers, which are identified by their names)
+			0.8128636915023133,     // pk_isEmptyTable (if the table is empty, it is likely just a log table -> no fk constraint)
+			-2.4692816625571132,     // pk_hasMultiplePK (multiple PK columns are a sign of a junction table)
+			6.808168246120176,      // dataTypeCategoryAgree (should hold, but can be violated between char and varchar) MOVE TO dataTypeAgree
+			4.332770141018438,     // dataLengthAgree (desirable, but can be violated in case of varchar)
+			7.2578982511490775,     // tokenShareRatioLD (FK should be similar to PK's name; works better than levenshteinColumns and tpcSimilarity)
+			4.705476118049105,      // tpcSimilarity (FK name should be composed of {fkTableName, pkTableName, pk, typical keywords})
+			-0.39375989011425677,    // levenshteinToTable (FK column should be similar to PK's table name)
+			0.6301783595908211,     // pkDoesNotHaveMoreTokensThanFk (PK names are generally shorter than FK names)
+			-13.388762100412785,     // violatesSpecialization (FK in is-a relationship should not have more columns than PK)
+			-16.256910657715604,  	// violatesRange (FK values should be in the range of PK values)
+			-0.5605913300905464, 	// avgWidthDiff (the average length of the values in FK should be close to average in PK)
+			-1.50284433068921,    // violatesCardinalityConstraint (the count of unique values in FK should be ≤ count in PK)
+			1.6644792054307205,    // rangeCoverage (values in FK should cover a wide range of values in PK)
+			-0.2649660921894703,    // specializationTightness (when we have a deep hierarchy, prefer a parent with the lowest row count)
+			-15.620701582762347,    // isTheSameColumn (self referencing should never happen)
+			-2.6708125941481073};   // isTheSameTable (hierarchies are relatively rare in the databases)
+	private static final double BIAS = -23.896451168064164;
 
 	//	1) Do the data types agree?
 	//	2) Do the data type properties (like length, count of decimals, is signed/unsigned, text encoding) agree?
@@ -74,7 +74,7 @@ public class Relationship implements Comparable<Relationship> {
 	private double satisfiedFKRatio;
 	private double violatesCardinalityConstraint;
 	private String satisfiesFKConstraint = "untested";
-	private boolean isInRange;
+	private double violatesRange;
 	private boolean isSpecialization;
 	private @Nullable Double specializationTightness;	// These values are from database statistics -> nullable
 	private @Nullable Double rangeCoverage;
@@ -156,7 +156,7 @@ public class Relationship implements Comparable<Relationship> {
 				"pkDoesNotHaveMoreTokensThanFk",
 				"avgWidthDiff",
 				"violatesCardinalityConstraint",
-				"isInRange",
+				"violatesRange",
 				"isSpecialization",
 				"specializationTightness",
 				"satisfiesFKConstraint",
@@ -281,7 +281,7 @@ public class Relationship implements Comparable<Relationship> {
 		violatesSpecialization = fk.getName().equals(pk.getName()) && fk.getRowCount()>(1.125*pk.getRowCount()) && fk.isBestAttemptPk() && !fk.hasMultiplePK() && (fk.getUniqueRatio()==null || fk.getUniqueRatio()>0.95); // If the row counts are similar, the inequality comparison gets unreliable -> we increase the limit by 12.5% to be sure. Note that we currently rely on fk.hasMultiplePK(), which assumes the PKs are already set in the database. We deal with that by the requirement that the FK column is unique.
 		avgWidthDiff = getAvgWidthDiff();
 		violatesCardinalityConstraint = violatesCardinalityConstraint();
-		isInRange = isInRange();
+		violatesRange = violatesRange();
 		rangeCoverage = getRangeCoverage();
 		histogramSimilarity = getHistogramSimilarity();
 		nameAgree = (pk.getName().equals(fk.getName()));
@@ -331,42 +331,62 @@ public class Relationship implements Comparable<Relationship> {
 	// Carcinogenesis:	sbond_2.atomid --> atom.atomid.
 	// medical: Examination.ID --> Patient.ID.
 	// These are "bugs" of the schemas, not the code.
-	public boolean isInRange() {
-		// First by a numerical comparison, if possible
-		if (fk.getValueMin() != null && pk.getValueMin() != null && fk.getValueMax() != null && pk.getValueMax() != null) {
-			return fk.getValueMin()>=pk.getValueMin() && fk.getValueMax()<=pk.getValueMax();
-		}
+	// Because the extrema are frequently based on sample and/or outdated statistics, we do not return
+	// a binary decision but a continuous value.
+	// Note: The current implementation neglects:
+	//  1) the size of the sample used by the statistics to get the extrema
+	//  2) row count of the table
+	//  3) uniqueRatio
+	// But all these data can be used to estimate the real extrema.
+	public double violatesRange() {
 
-		// Then by string comparison, if possible (e.g. if the row_count==0, textMin is null)
-		if (fk.getTextMin() != null & pk.getTextMin() != null && fk.getTextMax() != null && pk.getTextMax() != null) {
-			return (fk.getTextMin().compareTo(pk.getTextMin())>=0 && fk.getTextMax().compareTo(pk.getTextMax())<=0);
+		// Compare by numbers, if possible
+		if (fk.getValueMin() != null && pk.getValueMin() != null && fk.getValueMax() != null && pk.getValueMax() != null) {
+
+			// Avoid division by zero
+			if (pk.getValueMin().equals(pk.getValueMax()) && (fk.getValueMin()<pk.getValueMin() || pk.getValueMax()<fk.getValueMax())) {
+				return 1;
+			}
+			if (pk.getValueMin().equals(pk.getValueMax()) && (fk.getValueMin().equals(fk.getValueMax()))) {
+				return 0;
+			}
+
+			// Deal with NaNs (appear in OpenML_2016.data_quality.value)
+			if (pk.getValueMin().isNaN() || pk.getValueMax().isNaN() || fk.getValueMin().isNaN() || fk.getValueMax().isNaN()) return 0;
+
+			double range = pk.getValueMax() - pk.getValueMin();
+			double lowerRelativeOvershoot = max(0, (pk.getValueMin()-fk.getValueMin()) / range);
+			double upperRelativeOvershoot = max(0, (fk.getValueMax()-pk.getValueMax()) / range);
+
+			// Since we are using logistic regression, we damp extremely large values with logarithm
+			return log1p(lowerRelativeOvershoot+upperRelativeOvershoot);
 		}
 
 		// Not all data types have minimum and maximum. Known exceptions are ignored.
 		if (STAT_LESS_DATA_TYPE.contains(fk.getDataTypeName()) || STAT_LESS_DATA_TYPE.contains(pk.getDataTypeName())) {
-			return false; // We return false, because these columns are unlikely to be a PK or FK.
+			return 1; // We return quite a large value, because these columns are unlikely to be a PK or FK.
 		}
 
 		// If the FK table is empty, we can just assume it is ok.
 		if (fk.getRowCount() == 0) {
-			return true;
+			return 0;
 		}
 
-		// If FK table is not empty but PK table is empty, we have a violation of the FK constraint -> we return false.
+		// If FK table is not empty but PK table is empty, we have a violation of the FK constraint -> we return a high value.
 		// Example is in AdventureWorks2014: AWBuildVersion.SystemInformationID --> ErrorLog.ErrorLogID
 		if (pk.getRowCount() == 0) {
-			return false;
+			return 1;
 		}
 
-		// If the FK column contains only nulls, assume true. Since we are using estimates, we use soft threshold.
+		// If the FK column contains only nulls, assume ok. Since we are using estimates, we use soft threshold.
 		if (fk.getNullRatio() != null && fk.getNullRatio() > 0.99) {
-			return true;
+			return 0;
 		}
 
 		// Fail-safe
 		// Possible reason for this: missing statistics for the table
 		LOGGER.fine("We failed to compute 'inRange' feature for: " + this + ". Was statistics collected on these columns?");
-		return true;    // I am optimistic...
+		return 0;    // I am optimistic...
 	}
 
 	// Check cardinality of PK and FK. The count of unique values in FK should be ≤ count of unique values in PK.
@@ -567,7 +587,7 @@ public class Relationship implements Comparable<Relationship> {
 				levenshteinToTable,
 				pk.getTokenizedName().size() <= fk.getTokenizedName().size() ? 1 : 0,
 				violatesSpecialization ? 1 : 0,
-				isInRange ? 1 : 0,
+				violatesRange,
 				avgWidthDiff,
 				violatesCardinalityConstraint,
 				rangeCoverage,
@@ -602,7 +622,7 @@ public class Relationship implements Comparable<Relationship> {
 				(pk.getTokenizedName().size() <= fk.getTokenizedName().size()) ? "true" : "false",
 				Double.toString(avgWidthDiff),
 				Double.toString(violatesCardinalityConstraint),
-				isInRange ? "true" : "false", // Use String.valueOf(isInRange) ??
+				Double.toString(violatesRange),
 				isSpecialization ? "true" : "false",
 				specializationTightness != null ? specializationTightness.toString() : "",
 				satisfiesFKConstraint,
