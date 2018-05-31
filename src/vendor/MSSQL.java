@@ -51,100 +51,113 @@ public class MSSQL implements Vendor {
 	// Nulls in MSSQL affect UniqueRatio. But nulls in MySQL are excluded from calculation of UniqueRatio.
 	public void getColumnStatistics(String databaseName, String schemaName, List<Table> tables, Connection connection) throws SQLException {
 
-		String query = "-- For each loop.\n" +
-				"-- It executes queries for each row in a table. The results are stored into temporary tables.   \n" +
-//				"DROP TABLE #Histogram\n" +
-				"CREATE TABLE #Histogram\n" +
-				"(\n" +
-				"-- The output table\n" +
-				"  RangeHiKey sql_variant,\n" +
-				"  RangeRow REAL,\n" +
-				"  EqRows REAL,\n" +
-				"  DistinctRangeRow BIGINT,\n" +
-				"  AvgRangeRow REAL\n" +
-				"-- End\n" +
-				")\n" +
-				"\n" +
-//				"DROP TABLE #Density\n" +
-				"CREATE TABLE #Density\n" +
-				"(\n" +
-				"-- The result table\n" +
-				"  AllDensity REAL,\n" +
-				"  AvgLength REAL,\n" +
-				"  COLUMNS NVARCHAR(4000)\n" +
-				"-- End\n" +
-				")\n" +
-				"\n" +
-//				"DROP TABLE #Result\n" +
-				"CREATE TABLE #Result\n" +
-				"(\n" +
-				"-- The result table\n" +
-				"  TableName NVARCHAR(255),\n" +
-				"  COLUMNS NVARCHAR(255),\n" +
-				"  StatName NVARCHAR(255),\n" +
-				"  MinValue NVARCHAR(255),\n" +
-				"  MaxValue NVARCHAR(255),\n" +
-				"  NullCount INT,\n" +
-				"  AllDensity REAL,\n" +
-				"  AvgLength REAL\n" +
-				"-- End\n" +
-				")\n" +
-				"\n" +
-				"DECLARE @TABLE_NAME VARCHAR(255)\n" +
-				"DECLARE @STAT_NAME VARCHAR(255)  \n" +
-				"DECLARE MY_CURSOR CURSOR  \n" +
-				"LOCAL STATIC READ_ONLY FORWARD_ONLY\n" +
-				"FOR\n" +
-				"-- The table with the variable\n" +
-				"  SELECT TABLES.TABLE_NAME\n" +
-				"    , stats.name\n" +
-				"  FROM sys.stats\n" +
-				"  JOIN INFORMATION_SCHEMA.TABLES\n" +
-				"  ON OBJECT_NAME(stats.object_id)=TABLES.TABLE_NAME\n" +
-				"  WHERE TABLES.TABLE_SCHEMA = '" + schemaName +"'\n" +
-				"  AND TABLES.TABLE_CATALOG = '" + databaseName +"'\n" +
-				"-- End\n" +
-				"\n" +
-				"OPEN MY_CURSOR\n" +
-				"FETCH NEXT FROM MY_CURSOR INTO @TABLE_NAME, @STAT_NAME\n" +
-				"WHILE @@FETCH_STATUS = 0 \n" +
-				"BEGIN\n" +
-				"-- Our select statement \n" +
-				"  INSERT INTO #Density \n" +
-				"  exec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with DENSITY_VECTOR')\n" +
-				"\n" +
-				"  INSERT INTO #Histogram \n" +
-				"  exec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with HISTOGRAM')\n" +
-				"\n" +
-				"   INSERT INTO #Result\n" +
-				"   SELECT @TABLE_NAME AS TableName\n" +
-				"     , #Density.Columns\n" +
-				"     , @STAT_NAME AS StatName\n" +
-				"     , cast(minimum.minValue as nvarchar(255))\n" +
-				"     , cast(maximum.maxValue as nvarchar(255))\n" +
-				"     , coalesce(nullCounter.nullCount, 0)\n" +
-				"    , #Density.AllDensity\n" +
-				"    , #Density.AvgLength\n" +
-				"   FROM #Density, (\n" +
-				"     select top 1 RangeHiKey AS minValue\n" +
-				"     FROM #Histogram where RangeHiKey is not null \n" +
-				"   ) minimum, (\n" +
-				"     SELECT max(RangeHiKey) AS MAXVALUE\n" +
-				"     FROM #Histogram\n" +
-				"   ) maximum , (\n" +
-				"    select coalesce((\n" +
-				"      select EqRows \n" +
-				"      FROM #Histogram\n" +
-				"      where RangeHiKey is null)\n" +
-				"    , 0) AS nullCount\n" +
-				"  ) nullCounter\n" +
-				"\n" +
-				"   DELETE FROM #Density\n" +
-				"   DELETE FROM #Histogram\n" +
-				"-- End\n" +
-				"FETCH NEXT FROM MY_CURSOR INTO @TABLE_NAME, @STAT_NAME\n" +
-				"END\n" +
-				"CLOSE MY_CURSOR  \n" +
+		// We execute DBCC queries for each row in sys.stats.
+		// Intermediate results are stored into temporary tables.
+		String query = 
+				"CREATE TABLE #Histogram " +
+				"( " +
+				"  RangeHiKey sql_variant, " +
+				"  RangeRow REAL, " +
+				"  EqRows REAL, " +
+				"  DistinctRangeRow BIGINT, " +
+				"  AvgRangeRow REAL " +
+				") " +
+						
+				"CREATE TABLE #Density " +
+				"( " +
+				"  AllDensity REAL, " +
+				"  AvgLength REAL, " +
+				"  Columns NVARCHAR(4000), " +
+				") " +
+
+				"CREATE TABLE #StatHeader  " +
+				"( " +
+				"    [Name]                  NVARCHAR(128), " +
+				"    [Updated]               NVARCHAR(20), " +
+				"    [Rows]                  BIGINT, " +
+				"    [Rows Sampled]          BIGINT, " +
+				"    [Steps]                 SMALLINT, " +
+				"    [Density]               REAL, " +
+				"    [Average key length]    REAL, " +
+				"    [String Index]          NCHAR(3), " +
+				"    [Filter Expression]     NVARCHAR(MAX), " +
+				"    [Unfiltered Rows]       BIGINT, " +
+				"    [Persisted Sample Percent] REAL " +
+				") " +
+
+				"CREATE TABLE #Result " +
+				"( " +
+				"  TableName NVARCHAR(255), " +
+				"  Columns NVARCHAR(255), " +
+				"  StatName NVARCHAR(255), " +
+				"  MinValue NVARCHAR(255), " +
+				"  MaxValue NVARCHAR(255), " +
+				"  NullCount INT, " +
+				"  AllDensity REAL, " +
+				"  AvgLength REAL, " +
+				"  Updated DATETIME2," +
+                "  [Rows Sampled] BIGINT " +
+				") " +
+						
+				"DECLARE @TABLE_NAME VARCHAR(255) " +
+				"DECLARE @STAT_NAME VARCHAR(255)   " +
+				"DECLARE MY_CURSOR CURSOR   " +
+				"LOCAL STATIC READ_ONLY FORWARD_ONLY " +
+				"FOR " +
+
+				"  SELECT TABLES.TABLE_NAME " +
+				"    , stats.name " +
+				"  FROM sys.stats " +
+				"  JOIN INFORMATION_SCHEMA.TABLES " +
+				"  ON OBJECT_NAME(stats.object_id)=TABLES.TABLE_NAME " +
+				"  WHERE TABLES.TABLE_SCHEMA = '" + schemaName +"' " +
+				"  AND TABLES.TABLE_CATALOG = '" + databaseName +"' " +
+						
+				"OPEN MY_CURSOR " +
+				"FETCH NEXT FROM MY_CURSOR INTO @TABLE_NAME, @STAT_NAME " +
+				"WHILE @@FETCH_STATUS = 0  " +
+				"BEGIN " +
+				"  INSERT INTO #Density  " +
+				"  exec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with DENSITY_VECTOR') " +
+				
+				"  INSERT INTO #Histogram  " +
+				"  exec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with HISTOGRAM') " +
+
+				"  INSERT INTO #StatHeader  " +
+				"  exec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with STAT_HEADER') " +
+
+				"   INSERT INTO #Result " +
+				"   SELECT @TABLE_NAME AS TableName " +
+				"     , #Density.Columns " +
+				"     , @STAT_NAME AS StatName " +
+				"     , cast(minimum.minValue as nvarchar(255)) " +
+				"     , cast(maximum.maxValue as nvarchar(255)) " +
+				"     , coalesce(nullCounter.nullCount, 0) " +
+				"     , #Density.AllDensity " +
+				"     , #Density.AvgLength " +
+				"     , cast(#StatHeader.Updated as datetime2) " +
+				"     , #StatHeader.[Rows Sampled] " +
+				"   FROM #Density, #StatHeader, ( " +
+				"     select top 1 RangeHiKey AS minValue " +          // Histogram is sorted in ascending order with nulls at the top -> faster min()
+				"     FROM #Histogram where RangeHiKey is not null  " +
+				"   ) minimum, ( " +
+				"     SELECT max(RangeHiKey) AS MAXVALUE " +
+				"     FROM #Histogram " +
+				"   ) maximum , ( " +
+				"    select coalesce(( " +
+				"      select EqRows  " +
+				"      FROM #Histogram " +
+				"      where RangeHiKey is null) " +
+				"    , 0) AS nullCount " +
+				"  ) nullCounter " +
+				" " +
+				"   DELETE FROM #Density " +
+				"   DELETE FROM #Histogram " +
+				"   DELETE FROM #StatHeader " +
+
+				"FETCH NEXT FROM MY_CURSOR INTO @TABLE_NAME, @STAT_NAME " +
+				"END " +
+				"CLOSE MY_CURSOR   " +
 				"DEALLOCATE MY_CURSOR";
 
 		Map<String, Table> tableMap = new HashMap<>();
@@ -165,7 +178,9 @@ public class MSSQL implements Vendor {
 				"   result.MaxValue, " +
 				"   result.NullCount, " +
 				"   result.AllDensity, " +
-				"   result.AvgLength " +
+				"   result.AvgLength, " +
+				"   result.[Updated], " +
+				"   result.[Rows Sampled] " +
 				"FROM #Result result " +
 				"JOIN INFORMATION_SCHEMA.COLUMNS " +
 				"ON result.TableName=COLUMNS.TABLE_NAME AND result.Columns=COLUMNS.COLUMN_NAME " +
@@ -189,6 +204,8 @@ public class MSSQL implements Vendor {
 				// as PK should not contain nulls but FK may contain nulls.
 				// WidthAvgWithoutNulls = widthAvg/(1-nullRatio)
 				column.setWidthAvg(column.getNullRatio()==null || column.getNullRatio()==1 ? null : rs.getDouble(7)/(1-column.getNullRatio()));
+				column.setLastUpdated(rs.getTimestamp(8));
+				column.setRowsSampled(rs.getLong(9));
 			}
 		}
 

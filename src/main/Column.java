@@ -6,10 +6,7 @@ import utility.String2Num;
 import utility.Tokenization;
 
 import javax.annotation.Nullable;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 public class Column {
@@ -62,8 +59,10 @@ public class Column {
 	private @Nullable String textMax;       // From vendor database specific source
 	private @Nullable Double valueMin;      // From vendor database specific source
 	private @Nullable Double valueMax;      // From vendor database specific source
-	private @Nullable double[] histogramBounds;  // From vendor database specific source
-	private boolean isUniqueConstraint = false;  // From getIndexInfo() - if there is an index, it is flipped from false
+	private @Nullable double[] histogramBounds; // From vendor database specific source
+	private @Nullable Timestamp lastUpdated;    // From vendor database specific source (metadata for debugging)
+	private @Nullable Long rowsSampled;     // From vendor database specific source (metadata for debugging)
+	private boolean isUniqueConstraint = false; // From getIndexInfo() - if there is an index, it is flipped from false
 	private boolean isNullable;             // From getColumns() JDBC call -> ought to be filled in
 	private boolean isKeywordSingleton;
 	private boolean isJunctionTable;
@@ -415,6 +414,14 @@ public class Column {
 		}
 	}
 
+	public void setLastUpdated(Timestamp lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
+	public void setRowsSampled(Long rowsSampled) {
+		this.rowsSampled = rowsSampled;
+	}
+
 	public void setKeywordSingleton() {
 		for (String keyword : KEYWORD_SINGLETONS) {
 			if (keyword.equalsIgnoreCase(name)) {
@@ -548,6 +555,8 @@ public class Column {
 				nullCountAsFirstColumn == null ? "" : nullCountAsFirstColumn.toString(),
 				previousColumnsAreNotSufficient == null ? "" : previousColumnsAreNotSufficient.toString(),
 				isEmptyTable == null ? "" : isEmptyTable.toString(),
+				lastUpdated == null ? "" : lastUpdated.toString(),
+				rowsSampled == null ? "" : rowsSampled.toString(),
 				isPrimaryKey.toString()
 		);
 	}

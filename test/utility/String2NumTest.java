@@ -10,6 +10,7 @@ public class String2NumTest {
     @Test
     public void battery() throws Exception {
         assertEquals(35.0, getNumericValue("#"), 0.00001);
+        assertEquals(104, getNumericValue("h"), 0.00001);
         assertTrue(getNumericValue("á") < getNumericValue("í"));
         assertTrue(getNumericValue("aaa") < getNumericValue("aab"));
         assertTrue(getNumericValue("aaŽ") < getNumericValue("aba"));

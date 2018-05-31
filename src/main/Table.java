@@ -69,6 +69,8 @@ public class Table {
 				"nullCountAsFirstColumn",
 				"previousColumnsAreNotSufficient",
 				"isEmptyTable",
+				"lastUpdated",
+				"rowsSampled",
 				"isPrimaryKey"
 		);
 	}
