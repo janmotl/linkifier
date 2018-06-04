@@ -60,6 +60,7 @@ public class VendorTest {
         // There are 8 different non-null records
         assertEquals(8/1056320.0, tables.get(0).getColumn("k_symbol").getUniqueRatio(), 0.000001);
         assertEquals(4.5172, tables.get(0).getColumn("k_symbol").getWidthAvg(), 0.000001);
+        // Even though this column contains nulls, nulls have to be excluded from the range estimate
         assertEquals(" ", tables.get(0).getColumn("k_symbol").getTextMin());
         assertEquals("UVER", tables.get(0).getColumn("k_symbol").getTextMax());
 	}

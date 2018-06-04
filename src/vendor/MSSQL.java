@@ -48,7 +48,9 @@ public class MSSQL implements Vendor {
 	// But sys.dm_db_stats_histogram requires VIEW DATABASE STATE permission.
 	// It returns different values than MySQL for columns containing null values (e.g. financial.trans.account).
 	// Nulls in MSSQL decrease AvgWidth. But nulls in MySQL do not decrease AvgWidth.
-	// Nulls in MSSQL affect UniqueRatio. But nulls in MySQL are excluded from calculation of UniqueRatio.
+	// We correct that by using: WidthAvgWithoutNulls = widthAvg/(1-nullRatio)
+	// Note: Starting with MSSQL 2016, stat_header returns one more column: Persisted Sample Percent. That breaks
+	// compatibility with the code for older versions of MSSQL -> I do not collect it.
 	public void getColumnStatistics(String databaseName, String schemaName, List<Table> tables, Connection connection) throws SQLException {
 
 		// We execute DBCC queries for each row in sys.stats.
@@ -70,20 +72,20 @@ public class MSSQL implements Vendor {
 				"  Columns NVARCHAR(4000), " +
 				") " +
 
-				"CREATE TABLE #StatHeader  " +
-				"( " +
-				"    [Name]                  NVARCHAR(128), " +
-				"    [Updated]               NVARCHAR(20), " +
-				"    [Rows]                  BIGINT, " +
-				"    [Rows Sampled]          BIGINT, " +
-				"    [Steps]                 SMALLINT, " +
-				"    [Density]               REAL, " +
-				"    [Average key length]    REAL, " +
-				"    [String Index]          NCHAR(3), " +
-				"    [Filter Expression]     NVARCHAR(MAX), " +
-				"    [Unfiltered Rows]       BIGINT, " +
-				"    [Persisted Sample Percent] REAL " +
-				") " +
+//				"CREATE TABLE #StatHeader  " +
+//				"( " +
+//				"    [Name]                  NVARCHAR(128), " +
+//				"    [Updated]               NVARCHAR(20), " +
+//				"    [Rows]                  BIGINT, " +
+//				"    [Rows Sampled]          BIGINT, " +
+//				"    [Steps]                 SMALLINT, " +
+//				"    [Density]               REAL, " +
+//				"    [Average key length]    REAL, " +
+//				"    [String Index]          NCHAR(3), " +
+//				"    [Filter Expression]     NVARCHAR(MAX), " +
+//				"    [Unfiltered Rows]       BIGINT, " +
+//				"    [Persisted Sample Percent] REAL " +
+//				") " +
 
 				"CREATE TABLE #Result " +
 				"( " +
@@ -94,9 +96,9 @@ public class MSSQL implements Vendor {
 				"  MaxValue NVARCHAR(255), " +
 				"  NullCount INT, " +
 				"  AllDensity REAL, " +
-				"  AvgLength REAL, " +
-				"  Updated DATETIME2," +
-                "  [Rows Sampled] BIGINT " +
+				"  AvgLength REAL " +
+//				"  Updated DATETIME2," +
+//              "  [Rows Sampled] BIGINT " +
 				") " +
 						
 				"DECLARE @TABLE_NAME VARCHAR(255) " +
@@ -123,8 +125,8 @@ public class MSSQL implements Vendor {
 				"  INSERT INTO #Histogram  " +
 				"  exec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with HISTOGRAM') " +
 
-				"  INSERT INTO #StatHeader  " +
-				"  exec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with STAT_HEADER') " +
+//				"  INSERT INTO #StatHeader  " +
+//				"  exec('DBCC SHOW_STATISTICS (\"" + schemaName + ".' + @TABLE_NAME + '\", ' + @STAT_NAME + ') with STAT_HEADER') " +
 
 				"   INSERT INTO #Result " +
 				"   SELECT @TABLE_NAME AS TableName " +
@@ -135,9 +137,9 @@ public class MSSQL implements Vendor {
 				"     , coalesce(nullCounter.nullCount, 0) " +
 				"     , #Density.AllDensity " +
 				"     , #Density.AvgLength " +
-				"     , cast(#StatHeader.Updated as datetime2) " +
-				"     , #StatHeader.[Rows Sampled] " +
-				"   FROM #Density, #StatHeader, ( " +
+//				"     , cast(#StatHeader.Updated as datetime2) " +
+//				"     , #StatHeader.[Rows Sampled] " +
+				"   FROM #Density, ( " +
 				"     select top 1 RangeHiKey AS minValue " +          // Histogram is sorted in ascending order with nulls at the top -> faster min()
 				"     FROM #Histogram where RangeHiKey is not null  " +
 				"   ) minimum, ( " +
@@ -153,7 +155,7 @@ public class MSSQL implements Vendor {
 				" " +
 				"   DELETE FROM #Density " +
 				"   DELETE FROM #Histogram " +
-				"   DELETE FROM #StatHeader " +
+//				"   DELETE FROM #StatHeader " +
 
 				"FETCH NEXT FROM MY_CURSOR INTO @TABLE_NAME, @STAT_NAME " +
 				"END " +
@@ -178,9 +180,9 @@ public class MSSQL implements Vendor {
 				"   result.MaxValue, " +
 				"   result.NullCount, " +
 				"   result.AllDensity, " +
-				"   result.AvgLength, " +
-				"   result.[Updated], " +
-				"   result.[Rows Sampled] " +
+				"   result.AvgLength " +
+//				"   result.[Updated], " +
+//				"   result.[Rows Sampled] " +
 				"FROM #Result result " +
 				"JOIN INFORMATION_SCHEMA.COLUMNS " +
 				"ON result.TableName=COLUMNS.TABLE_NAME AND result.Columns=COLUMNS.COLUMN_NAME " +
@@ -204,8 +206,8 @@ public class MSSQL implements Vendor {
 				// as PK should not contain nulls but FK may contain nulls.
 				// WidthAvgWithoutNulls = widthAvg/(1-nullRatio)
 				column.setWidthAvg(column.getNullRatio()==null || column.getNullRatio()==1 ? null : rs.getDouble(7)/(1-column.getNullRatio()));
-				column.setLastUpdated(rs.getTimestamp(8));
-				column.setRowsSampled(rs.getLong(9));
+//				column.setLastUpdated(rs.getTimestamp(8));
+//				column.setRowsSampled(rs.getLong(9));
 			}
 		}
 

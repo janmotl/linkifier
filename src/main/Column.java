@@ -52,7 +52,7 @@ public class Column {
 	private String dataTypeName;            // Data type as defined by JDBC
 	private @Nullable Boolean isUnique;		// Expensive SQL query -> is not automatically calculated
 	private @Nullable Boolean isNotNull;	// Expensive SQL query -> is not automatically calculated
-	private @Nullable Double uniqueRatio;	// From vendor database specific source
+	private @Nullable Double uniqueRatio;	// From vendor database specific source: defined as count of unique values/table row count
 	private @Nullable Double nullRatio;		// From vendor database specific source
 	private @Nullable Double widthAvg;      // From vendor database specific source: average byte width of non-null records
 	private @Nullable String textMin;       // From vendor database specific source
