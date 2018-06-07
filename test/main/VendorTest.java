@@ -42,7 +42,7 @@ public class VendorTest {
     }
 
 	@Test
-	public void MySQL() throws Exception {
+	public void MariaDB() throws Exception {
         MysqlDataSource dataSource = new MysqlDataSource();
 		dataSource.setServerName("relational.fit.cvut.cz");     // Public read-only database for testing
 		dataSource.setUser("guest");
@@ -141,7 +141,7 @@ public class VendorTest {
 
 
     @Test
-	public void MySQL_numbers() throws Exception {
+	public void MariaDB_numbers() throws Exception {
         MysqlDataSource dataSource = new MysqlDataSource();
 		dataSource.setServerName("relational.fit.cvut.cz");     // Public read-only database for testing
 		dataSource.setUser("guest");

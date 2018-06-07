@@ -69,7 +69,7 @@ public class MSSQL implements Vendor {
 				"( " +
 				"  AllDensity REAL, " +
 				"  AvgLength REAL, " +
-				"  Columns NVARCHAR(4000), " +
+				"  Columns NVARCHAR(4000) " +
 				") " +
 
 //				"CREATE TABLE #StatHeader  " +
@@ -166,6 +166,8 @@ public class MSSQL implements Vendor {
 		for (Table table : tables) {
 			tableMap.put(table.getName(), table);
 		}
+
+		System.out.println(query);
 
 		try (Statement stmt = connection.createStatement()){
 			stmt.executeUpdate(query);

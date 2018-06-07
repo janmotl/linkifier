@@ -47,7 +47,7 @@ public class LinkifierTest {
 			linkifier.estimatePk();
 			linkifier.estimateFk();
 
-			assertEquals(8, linkifier.getPkCount()); // There are 8 tables -> we expected 8
+			assertEquals(8, linkifier.getPkCount()); // There are 8 tables -> we expect 8
 			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.99);
 			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
 			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) > 0.99);
@@ -119,6 +119,63 @@ public class LinkifierTest {
 	}
 
 	@Test
+	public void blacklist() throws Exception {
+		dataSource.setDatabaseName("financial");
+		try (Connection connection = dataSource.getConnection()){
+			Linkifier linkifier = new Linkifier(connection, "", Pattern.compile("loan|trans"));
+			linkifier.estimatePk();
+			linkifier.estimateFk();
+
+			assertEquals(6, linkifier.getPkCount()); // There are 8 tables, but 2 are blacklisted -> we expected 6
+			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.99);
+			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
+			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) > 0.99);
+			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.99);
+		}
+	}
+
+	@Test
+	public void nonExistingSchema() throws Exception {
+		// MySQL immediately returns an error. But PostgreSQL and MSSQL will silently continue...
+		Jdbc3PoolingDataSource dataSource = new Jdbc3PoolingDataSource();
+		dataSource.setServerName("localhost");     // Local only, sorry
+		dataSource.setUser("jan");
+		dataSource.setPassword("");
+		dataSource.setDatabaseName("PredictorFactory");
+
+		try (Connection connection = dataSource.getConnection()){
+			Linkifier linkifier = new Linkifier(connection, "NonExisting", Pattern.compile(""));
+			linkifier.estimatePk();
+			linkifier.estimateFk();
+
+			assertEquals(0, linkifier.getTables().size());
+			assertEquals(0, linkifier.getRelationships().size());
+		}
+	}
+
+	@Test
+	public void MySQL() throws Exception {
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setServerName("localhost");     // Local only, sorry
+		dataSource.setUser("root");
+		dataSource.setPassword("");
+		dataSource.setDatabaseName("financial");
+
+		try (Connection connection = dataSource.getConnection()){
+			Linkifier linkifier = new Linkifier(connection, "", Pattern.compile(""));
+			linkifier.estimatePk();
+			linkifier.estimateFk();
+
+			assertEquals(8, linkifier.getPkCount()); // There are 8 tables -> we expect 8
+			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.99);
+			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
+			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) > 0.99);
+			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.88); // Some errors are expected
+		}
+	}
+
+
+	@Test
 	public void firefox() throws Exception {
 		Jdbc3PoolingDataSource dataSource = new Jdbc3PoolingDataSource();
 		dataSource.setServerName("localhost");     // Private with sensitive data. Tested because it is used in published articles by the 3rd parties.
@@ -138,19 +195,5 @@ public class LinkifierTest {
 		}
 	}
 
-	@Test
-	public void blacklist() throws Exception {
-		dataSource.setDatabaseName("financial");
-		try (Connection connection = dataSource.getConnection()){
-			Linkifier linkifier = new Linkifier(connection, "", Pattern.compile("loan|trans"));
-			linkifier.estimatePk();
-			linkifier.estimateFk();
 
-			assertEquals(6, linkifier.getPkCount()); // There are 8 tables, but 2 are blacklisted -> we expected 6
-			assertTrue(Accuracy.getPkRecall(linkifier.getTables()) > 0.99);
-			assertTrue(Accuracy.getPkPrecision(linkifier.getTables()) > 0.99);
-			assertTrue(Accuracy.getFkRecall(linkifier.getRelationships()) > 0.99);
-			assertTrue(Accuracy.getFkPrecision(linkifier.getRelationships()) > 0.99);
-		}
-	}
 }

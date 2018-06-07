@@ -122,6 +122,13 @@ public class MySQL implements Vendor {
 					column.setHistogramBounds(Histogram.rel2abs(parse(rawHistogram), Double.valueOf(column.getTextMin()), Double.valueOf(column.getTextMax())));
 				} catch (Exception ignored) {} // The table can be empty, the statistics may not be calculated,...
 			}
+		} catch (SQLException e) {
+			LOGGER.info(e.getMessage());
+
+			if (!connection.getMetaData().getDatabaseProductVersion().contains("MariaDB"))
+				LOGGER.info("  Explanation: The access to column statistics in MySQL is changing from one minor release to  Continuing without the statistics. The estimates will be off.");
+			else
+				throw e;
 		}
 
 		// Output quality control (if something turns sour, we want to know about that)

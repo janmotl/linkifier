@@ -91,6 +91,7 @@ public class Events implements Initializable {
 			buttonRun.setText("Estimate");
 			LOGGER.severe(Throwables.getStackTraceAsString(runService.getException()));
 			LOGGER.info("Something went wrong...");
+			LOGGER.info("Linkifier version: " + getClass().getPackage().getImplementationVersion());
 			LOGGER.info("Please, send an email to the developer at jan.motl@fit.cvut.cz");
 		});
 		runService.setOnSucceeded(event -> {
@@ -259,7 +260,14 @@ public class Events implements Initializable {
 					try (Connection connection = DataSourceFactory.getConfiguredDataSource(properties, textPassword.getText()).getConnection()) {
 						if (isCancelled()) return null;
 
-						LOGGER.info("Successfully connected to the database.");
+						// Info for easier debugging
+						String databaseName = connection.getCatalog();
+						if (connection.getSchema()!=null)
+							databaseName += "." + connection.getSchema();
+						databaseName += " @ " + connection.getMetaData().getDatabaseProductName();
+						databaseName += " " + connection.getMetaData().getDatabaseProductVersion();
+						LOGGER.info("Successfully connected to: " + databaseName);
+
 						linkifier = new Linkifier(connection, properties.getProperty("schema"), Pattern.compile(properties.getProperty("tableBlacklist")));
 						if (isCancelled()) return null;
 
