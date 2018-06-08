@@ -111,7 +111,7 @@ public class MSSQL implements Vendor {
 				"    , stats.name " +
 				"  FROM sys.stats " +
 				"  JOIN INFORMATION_SCHEMA.TABLES " +
-				"  ON OBJECT_NAME(stats.object_id)=TABLES.TABLE_NAME " +
+				"  ON OBJECT_NAME(stats.object_id) = TABLES.TABLE_NAME " +
 				"  WHERE TABLES.TABLE_SCHEMA = '" + schemaName +"' " +
 				"  AND TABLES.TABLE_CATALOG = '" + databaseName +"' " +
 						
@@ -167,14 +167,18 @@ public class MSSQL implements Vendor {
 			tableMap.put(table.getName(), table);
 		}
 
-		System.out.println(query);
-
 		try (Statement stmt = connection.createStatement()){
 			stmt.executeUpdate(query);
 		}
 
 		// Since statistics can be calculated for a set of columns, select only statistics at individual columns.
 		// Since multiple statistics can be available for a single column, deduplicate the result.
+		// Note: When the default database collation is different from the server default collation,
+		//  system tables like INFORMATION_SCHEMA.COLUMNS are using server default collation,
+		//  but newly created tables like #Result are using database default collation.
+		//  An attempt to join varchar columns with different collation results into error:
+		//      Cannot resolve the collation conflict between ...  in the equal to operation.
+		//  A solution is to tell the database to read system tables with the database default collation.
 		query = "SELECT DISTINCT  " +
 				"   result.TableName, " +
 				"   result.Columns, " +
@@ -187,7 +191,8 @@ public class MSSQL implements Vendor {
 //				"   result.[Rows Sampled] " +
 				"FROM #Result result " +
 				"JOIN INFORMATION_SCHEMA.COLUMNS " +
-				"ON result.TableName=COLUMNS.TABLE_NAME AND result.Columns=COLUMNS.COLUMN_NAME " +
+				"ON result.TableName = COLUMNS.TABLE_NAME COLLATE DATABASE_DEFAULT " +
+				"AND result.Columns = COLUMNS.COLUMN_NAME COLLATE DATABASE_DEFAULT " +
 				"ORDER BY 1,2";
 
 		try (Statement stmt = connection.createStatement();

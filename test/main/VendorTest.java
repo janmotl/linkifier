@@ -113,6 +113,29 @@ public class VendorTest {
 	}
 
     @Test
+	public void Azure_differentCollations() throws Exception {
+        SQLServerDataSource dataSource = new SQLServerDataSource();
+		dataSource.setServerName("hlt3qa7608.database.windows.net");     // Only for whitelisted IPs
+		dataSource.setUser("customer");
+		dataSource.setPassword("There is only one boss.");
+		dataSource.setDatabaseName("test"); // This database has a different collation from the
+
+		try (Connection connection = dataSource.getConnection()){
+            Vendor vendor = new MSSQL();
+            vendor.getTableStatistics("PredictorFactory", "financial", tables, connection);
+            vendor.getColumnStatistics("PredictorFactory", "financial", tables, connection);
+		}
+
+        // There are 481881 null records
+        assertEquals(481881/1056320.0, tables.get(0).getColumn("k_symbol").getNullRatio(), 0.0000001);
+        // There are 8 different non-null records
+        assertEquals(8/1056320.0, tables.get(0).getColumn("k_symbol").getUniqueRatio(), 0.000001);
+        assertEquals(4.5172, tables.get(0).getColumn("k_symbol").getWidthAvg(), 0.0001);
+        assertEquals(" ", tables.get(0).getColumn("k_symbol").getTextMin());
+        assertEquals("UVER", tables.get(0).getColumn("k_symbol").getTextMax());
+	}
+
+    @Test
     public void Oracle() throws Exception {
         // Oracle does not return number length and count of digits always in the expected format.
         // We use a following workaround (not perfect but good enough):
