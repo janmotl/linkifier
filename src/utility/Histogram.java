@@ -53,6 +53,8 @@ public class Histogram {
 
 
 	// Subroutines
+	// Note: If we wanted to utilize this feature, it would be better to move from List<Double> to double[]
+	// due to memory and runtime savings.
 	private static List<Double> getHeight(double[] hist) {
 		int multiplier = 1;                         // To deal with duplicate values in the histogram - tall bins
 		List<Double> height = new ArrayList<>();    // Output

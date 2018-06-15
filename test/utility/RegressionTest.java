@@ -11,24 +11,10 @@ import org.junit.runners.MethodSorters;
 
 import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.NoSuchElementException;
-import java.util.PriorityQueue;
-import java.util.Properties;
-import java.util.Queue;
-import java.util.Set;
-import java.util.Spliterator;
-import java.util.logging.ErrorManager;
-import java.util.logging.Filter;
+import java.util.logging.*;
 import java.util.logging.Formatter;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
 import java.util.stream.Stream;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -128,7 +114,7 @@ public class RegressionTest {
         Stream<String> stream_str5 = arraylist_str3.stream();
         Stream<String> stream_str6 = arraylist_str3.parallelStream();
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(stream_str6);
     }
@@ -222,7 +208,7 @@ public class RegressionTest {
         } catch (NullPointerException e) {
         }
         Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
+        Assert.assertTrue(!b2);
     }
 
     @Test
@@ -268,31 +254,31 @@ public class RegressionTest {
         Stream<String>[] stream_str_array58 = heapwithfixedsize_str2.toArray(stream_str_array45);
         boolean b59 = multiset_histogram0.containsValue(stream_str_array58);
         Assert.assertNotNull(str_array5);
-        Assert.assertTrue(b7 == true);
+        Assert.assertTrue(b7);
         Assert.assertNotNull(stream_str8);
         Assert.assertNotNull(stream_str9);
         Assert.assertNotNull(str_array12);
-        Assert.assertTrue(b14 == true);
+        Assert.assertTrue(b14);
         Assert.assertNotNull(stream_str15);
         Assert.assertNotNull(str_array18);
-        Assert.assertTrue(b20 == true);
+        Assert.assertTrue(b20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(stream_str22);
         Assert.assertNotNull(str_array25);
-        Assert.assertTrue(b27 == true);
+        Assert.assertTrue(b27);
         Assert.assertNotNull(stream_str28);
         Assert.assertNotNull(stream_str29);
         Assert.assertNotNull(str_array32);
-        Assert.assertTrue(b34 == true);
+        Assert.assertTrue(b34);
         Assert.assertNotNull(stream_str35);
         Assert.assertNotNull(str_array38);
-        Assert.assertTrue(b40 == true);
+        Assert.assertTrue(b40);
         Assert.assertNotNull(stream_str41);
         Assert.assertNotNull(stream_str42);
         Assert.assertNotNull(stream_array44);
         Assert.assertNotNull(stream_str_array45);
         Assert.assertNotNull(stream_str_array58);
-        Assert.assertTrue(b59 == false);
+        Assert.assertTrue(!b59);
     }
 
     @Test
@@ -387,7 +373,7 @@ public class RegressionTest {
         } catch (NoSuchElementException e) {
         }
         Assert.assertTrue(i4 == 0);
-        Assert.assertTrue(b5 == false);
+        Assert.assertTrue(!b5);
         Assert.assertNotNull(iterator_str6);
     }
 
@@ -509,8 +495,8 @@ public class RegressionTest {
         multiset_histogram0.clear();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNull(i17);
         Assert.assertNull(i21);
@@ -544,11 +530,11 @@ public class RegressionTest {
         int i10 = heapwithfixedsize_str9.size();
         boolean b11 = heapwithfixedsize_str7.retainAll(heapwithfixedsize_str9);
         boolean b12 = multiset_histogram0.remove(i5, b11);
-        Assert.assertTrue(b1 == true);
+        Assert.assertTrue(b1);
         Assert.assertNull(i5);
         Assert.assertTrue(i10 == 0);
-        Assert.assertTrue(b11 == false);
-        Assert.assertTrue(b12 == false);
+        Assert.assertTrue(!b11);
+        Assert.assertTrue(!b12);
     }
 
     @Test
@@ -634,42 +620,42 @@ public class RegressionTest {
         List<String> list_str69 = Tokenization.lowercaseSplit("hi!");
         boolean b70 = arraylist_str63.retainAll(list_str69);
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
+        Assert.assertTrue(b10);
         Assert.assertNotNull(str_array13);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b15);
         Assert.assertTrue("'" + b16 + "' != '" + true + "'", b16.equals(true));
-        Assert.assertTrue(b17 == false);
+        Assert.assertTrue(!b17);
         Assert.assertTrue(i22 == 0);
-        Assert.assertTrue(b23 == false);
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b23);
+        Assert.assertTrue(!b24);
         Assert.assertNotNull(table_array25);
-        Assert.assertTrue(b27 == false);
+        Assert.assertTrue(!b27);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
+        Assert.assertTrue(b33);
         Assert.assertNotNull(str_array36);
-        Assert.assertTrue(b38 == true);
+        Assert.assertTrue(b38);
         Assert.assertTrue("'" + b39 + "' != '" + true + "'", b39.equals(true));
-        Assert.assertTrue(b40 == false);
+        Assert.assertTrue(!b40);
         Assert.assertNotNull(str_array43);
-        Assert.assertTrue(b45 == true);
+        Assert.assertTrue(b45);
         Assert.assertNotNull(stream_str46);
         Assert.assertNotNull(str_array49);
-        Assert.assertTrue(b51 == true);
+        Assert.assertTrue(b51);
         Assert.assertNotNull(str_array54);
-        Assert.assertTrue(b56 == true);
+        Assert.assertTrue(b56);
         Assert.assertTrue("'" + b57 + "' != '" + true + "'", b57.equals(true));
-        Assert.assertTrue(b58 == false);
-        Assert.assertTrue(b59 == true);
+        Assert.assertTrue(!b58);
+        Assert.assertTrue(b59);
         Assert.assertNotNull(str_array62);
-        Assert.assertTrue(b64 == true);
+        Assert.assertTrue(b64);
         Assert.assertNotNull(stream_str65);
         Assert.assertEquals(d66, Double.NaN, 0);
         Assert.assertEquals(d67, Double.NaN, 0);
         Assert.assertNotNull(list_str69);
-        Assert.assertTrue(b70 == true);
+        Assert.assertTrue(b70);
     }
 
     @Test
@@ -729,38 +715,38 @@ public class RegressionTest {
         Integer i77 = multiset_histogram0.remove(b76);
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
         Assert.assertTrue(i15 == 1);
         Assert.assertNotNull(str_array20);
-        Assert.assertTrue(b22 == true);
+        Assert.assertTrue(b22);
         Assert.assertNotNull(stream_str23);
         Assert.assertNotNull(stream_str24);
         Assert.assertNotNull(str_array27);
-        Assert.assertTrue(b29 == true);
+        Assert.assertTrue(b29);
         Assert.assertNotNull(stream_str30);
         Assert.assertNotNull(str_array33);
-        Assert.assertTrue(b35 == true);
+        Assert.assertTrue(b35);
         Assert.assertNotNull(stream_str36);
         Assert.assertNotNull(stream_str37);
         Assert.assertNotNull(str_array40);
-        Assert.assertTrue(b42 == true);
+        Assert.assertTrue(b42);
         Assert.assertNotNull(stream_str43);
         Assert.assertNotNull(stream_str44);
         Assert.assertNotNull(str_array47);
-        Assert.assertTrue(b49 == true);
+        Assert.assertTrue(b49);
         Assert.assertNotNull(stream_str50);
         Assert.assertNotNull(str_array53);
-        Assert.assertTrue(b55 == true);
+        Assert.assertTrue(b55);
         Assert.assertNotNull(stream_str56);
         Assert.assertNotNull(stream_str57);
         Assert.assertNotNull(stream_array59);
         Assert.assertNotNull(stream_str_array60);
         Assert.assertNotNull(stream_str_array73);
         Assert.assertNotNull(iterator_str74);
-        Assert.assertTrue(b76 == true);
+        Assert.assertTrue(b76);
         Assert.assertNull(i77);
     }
 
@@ -802,25 +788,25 @@ public class RegressionTest {
         } catch (NullPointerException e) {
         }
         Assert.assertNotNull(str_array4);
-        Assert.assertTrue(b6 == true);
+        Assert.assertTrue(b6);
         Assert.assertNotNull(str_array9);
-        Assert.assertTrue(b11 == true);
+        Assert.assertTrue(b11);
         Assert.assertNotNull(stream_str12);
         Assert.assertNotNull(str_array15);
-        Assert.assertTrue(b17 == true);
+        Assert.assertTrue(b17);
         Assert.assertNotNull(str_array20);
-        Assert.assertTrue(b22 == true);
+        Assert.assertTrue(b22);
         Assert.assertTrue("'" + b23 + "' != '" + true + "'", b23.equals(true));
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b24);
         Assert.assertNotNull(str_array27);
-        Assert.assertTrue(b29 == true);
+        Assert.assertTrue(b29);
         Assert.assertNotNull(stream_str30);
         Assert.assertNotNull(str_array33);
-        Assert.assertTrue(b35 == true);
+        Assert.assertTrue(b35);
         Assert.assertNotNull(str_array38);
-        Assert.assertTrue(b40 == true);
+        Assert.assertTrue(b40);
         Assert.assertTrue("'" + b41 + "' != '" + true + "'", b41.equals(true));
-        Assert.assertTrue(b42 == false);
+        Assert.assertTrue(!b42);
         Assert.assertTrue(d43 == 1.0d);
         Assert.assertTrue(d44 == 1.0d);
     }
@@ -829,7 +815,7 @@ public class RegressionTest {
     public void test046() throws Throwable {
         HeapWithFixedSize<String> heapwithfixedsize_str1 = new HeapWithFixedSize<>((int) '#');
         boolean b3 = heapwithfixedsize_str1.add("");
-        Assert.assertTrue(b3 == true);
+        Assert.assertTrue(b3);
     }
 
     @Test
@@ -883,21 +869,21 @@ public class RegressionTest {
         multiset_histogram0.add(histogram57);
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNull(i19);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
-        Assert.assertTrue(b28 == true);
+        Assert.assertTrue(b26);
+        Assert.assertTrue(b28);
         Assert.assertNull(i29);
         Assert.assertNull(i33);
         Assert.assertNull(i37);
         Assert.assertNull(i41);
         Assert.assertNotNull(str_array46);
-        Assert.assertTrue(b48 == true);
-        Assert.assertTrue(b50 == true);
+        Assert.assertTrue(b48);
+        Assert.assertTrue(b50);
         Assert.assertNull(i51);
         Assert.assertNotNull(set_histogram52);
         Assert.assertNull(i56);
@@ -928,11 +914,11 @@ public class RegressionTest {
         Set<Entry<Histogram, Integer>> set_entry_histogram_i16 = multiset_histogram0.entrySet();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNotNull(set_entry_histogram_i16);
     }
 
@@ -986,12 +972,12 @@ public class RegressionTest {
         boolean b25 = multiset_histogram0.replace(histogram19, 100, -1);
         Assert.assertNull(i4);
         Assert.assertNotNull(str_array9);
-        Assert.assertTrue(b11 == true);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b11);
+        Assert.assertTrue(b13);
         Assert.assertNull(i14);
         Assert.assertNull(i18);
         Assert.assertNull(i22);
-        Assert.assertTrue(b25 == false);
+        Assert.assertTrue(!b25);
     }
 
     @Test
@@ -1002,7 +988,7 @@ public class RegressionTest {
         boolean b5 = heapwithfixedsize_str1.retainAll(heapwithfixedsize_str3);
         String str6 = heapwithfixedsize_str1.peek();
         Assert.assertTrue(i4 == 0);
-        Assert.assertTrue(b5 == false);
+        Assert.assertTrue(!b5);
         Assert.assertNull(str6);
     }
 
@@ -1059,31 +1045,31 @@ public class RegressionTest {
         Stream<String>[] stream_str_array57 = heapwithfixedsize_str1.toArray(stream_str_array44);
         boolean b59 = heapwithfixedsize_str1.offer("{}");
         Assert.assertNotNull(str_array4);
-        Assert.assertTrue(b6 == true);
+        Assert.assertTrue(b6);
         Assert.assertNotNull(stream_str7);
         Assert.assertNotNull(stream_str8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertNotNull(stream_str14);
         Assert.assertNotNull(str_array17);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b19);
         Assert.assertNotNull(stream_str20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(stream_str27);
         Assert.assertNotNull(stream_str28);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
+        Assert.assertTrue(b33);
         Assert.assertNotNull(stream_str34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertNotNull(stream_str41);
         Assert.assertNotNull(stream_array43);
         Assert.assertNotNull(stream_str_array44);
         Assert.assertNotNull(stream_str_array57);
-        Assert.assertTrue(b59 == true);
+        Assert.assertTrue(b59);
     }
 
     @Test
@@ -1109,7 +1095,7 @@ public class RegressionTest {
     public void test061() throws Throwable {
         HeapWithFixedSize<String> heapwithfixedsize_str1 = new HeapWithFixedSize<>((int) '#');
         boolean b3 = heapwithfixedsize_str1.offer("[, hi!]");
-        Assert.assertTrue(b3 == true);
+        Assert.assertTrue(b3);
     }
 
     @Test
@@ -1181,29 +1167,29 @@ public class RegressionTest {
         Queue<String>[] queue_str_array55 = heapwithfixedsize_str27.toArray(queue_str_array48);
         boolean b56 = heapwithfixedsize_str21.remove(queue_str_array55);
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
+        Assert.assertTrue(b10);
         Assert.assertNotNull(str_array13);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b15);
         Assert.assertTrue("'" + b16 + "' != '" + true + "'", b16.equals(true));
-        Assert.assertTrue(b17 == false);
+        Assert.assertTrue(!b17);
         Assert.assertTrue(i22 == 0);
-        Assert.assertTrue(b23 == false);
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b23);
+        Assert.assertTrue(!b24);
         Assert.assertNull(str25);
         Assert.assertTrue(i30 == 0);
-        Assert.assertTrue(b31 == false);
+        Assert.assertTrue(!b31);
         Assert.assertNotNull(iterator_str32);
         Assert.assertTrue(i33 == 0);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertTrue(i44 == 0);
-        Assert.assertTrue(b45 == false);
+        Assert.assertTrue(!b45);
         Assert.assertNotNull(queue_array47);
         Assert.assertNotNull(queue_str_array48);
         Assert.assertNotNull(queue_str_array55);
-        Assert.assertTrue(b56 == false);
+        Assert.assertTrue(!b56);
     }
 
     @Test
@@ -1247,14 +1233,14 @@ public class RegressionTest {
         Set<Entry<Histogram, Integer>> set_entry_histogram_i24 = multiset_histogram0.entrySet();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
         Assert.assertNull(i18);
         Assert.assertTrue(i21 == 0);
         Assert.assertTrue(i22 == 1);
-        Assert.assertTrue(b23 == false);
+        Assert.assertTrue(!b23);
         Assert.assertNotNull(set_entry_histogram_i24);
     }
 
@@ -1264,7 +1250,7 @@ public class RegressionTest {
         int i2 = heapwithfixedsize_str1.size();
         boolean b4 = heapwithfixedsize_str1.offer("{}");
         Assert.assertTrue(i2 == 0);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
     }
 
     @Test
@@ -1273,7 +1259,7 @@ public class RegressionTest {
         boolean b1 = multiset_histogram0.isEmpty();
         int i2 = multiset_histogram0.size();
         Collection<Integer> collection_i3 = multiset_histogram0.values();
-        Assert.assertTrue(b1 == true);
+        Assert.assertTrue(b1);
         Assert.assertTrue(i2 == 0);
         Assert.assertNotNull(collection_i3);
     }
@@ -1298,11 +1284,11 @@ public class RegressionTest {
         int i19 = multiset_histogram0.totalCount();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNull(i18);
         Assert.assertTrue(i19 == 1);
     }
@@ -1375,50 +1361,50 @@ public class RegressionTest {
         Set<Entry<Histogram, Integer>> set_entry_histogram_i91 = multiset_histogram0.entrySet();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array6);
-        Assert.assertTrue(b8 == true);
+        Assert.assertTrue(b8);
         Assert.assertNotNull(stream_str9);
         Assert.assertNotNull(str_array12);
-        Assert.assertTrue(b14 == true);
+        Assert.assertTrue(b14);
         Assert.assertNotNull(str_array17);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b19);
         Assert.assertTrue("'" + b20 + "' != '" + true + "'", b20.equals(true));
-        Assert.assertTrue(b21 == false);
+        Assert.assertTrue(!b21);
         Assert.assertTrue(i26 == 0);
-        Assert.assertTrue(b27 == false);
-        Assert.assertTrue(b28 == false);
-        Assert.assertTrue(b30 == true);
+        Assert.assertTrue(!b27);
+        Assert.assertTrue(!b28);
+        Assert.assertTrue(b30);
         Assert.assertNotNull(str_array33);
-        Assert.assertTrue(b35 == true);
+        Assert.assertTrue(b35);
         Assert.assertNotNull(stream_str36);
         Assert.assertNotNull(str_array39);
-        Assert.assertTrue(b41 == true);
+        Assert.assertTrue(b41);
         Assert.assertNotNull(str_array44);
-        Assert.assertTrue(b46 == true);
+        Assert.assertTrue(b46);
         Assert.assertTrue("'" + b47 + "' != '" + true + "'", b47.equals(true));
-        Assert.assertTrue(b48 == false);
+        Assert.assertTrue(!b48);
         Assert.assertTrue(i53 == 0);
-        Assert.assertTrue(b54 == false);
-        Assert.assertTrue(b55 == false);
+        Assert.assertTrue(!b54);
+        Assert.assertTrue(!b55);
         Assert.assertNotNull(str_array58);
-        Assert.assertTrue(b60 == true);
+        Assert.assertTrue(b60);
         Assert.assertNotNull(str_array63);
-        Assert.assertTrue(b65 == true);
+        Assert.assertTrue(b65);
         Assert.assertTrue("'" + b66 + "' != '" + true + "'", b66.equals(true));
-        Assert.assertTrue(b67 == false);
+        Assert.assertTrue(!b67);
         Assert.assertNotNull(str_array70);
-        Assert.assertTrue(b72 == true);
+        Assert.assertTrue(b72);
         Assert.assertNotNull(stream_str73);
         Assert.assertNotNull(str_array76);
-        Assert.assertTrue(b78 == true);
+        Assert.assertTrue(b78);
         Assert.assertNotNull(str_array81);
-        Assert.assertTrue(b83 == true);
+        Assert.assertTrue(b83);
         Assert.assertTrue("'" + b84 + "' != '" + true + "'", b84.equals(true));
-        Assert.assertTrue(b85 == false);
-        Assert.assertTrue(b86 == true);
+        Assert.assertTrue(!b85);
+        Assert.assertTrue(b86);
         Assert.assertTrue(d87 == 1.0d);
-        Assert.assertTrue(b88 == true);
-        Assert.assertTrue(b89 == false);
-        Assert.assertTrue(b90 == false);
+        Assert.assertTrue(b88);
+        Assert.assertTrue(!b89);
+        Assert.assertTrue(!b90);
         Assert.assertNotNull(set_entry_histogram_i91);
     }
 
@@ -1445,8 +1431,8 @@ public class RegressionTest {
         Integer i26 = multiset_histogram0.getOrDefault(dataSourceFactory24, 0);
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNull(i17);
         Assert.assertNull(i21);
@@ -1462,7 +1448,7 @@ public class RegressionTest {
         String str5 = arraylist_str3.toString();
         Stream<String> stream_str6 = arraylist_str3.parallelStream();
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertTrue("'" + str5 + "' != '" + "[, hi!]" + "'", str5.equals("[, hi!]"));
         Assert.assertNotNull(stream_str6);
     }
@@ -1575,33 +1561,33 @@ public class RegressionTest {
         double d56 = TokenShareRatio.setTokenShareRatioFkLD(arraylist_str14, arraylist_str51);
         Stream<String> stream_str57 = arraylist_str51.stream();
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
+        Assert.assertTrue(b10);
         Assert.assertNotNull(str_array13);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b15);
         Assert.assertTrue("'" + b16 + "' != '" + true + "'", b16.equals(true));
-        Assert.assertTrue(b17 == false);
+        Assert.assertTrue(!b17);
         Assert.assertTrue(i22 == 0);
-        Assert.assertTrue(b23 == false);
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b23);
+        Assert.assertTrue(!b24);
         Assert.assertNotNull(str_array27);
-        Assert.assertTrue(b29 == true);
+        Assert.assertTrue(b29);
         Assert.assertNotNull(str_array32);
-        Assert.assertTrue(b34 == true);
+        Assert.assertTrue(b34);
         Assert.assertTrue("'" + b35 + "' != '" + true + "'", b35.equals(true));
-        Assert.assertTrue(b36 == false);
+        Assert.assertTrue(!b36);
         Assert.assertNotNull(str_array39);
-        Assert.assertTrue(b41 == true);
+        Assert.assertTrue(b41);
         Assert.assertNotNull(stream_str42);
         Assert.assertNotNull(str_array45);
-        Assert.assertTrue(b47 == true);
+        Assert.assertTrue(b47);
         Assert.assertNotNull(str_array50);
-        Assert.assertTrue(b52 == true);
+        Assert.assertTrue(b52);
         Assert.assertTrue("'" + b53 + "' != '" + true + "'", b53.equals(true));
-        Assert.assertTrue(b54 == false);
-        Assert.assertTrue(b55 == true);
+        Assert.assertTrue(!b54);
+        Assert.assertTrue(b55);
         Assert.assertTrue(d56 == 1.0d);
         Assert.assertNotNull(stream_str57);
     }
@@ -1621,7 +1607,7 @@ public class RegressionTest {
         boolean b7 = multiMap0.isEmpty();
         Assert.assertTrue(i4 == 1);
         Assert.assertNotNull(list_str6);
-        Assert.assertTrue(b7 == false);
+        Assert.assertTrue(!b7);
     }
 
     @Test
@@ -1701,15 +1687,15 @@ public class RegressionTest {
         Integer i94 = multiset_histogram0.replace(histogram89, 0);
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNull(i20);
         Assert.assertNotNull(str_array25);
-        Assert.assertTrue(b27 == true);
-        Assert.assertTrue(b29 == true);
+        Assert.assertTrue(b27);
+        Assert.assertTrue(b29);
         Assert.assertNull(i30);
         Assert.assertNotNull(set_histogram31);
         Assert.assertNull(i35);
@@ -1718,20 +1704,20 @@ public class RegressionTest {
         Assert.assertNotNull(set_entry_histogram_i40);
         Assert.assertNull(i44);
         Assert.assertNotNull(str_array49);
-        Assert.assertTrue(b51 == true);
-        Assert.assertTrue(b53 == true);
+        Assert.assertTrue(b51);
+        Assert.assertTrue(b53);
         Assert.assertNull(i54);
         Assert.assertNull(i58);
         Assert.assertNull(i62);
-        Assert.assertTrue(b64 == false);
+        Assert.assertTrue(!b64);
         Assert.assertNull(i68);
         Assert.assertNotNull(str_array73);
-        Assert.assertTrue(b75 == true);
-        Assert.assertTrue(b77 == true);
+        Assert.assertTrue(b75);
+        Assert.assertTrue(b77);
         Assert.assertNull(i78);
         Assert.assertNull(i82);
         Assert.assertNull(i86);
-        Assert.assertTrue(b88 == false);
+        Assert.assertTrue(!b88);
         Assert.assertNull(i94);
     }
 
@@ -1760,21 +1746,21 @@ public class RegressionTest {
         boolean b30 = arraylist_str8.removeAll(arraylist_str26);
         String str31 = arraylist_str26.toString();
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(str_array7);
-        Assert.assertTrue(b9 == true);
+        Assert.assertTrue(b9);
         Assert.assertTrue("'" + b10 + "' != '" + true + "'", b10.equals(true));
-        Assert.assertTrue(b11 == false);
+        Assert.assertTrue(!b11);
         Assert.assertNotNull(str_array14);
-        Assert.assertTrue(b16 == true);
+        Assert.assertTrue(b16);
         Assert.assertNotNull(stream_str17);
         Assert.assertNotNull(str_array20);
-        Assert.assertTrue(b22 == true);
+        Assert.assertTrue(b22);
         Assert.assertNotNull(str_array25);
-        Assert.assertTrue(b27 == true);
+        Assert.assertTrue(b27);
         Assert.assertTrue("'" + b28 + "' != '" + true + "'", b28.equals(true));
-        Assert.assertTrue(b29 == false);
-        Assert.assertTrue(b30 == true);
+        Assert.assertTrue(!b29);
+        Assert.assertTrue(b30);
         Assert.assertTrue("'" + str31 + "' != '" + "[hi!, hi!]" + "'", str31.equals("[hi!, hi!]"));
     }
 
@@ -1820,37 +1806,35 @@ public class RegressionTest {
         Stream<String>[] stream_str_array57 = heapwithfixedsize_str1.toArray(stream_str_array44);
         boolean b59 = heapwithfixedsize_str1.add("");
         boolean b61 = heapwithfixedsize_str1.contains(0L);
-        Comparator<? super String> comparator_wildcard62 = heapwithfixedsize_str1.comparator();
         boolean b64 = heapwithfixedsize_str1.contains((short) 1);
         Assert.assertNotNull(str_array4);
-        Assert.assertTrue(b6 == true);
+        Assert.assertTrue(b6);
         Assert.assertNotNull(stream_str7);
         Assert.assertNotNull(stream_str8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertNotNull(stream_str14);
         Assert.assertNotNull(str_array17);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b19);
         Assert.assertNotNull(stream_str20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(stream_str27);
         Assert.assertNotNull(stream_str28);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
+        Assert.assertTrue(b33);
         Assert.assertNotNull(stream_str34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertNotNull(stream_str41);
         Assert.assertNotNull(stream_array43);
         Assert.assertNotNull(stream_str_array44);
         Assert.assertNotNull(stream_str_array57);
-        Assert.assertTrue(b59 == true);
-        Assert.assertTrue(b61 == false);
-        Assert.assertNotNull(comparator_wildcard62);
-        Assert.assertTrue(b64 == false);
+        Assert.assertTrue(b59);
+        Assert.assertTrue(!b61);
+        Assert.assertTrue(!b64);
     }
 
     @Test
@@ -1950,33 +1934,33 @@ public class RegressionTest {
         boolean b64 = heapwithfixedsize_str1.containsAll(heapwithfixedsize_str59);
         Spliterator<String> spliterator_str65 = heapwithfixedsize_str1.spliterator();
         Assert.assertNotNull(str_array4);
-        Assert.assertTrue(b6 == true);
+        Assert.assertTrue(b6);
         Assert.assertNotNull(stream_str7);
         Assert.assertNotNull(stream_str8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertNotNull(stream_str14);
         Assert.assertNotNull(str_array17);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b19);
         Assert.assertNotNull(stream_str20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(stream_str27);
         Assert.assertNotNull(stream_str28);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
+        Assert.assertTrue(b33);
         Assert.assertNotNull(stream_str34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertNotNull(stream_str41);
         Assert.assertNotNull(stream_array43);
         Assert.assertNotNull(stream_str_array44);
         Assert.assertNotNull(stream_str_array57);
         Assert.assertTrue(i62 == 0);
-        Assert.assertTrue(b63 == false);
-        Assert.assertTrue(b64 == true);
+        Assert.assertTrue(!b63);
+        Assert.assertTrue(b64);
         Assert.assertNotNull(spliterator_str65);
     }
 
@@ -2127,20 +2111,20 @@ public class RegressionTest {
         Assert.assertTrue("'" + str10 + "' != '" + "{}" + "'", str10.equals("{}"));
         Assert.assertNull(i14);
         Assert.assertNotNull(str_array19);
-        Assert.assertTrue(b21 == true);
-        Assert.assertTrue(b23 == true);
+        Assert.assertTrue(b21);
+        Assert.assertTrue(b23);
         Assert.assertNull(i24);
         Assert.assertNotNull(set_histogram25);
         Assert.assertNull(i29);
         Assert.assertNotNull(str_array34);
-        Assert.assertTrue(b36 == true);
-        Assert.assertTrue(b38 == true);
+        Assert.assertTrue(b36);
+        Assert.assertTrue(b38);
         Assert.assertNull(i39);
         Assert.assertNotNull(set_histogram40);
         Assert.assertNull(i44);
         Assert.assertTrue(i47 == 0);
         Assert.assertTrue(i48 == 0);
-        Assert.assertTrue(b50 == false);
+        Assert.assertTrue(!b50);
         Assert.assertNull(i52);
     }
 
@@ -2157,10 +2141,10 @@ public class RegressionTest {
         double[] d_array6 = new double[] { (byte) 1, (short) 1 };
         double[] d_array9 = Histogram.rel2abs(d_array6, (double) 100.0f, (double) ' ');
         boolean b10 = heapwithfixedsize_str1.contains(100.0f);
-        Assert.assertTrue(b3 == true);
+        Assert.assertTrue(b3);
         Assert.assertNotNull(d_array6);
         Assert.assertNotNull(d_array9);
-        Assert.assertTrue(b10 == false);
+        Assert.assertTrue(!b10);
     }
 
     @Test
@@ -2205,20 +2189,20 @@ public class RegressionTest {
         Assert.assertTrue("'" + str2 + "' != '" + "{}" + "'", str2.equals("{}"));
         Assert.assertNull(i6);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b13);
+        Assert.assertTrue(b15);
         Assert.assertNull(i16);
         Assert.assertNotNull(set_histogram17);
         Assert.assertNull(i21);
         Assert.assertNotNull(str_array26);
-        Assert.assertTrue(b28 == true);
-        Assert.assertTrue(b30 == true);
+        Assert.assertTrue(b28);
+        Assert.assertTrue(b30);
         Assert.assertNull(i31);
         Assert.assertNotNull(set_histogram32);
         Assert.assertNull(i36);
         Assert.assertTrue(i39 == 0);
         Assert.assertTrue(i40 == 0);
-        Assert.assertTrue(b42 == false);
+        Assert.assertTrue(!b42);
         Assert.assertNull(i44);
         Assert.assertTrue(i45 == 0);
     }
@@ -2266,34 +2250,34 @@ public class RegressionTest {
         double d53 = chen3.getTableChenSimilarity(arraylist_str42, arraylist_str51);
         boolean b54 = arraylist_str42.isEmpty();
         Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
+        Assert.assertTrue(!b2);
         Assert.assertNotNull(table_array4);
-        Assert.assertTrue(b6 == false);
+        Assert.assertTrue(!b6);
         Assert.assertNotNull(str_array10);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b12);
         Assert.assertNotNull(str_array15);
-        Assert.assertTrue(b17 == true);
+        Assert.assertTrue(b17);
         Assert.assertTrue("'" + b18 + "' != '" + true + "'", b18.equals(true));
-        Assert.assertTrue(b19 == false);
+        Assert.assertTrue(!b19);
         Assert.assertNotNull(str_array22);
-        Assert.assertTrue(b24 == true);
+        Assert.assertTrue(b24);
         Assert.assertNotNull(stream_str25);
         Assert.assertNotNull(str_array28);
-        Assert.assertTrue(b30 == true);
+        Assert.assertTrue(b30);
         Assert.assertNotNull(str_array33);
-        Assert.assertTrue(b35 == true);
+        Assert.assertTrue(b35);
         Assert.assertTrue("'" + b36 + "' != '" + true + "'", b36.equals(true));
-        Assert.assertTrue(b37 == false);
-        Assert.assertTrue(b38 == true);
+        Assert.assertTrue(!b37);
+        Assert.assertTrue(b38);
         Assert.assertNotNull(str_array41);
-        Assert.assertTrue(b43 == true);
+        Assert.assertTrue(b43);
         Assert.assertNotNull(stream_str44);
         Assert.assertEquals(d45, Double.NaN, 0);
         Assert.assertNotNull(stream_str46);
         Assert.assertNotNull(str_array50);
-        Assert.assertTrue(b52 == true);
+        Assert.assertTrue(b52);
         Assert.assertEquals(d53, Double.NaN, 0);
-        Assert.assertTrue(b54 == false);
+        Assert.assertTrue(!b54);
     }
 
     @Test
@@ -2336,25 +2320,25 @@ public class RegressionTest {
         } catch (NullPointerException e) {
         }
         Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
+        Assert.assertTrue(!b2);
         Assert.assertNotNull(str_array6);
-        Assert.assertTrue(b8 == true);
+        Assert.assertTrue(b8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertTrue("'" + b14 + "' != '" + true + "'", b14.equals(true));
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNotNull(str_array18);
-        Assert.assertTrue(b20 == true);
+        Assert.assertTrue(b20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(str_array29);
-        Assert.assertTrue(b31 == true);
+        Assert.assertTrue(b31);
         Assert.assertTrue("'" + b32 + "' != '" + true + "'", b32.equals(true));
-        Assert.assertTrue(b33 == false);
-        Assert.assertTrue(b34 == true);
+        Assert.assertTrue(!b33);
+        Assert.assertTrue(b34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertEquals(d41, Double.NaN, 0);
     }
@@ -2376,12 +2360,12 @@ public class RegressionTest {
         boolean b16 = multiset_histogram0.isEmpty();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
-        Assert.assertTrue(b15 == false);
-        Assert.assertTrue(b16 == false);
+        Assert.assertTrue(!b15);
+        Assert.assertTrue(!b16);
     }
 
     @Test
@@ -2466,38 +2450,38 @@ public class RegressionTest {
         Assert.assertNotNull(set_histogram1);
         Assert.assertNull(i5);
         Assert.assertNotNull(str_array10);
-        Assert.assertTrue(b12 == true);
-        Assert.assertTrue(b14 == true);
+        Assert.assertTrue(b12);
+        Assert.assertTrue(b14);
         Assert.assertNull(i15);
         Assert.assertNull(i19);
         Assert.assertNull(i23);
         Assert.assertTrue("'" + i25 + "' != '" + 7 + "'", i25.equals(7));
         Assert.assertNull(i29);
         Assert.assertNotNull(str_array34);
-        Assert.assertTrue(b36 == true);
-        Assert.assertTrue(b38 == true);
+        Assert.assertTrue(b36);
+        Assert.assertTrue(b38);
         Assert.assertNull(i39);
         Assert.assertNotNull(set_histogram40);
-        Assert.assertTrue(b41 == false);
+        Assert.assertTrue(!b41);
         Assert.assertNull(i46);
         Assert.assertNotNull(str_array51);
-        Assert.assertTrue(b53 == true);
-        Assert.assertTrue(b55 == true);
+        Assert.assertTrue(b53);
+        Assert.assertTrue(b55);
         Assert.assertNull(i56);
         Assert.assertNull(i60);
         Assert.assertNull(i64);
-        Assert.assertTrue(b66 == false);
+        Assert.assertTrue(!b66);
         Assert.assertNull(i70);
         Assert.assertNotNull(str_array75);
-        Assert.assertTrue(b77 == true);
-        Assert.assertTrue(b79 == true);
+        Assert.assertTrue(b77);
+        Assert.assertTrue(b79);
         Assert.assertNull(i80);
         Assert.assertNull(i84);
         Assert.assertNull(i88);
-        Assert.assertTrue(b90 == false);
+        Assert.assertTrue(!b90);
         Assert.assertTrue(i94 == 0);
         Assert.assertNotNull(errorManager97);
-        Assert.assertTrue(b98 == false);
+        Assert.assertTrue(!b98);
         Assert.assertTrue(i99 == 0);
     }
 
@@ -2561,26 +2545,26 @@ public class RegressionTest {
         Object obj67 = multiset_histogram0.clone();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNull(i17);
         Assert.assertNull(i21);
-        Assert.assertTrue(b23 == false);
+        Assert.assertTrue(!b23);
         Assert.assertNull(i27);
         Assert.assertNotNull(str_array32);
-        Assert.assertTrue(b34 == true);
-        Assert.assertTrue(b36 == true);
+        Assert.assertTrue(b34);
+        Assert.assertTrue(b36);
         Assert.assertNull(i37);
         Assert.assertNull(i41);
         Assert.assertNull(i45);
-        Assert.assertTrue(b47 == false);
+        Assert.assertTrue(!b47);
         Assert.assertNull(filter53);
         Assert.assertNotNull(level54);
         Assert.assertNotNull(formatter56);
         Assert.assertNull(filter63);
         Assert.assertNotNull(level64);
-        Assert.assertTrue(b66 == false);
+        Assert.assertTrue(!b66);
         Assert.assertNotNull(obj67);
     }
 
@@ -2615,26 +2599,26 @@ public class RegressionTest {
         int i39 = heapwithfixedsize_str38.size();
         boolean b40 = arraylist_str21.retainAll(heapwithfixedsize_str38);
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
+        Assert.assertTrue(b10);
         Assert.assertNotNull(str_array13);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b15);
         Assert.assertTrue("'" + b16 + "' != '" + true + "'", b16.equals(true));
-        Assert.assertTrue(b17 == false);
+        Assert.assertTrue(!b17);
         Assert.assertNotNull(str_array20);
-        Assert.assertTrue(b22 == true);
+        Assert.assertTrue(b22);
         Assert.assertNotNull(stream_str23);
         Assert.assertNotNull(str_array26);
-        Assert.assertTrue(b28 == true);
+        Assert.assertTrue(b28);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
+        Assert.assertTrue(b33);
         Assert.assertTrue("'" + b34 + "' != '" + true + "'", b34.equals(true));
-        Assert.assertTrue(b35 == false);
+        Assert.assertTrue(!b35);
         Assert.assertTrue(d36 == 1.0d);
         Assert.assertTrue(i39 == 0);
-        Assert.assertTrue(b40 == true);
+        Assert.assertTrue(b40);
     }
 
     @Test
@@ -2694,25 +2678,25 @@ public class RegressionTest {
         Integer i61 = multiset_histogram0.putIfAbsent(histogram55, 5);
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNull(i20);
         Assert.assertNotNull(str_array25);
-        Assert.assertTrue(b27 == true);
-        Assert.assertTrue(b29 == true);
+        Assert.assertTrue(b27);
+        Assert.assertTrue(b29);
         Assert.assertNull(i30);
         Assert.assertNull(i34);
         Assert.assertNotNull(str_array39);
-        Assert.assertTrue(b41 == true);
-        Assert.assertTrue(b43 == true);
+        Assert.assertTrue(b41);
+        Assert.assertTrue(b43);
         Assert.assertNull(i44);
         Assert.assertNull(i48);
         Assert.assertNull(i52);
-        Assert.assertTrue(b54 == false);
-        Assert.assertTrue(b59 == false);
+        Assert.assertTrue(!b54);
+        Assert.assertTrue(!b59);
         Assert.assertNull(i61);
     }
 
@@ -2756,18 +2740,18 @@ public class RegressionTest {
         Object[] obj_array47 = heapwithfixedsize_str1.toArray(obj_array46);
         Stream<String> stream_str48 = heapwithfixedsize_str1.parallelStream();
         Assert.assertTrue(i4 == 0);
-        Assert.assertTrue(b5 == false);
+        Assert.assertTrue(!b5);
         Assert.assertNotNull(iterator_str6);
         Assert.assertNull(i10);
         Assert.assertNotNull(str_array15);
-        Assert.assertTrue(b17 == true);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b17);
+        Assert.assertTrue(b19);
         Assert.assertNull(i20);
         Assert.assertNotNull(set_histogram21);
         Assert.assertNull(i25);
         Assert.assertNotNull(str_array30);
-        Assert.assertTrue(b32 == true);
-        Assert.assertTrue(b34 == true);
+        Assert.assertTrue(b32);
+        Assert.assertTrue(b34);
         Assert.assertNull(i35);
         Assert.assertNotNull(set_histogram36);
         Assert.assertNull(i40);
@@ -2828,16 +2812,16 @@ public class RegressionTest {
         int i35 = multiset_histogram26.size();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNull(i17);
         Assert.assertNull(i21);
-        Assert.assertTrue(b23 == false);
+        Assert.assertTrue(!b23);
         Assert.assertNotNull(set_histogram27);
         Assert.assertTrue("'" + str28 + "' != '" + "{}" + "'", str28.equals("{}"));
-        Assert.assertTrue(b31 == false);
-        Assert.assertTrue(b33 == false);
+        Assert.assertTrue(!b31);
+        Assert.assertTrue(!b33);
         Assert.assertTrue(i35 == 0);
     }
 
@@ -2887,21 +2871,21 @@ public class RegressionTest {
         Integer i55 = multiset_histogram0.replace(histogram50, 2);
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
         Assert.assertTrue(i15 == 1);
         Assert.assertNull(i19);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
-        Assert.assertTrue(b28 == true);
+        Assert.assertTrue(b26);
+        Assert.assertTrue(b28);
         Assert.assertNull(i29);
         Assert.assertNotNull(set_histogram30);
         Assert.assertNull(i34);
         Assert.assertNotNull(str_array39);
-        Assert.assertTrue(b41 == true);
-        Assert.assertTrue(b43 == true);
+        Assert.assertTrue(b41);
+        Assert.assertTrue(b43);
         Assert.assertNull(i44);
         Assert.assertNotNull(set_histogram45);
         Assert.assertNull(i49);
@@ -2918,8 +2902,8 @@ public class RegressionTest {
         Object obj8 = null;
         boolean b9 = priorityqueue_str6.contains(obj8);
         Assert.assertNotNull(str_array5);
-        Assert.assertTrue(b7 == true);
-        Assert.assertTrue(b9 == false);
+        Assert.assertTrue(b7);
+        Assert.assertTrue(!b9);
     }
 
     @Test
@@ -2945,16 +2929,16 @@ public class RegressionTest {
         Queue<String>[] queue_str_array29 = heapwithfixedsize_str1.toArray(queue_str_array22);
         boolean b31 = heapwithfixedsize_str1.add("hi!");
         Assert.assertTrue(i4 == 0);
-        Assert.assertTrue(b5 == false);
+        Assert.assertTrue(!b5);
         Assert.assertNotNull(iterator_str6);
         Assert.assertTrue(i7 == 0);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertTrue(i18 == 0);
-        Assert.assertTrue(b19 == false);
+        Assert.assertTrue(!b19);
         Assert.assertNotNull(queue_array21);
         Assert.assertNotNull(queue_str_array22);
         Assert.assertNotNull(queue_str_array29);
-        Assert.assertTrue(b31 == true);
+        Assert.assertTrue(b31);
     }
 
     @Test
@@ -3019,43 +3003,43 @@ public class RegressionTest {
         boolean b72 = priorityqueue_str3.contains(arraylist_str69);
         Object[] obj_array73 = priorityqueue_str3.toArray();
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(list_str6);
         Assert.assertNotNull(str_array9);
-        Assert.assertTrue(b11 == true);
+        Assert.assertTrue(b11);
         Assert.assertNotNull(stream_str12);
         Assert.assertNotNull(str_array15);
-        Assert.assertTrue(b17 == true);
+        Assert.assertTrue(b17);
         Assert.assertNotNull(str_array20);
-        Assert.assertTrue(b22 == true);
+        Assert.assertTrue(b22);
         Assert.assertTrue("'" + b23 + "' != '" + true + "'", b23.equals(true));
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b24);
         Assert.assertTrue(i29 == 0);
-        Assert.assertTrue(b30 == false);
-        Assert.assertTrue(b31 == false);
+        Assert.assertTrue(!b30);
+        Assert.assertTrue(!b31);
         Assert.assertNotNull(str_array34);
-        Assert.assertTrue(b36 == true);
+        Assert.assertTrue(b36);
         Assert.assertNotNull(str_array39);
-        Assert.assertTrue(b41 == true);
+        Assert.assertTrue(b41);
         Assert.assertTrue("'" + b42 + "' != '" + true + "'", b42.equals(true));
-        Assert.assertTrue(b43 == false);
+        Assert.assertTrue(!b43);
         Assert.assertNotNull(str_array46);
-        Assert.assertTrue(b48 == true);
+        Assert.assertTrue(b48);
         Assert.assertNotNull(stream_str49);
         Assert.assertNotNull(str_array52);
-        Assert.assertTrue(b54 == true);
+        Assert.assertTrue(b54);
         Assert.assertNotNull(str_array57);
-        Assert.assertTrue(b59 == true);
+        Assert.assertTrue(b59);
         Assert.assertTrue("'" + b60 + "' != '" + true + "'", b60.equals(true));
-        Assert.assertTrue(b61 == false);
-        Assert.assertTrue(b62 == true);
+        Assert.assertTrue(!b61);
+        Assert.assertTrue(b62);
         Assert.assertTrue(d63 == 1.0d);
         Assert.assertTrue("'" + b64 + "' != '" + false + "'", b64.equals(false));
-        Assert.assertTrue(b65 == false);
+        Assert.assertTrue(!b65);
         Assert.assertNotNull(str_array68);
-        Assert.assertTrue(b70 == true);
+        Assert.assertTrue(b70);
         Assert.assertNotNull(stream_str71);
-        Assert.assertTrue(b72 == false);
+        Assert.assertTrue(!b72);
         Assert.assertNotNull(obj_array73);
     }
 
@@ -3102,25 +3086,25 @@ public class RegressionTest {
         Iterator<String> iterator_str58 = heapwithfixedsize_str1.iterator();
         heapwithfixedsize_str1.clear();
         Assert.assertNotNull(str_array4);
-        Assert.assertTrue(b6 == true);
+        Assert.assertTrue(b6);
         Assert.assertNotNull(stream_str7);
         Assert.assertNotNull(stream_str8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertNotNull(stream_str14);
         Assert.assertNotNull(str_array17);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b19);
         Assert.assertNotNull(stream_str20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(stream_str27);
         Assert.assertNotNull(stream_str28);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
+        Assert.assertTrue(b33);
         Assert.assertNotNull(stream_str34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertNotNull(stream_str41);
         Assert.assertNotNull(stream_array43);
@@ -3169,15 +3153,15 @@ public class RegressionTest {
         Integer i48 = multiset_histogram0.getOrDefault("hi!", 7);
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNull(i17);
         Assert.assertNull(i21);
         Assert.assertNull(i25);
         Assert.assertNotNull(str_array30);
-        Assert.assertTrue(b32 == true);
-        Assert.assertTrue(b34 == true);
+        Assert.assertTrue(b32);
+        Assert.assertTrue(b34);
         Assert.assertNull(i35);
         Assert.assertNotNull(set_histogram36);
         Assert.assertNull(i40);
@@ -3244,7 +3228,7 @@ public class RegressionTest {
         Assert.assertNotNull(d_array43);
         Assert.assertNotNull(d_array46);
         Assert.assertNotNull(d_array47);
-        Assert.assertTrue(b48 == false);
+        Assert.assertTrue(!b48);
         Assert.assertTrue("'" + d49 + "' != '" + 1.0d + "'", d49.equals(1.0d));
         Assert.assertNotNull(d_array52);
         Assert.assertNotNull(d_array55);
@@ -3305,36 +3289,36 @@ public class RegressionTest {
         boolean b59 = arraylist_str45.containsAll(arraylist_str56);
         double d60 = TokenShareRatio.setTokenShareRatioFkLD(arraylist_str38, arraylist_str45);
         Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
+        Assert.assertTrue(!b2);
         Assert.assertNotNull(str_array6);
-        Assert.assertTrue(b8 == true);
+        Assert.assertTrue(b8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertTrue("'" + b14 + "' != '" + true + "'", b14.equals(true));
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNotNull(str_array18);
-        Assert.assertTrue(b20 == true);
+        Assert.assertTrue(b20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(str_array29);
-        Assert.assertTrue(b31 == true);
+        Assert.assertTrue(b31);
         Assert.assertTrue("'" + b32 + "' != '" + true + "'", b32.equals(true));
-        Assert.assertTrue(b33 == false);
-        Assert.assertTrue(b34 == true);
+        Assert.assertTrue(!b33);
+        Assert.assertTrue(b34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertEquals(d41, Double.NaN, 0);
         Assert.assertNotNull(str_array44);
-        Assert.assertTrue(b46 == true);
+        Assert.assertTrue(b46);
         Assert.assertNotNull(stream_str47);
         Assert.assertNotNull(str_array50);
-        Assert.assertTrue(b52 == true);
+        Assert.assertTrue(b52);
         Assert.assertNotNull(str_array55);
-        Assert.assertTrue(b57 == true);
+        Assert.assertTrue(b57);
         Assert.assertTrue("'" + b58 + "' != '" + true + "'", b58.equals(true));
-        Assert.assertTrue(b59 == false);
+        Assert.assertTrue(!b59);
         Assert.assertTrue(d60 == 1.0d);
     }
 
@@ -3363,7 +3347,7 @@ public class RegressionTest {
         Assert.assertNull(filter2);
         Assert.assertNotNull(level3);
         Assert.assertNotNull(level8);
-        Assert.assertTrue(b10 == false);
+        Assert.assertTrue(!b10);
     }
 
     @Test
@@ -3422,39 +3406,39 @@ public class RegressionTest {
         } catch (ArrayStoreException e) {
         }
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(list_str6);
         Assert.assertNotNull(str_array9);
-        Assert.assertTrue(b11 == true);
+        Assert.assertTrue(b11);
         Assert.assertNotNull(stream_str12);
         Assert.assertNotNull(str_array15);
-        Assert.assertTrue(b17 == true);
+        Assert.assertTrue(b17);
         Assert.assertNotNull(str_array20);
-        Assert.assertTrue(b22 == true);
+        Assert.assertTrue(b22);
         Assert.assertTrue("'" + b23 + "' != '" + true + "'", b23.equals(true));
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b24);
         Assert.assertTrue(i29 == 0);
-        Assert.assertTrue(b30 == false);
-        Assert.assertTrue(b31 == false);
+        Assert.assertTrue(!b30);
+        Assert.assertTrue(!b31);
         Assert.assertNotNull(str_array34);
-        Assert.assertTrue(b36 == true);
+        Assert.assertTrue(b36);
         Assert.assertNotNull(str_array39);
-        Assert.assertTrue(b41 == true);
+        Assert.assertTrue(b41);
         Assert.assertTrue("'" + b42 + "' != '" + true + "'", b42.equals(true));
-        Assert.assertTrue(b43 == false);
+        Assert.assertTrue(!b43);
         Assert.assertNotNull(str_array46);
-        Assert.assertTrue(b48 == true);
+        Assert.assertTrue(b48);
         Assert.assertNotNull(stream_str49);
         Assert.assertNotNull(str_array52);
-        Assert.assertTrue(b54 == true);
+        Assert.assertTrue(b54);
         Assert.assertNotNull(str_array57);
-        Assert.assertTrue(b59 == true);
+        Assert.assertTrue(b59);
         Assert.assertTrue("'" + b60 + "' != '" + true + "'", b60.equals(true));
-        Assert.assertTrue(b61 == false);
-        Assert.assertTrue(b62 == true);
+        Assert.assertTrue(!b61);
+        Assert.assertTrue(b62);
         Assert.assertTrue(d63 == 1.0d);
         Assert.assertTrue("'" + b64 + "' != '" + false + "'", b64.equals(false));
-        Assert.assertTrue(b65 == false);
+        Assert.assertTrue(!b65);
         Assert.assertNotNull(tpc_array68);
     }
 
@@ -3546,38 +3530,38 @@ public class RegressionTest {
         Assert.assertNotNull(set_histogram1);
         Assert.assertNull(i5);
         Assert.assertNotNull(str_array10);
-        Assert.assertTrue(b12 == true);
-        Assert.assertTrue(b14 == true);
+        Assert.assertTrue(b12);
+        Assert.assertTrue(b14);
         Assert.assertNull(i15);
         Assert.assertNull(i19);
         Assert.assertNull(i23);
         Assert.assertTrue("'" + i25 + "' != '" + 7 + "'", i25.equals(7));
         Assert.assertNull(i29);
         Assert.assertNotNull(str_array34);
-        Assert.assertTrue(b36 == true);
-        Assert.assertTrue(b38 == true);
+        Assert.assertTrue(b36);
+        Assert.assertTrue(b38);
         Assert.assertNull(i39);
         Assert.assertNotNull(set_histogram40);
-        Assert.assertTrue(b41 == false);
+        Assert.assertTrue(!b41);
         Assert.assertNull(i46);
         Assert.assertNotNull(str_array51);
-        Assert.assertTrue(b53 == true);
-        Assert.assertTrue(b55 == true);
+        Assert.assertTrue(b53);
+        Assert.assertTrue(b55);
         Assert.assertNull(i56);
         Assert.assertNull(i60);
         Assert.assertNull(i64);
-        Assert.assertTrue(b66 == false);
+        Assert.assertTrue(!b66);
         Assert.assertNull(i70);
         Assert.assertNotNull(str_array75);
-        Assert.assertTrue(b77 == true);
-        Assert.assertTrue(b79 == true);
+        Assert.assertTrue(b77);
+        Assert.assertTrue(b79);
         Assert.assertNull(i80);
         Assert.assertNull(i84);
         Assert.assertNull(i88);
-        Assert.assertTrue(b90 == false);
+        Assert.assertTrue(!b90);
         Assert.assertTrue(i94 == 0);
         Assert.assertNotNull(errorManager97);
-        Assert.assertTrue(b98 == false);
+        Assert.assertTrue(!b98);
         Assert.assertNotNull(errorManager99);
     }
 
@@ -3604,17 +3588,17 @@ public class RegressionTest {
         String str26 = heapwithfixedsize_str21.poll();
         Iterator<String> iterator_str27 = heapwithfixedsize_str21.iterator();
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
+        Assert.assertTrue(b10);
         Assert.assertNotNull(str_array13);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b15);
         Assert.assertTrue("'" + b16 + "' != '" + true + "'", b16.equals(true));
-        Assert.assertTrue(b17 == false);
+        Assert.assertTrue(!b17);
         Assert.assertTrue(i22 == 0);
-        Assert.assertTrue(b23 == false);
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b23);
+        Assert.assertTrue(!b24);
         Assert.assertNotNull(iterator_str25);
         Assert.assertNull(str26);
         Assert.assertNotNull(iterator_str27);
@@ -3630,7 +3614,7 @@ public class RegressionTest {
         multiset_histogram0.clear();
         Assert.assertNotNull(set_histogram1);
         Assert.assertTrue("'" + str2 + "' != '" + "{}" + "'", str2.equals("{}"));
-        Assert.assertTrue(b5 == false);
+        Assert.assertTrue(!b5);
         Assert.assertTrue(i6 == 0);
     }
 
@@ -3708,33 +3692,33 @@ public class RegressionTest {
         String str66 = heapwithfixedsize_str1.poll();
         Stream<String> stream_str67 = heapwithfixedsize_str1.parallelStream();
         Assert.assertNotNull(str_array4);
-        Assert.assertTrue(b6 == true);
+        Assert.assertTrue(b6);
         Assert.assertNotNull(stream_str7);
         Assert.assertNotNull(stream_str8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertNotNull(stream_str14);
         Assert.assertNotNull(str_array17);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b19);
         Assert.assertNotNull(stream_str20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(stream_str27);
         Assert.assertNotNull(stream_str28);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
+        Assert.assertTrue(b33);
         Assert.assertNotNull(stream_str34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertNotNull(stream_str41);
         Assert.assertNotNull(stream_array43);
         Assert.assertNotNull(stream_str_array44);
         Assert.assertNotNull(stream_str_array57);
         Assert.assertTrue(i62 == 0);
-        Assert.assertTrue(b63 == false);
-        Assert.assertTrue(b64 == true);
+        Assert.assertTrue(!b63);
+        Assert.assertTrue(b64);
         Assert.assertNull(str65);
         Assert.assertNull(str66);
         Assert.assertNotNull(stream_str67);
@@ -3796,41 +3780,41 @@ public class RegressionTest {
         Set<Histogram> set_histogram67 = multiset_histogram26.keySet();
         boolean b68 = heapwithfixedsize_str21.contains(set_histogram67);
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
+        Assert.assertTrue(b10);
         Assert.assertNotNull(str_array13);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b15);
         Assert.assertTrue("'" + b16 + "' != '" + true + "'", b16.equals(true));
-        Assert.assertTrue(b17 == false);
+        Assert.assertTrue(!b17);
         Assert.assertTrue(i22 == 0);
-        Assert.assertTrue(b23 == false);
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b23);
+        Assert.assertTrue(!b24);
         Assert.assertNull(str25);
         Assert.assertNotNull(str_array29);
-        Assert.assertTrue(b31 == true);
+        Assert.assertTrue(b31);
         Assert.assertNotNull(stream_str32);
         Assert.assertNotNull(str_array35);
-        Assert.assertTrue(b37 == true);
+        Assert.assertTrue(b37);
         Assert.assertNotNull(str_array40);
-        Assert.assertTrue(b42 == true);
+        Assert.assertTrue(b42);
         Assert.assertTrue("'" + b43 + "' != '" + true + "'", b43.equals(true));
-        Assert.assertTrue(b44 == false);
+        Assert.assertTrue(!b44);
         Assert.assertNotNull(str_array47);
-        Assert.assertTrue(b49 == true);
+        Assert.assertTrue(b49);
         Assert.assertNotNull(stream_str50);
         Assert.assertNotNull(str_array53);
-        Assert.assertTrue(b55 == true);
+        Assert.assertTrue(b55);
         Assert.assertNotNull(str_array58);
-        Assert.assertTrue(b60 == true);
+        Assert.assertTrue(b60);
         Assert.assertTrue("'" + b61 + "' != '" + true + "'", b61.equals(true));
-        Assert.assertTrue(b62 == false);
+        Assert.assertTrue(!b62);
         Assert.assertTrue(d63 == 1.0d);
-        Assert.assertTrue(b64 == false);
+        Assert.assertTrue(!b64);
         Assert.assertTrue("'" + i66 + "' != '" + 3 + "'", i66.equals(3));
         Assert.assertNotNull(set_histogram67);
-        Assert.assertTrue(b68 == false);
+        Assert.assertTrue(!b68);
     }
 
     @Test
@@ -3910,38 +3894,38 @@ public class RegressionTest {
         String str68 = heapwithfixedsize_str7.poll();
         boolean b69 = arraylist_str3.containsAll(heapwithfixedsize_str7);
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array10);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b12);
         Assert.assertNotNull(stream_str13);
         Assert.assertNotNull(stream_str14);
         Assert.assertNotNull(str_array17);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b19);
         Assert.assertNotNull(stream_str20);
         Assert.assertNotNull(str_array23);
-        Assert.assertTrue(b25 == true);
+        Assert.assertTrue(b25);
         Assert.assertNotNull(stream_str26);
         Assert.assertNotNull(stream_str27);
         Assert.assertNotNull(str_array30);
-        Assert.assertTrue(b32 == true);
+        Assert.assertTrue(b32);
         Assert.assertNotNull(stream_str33);
         Assert.assertNotNull(stream_str34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertNotNull(str_array43);
-        Assert.assertTrue(b45 == true);
+        Assert.assertTrue(b45);
         Assert.assertNotNull(stream_str46);
         Assert.assertNotNull(stream_str47);
         Assert.assertNotNull(stream_array49);
         Assert.assertNotNull(stream_str_array50);
         Assert.assertNotNull(stream_str_array63);
         Assert.assertNotNull(iterator_str64);
-        Assert.assertTrue(b66 == true);
+        Assert.assertTrue(b66);
         Assert.assertTrue(i67 == 1);
         Assert.assertTrue("'" + str68 + "' != '" + "hi!" + "'", str68.equals("hi!"));
-        Assert.assertTrue(b69 == true);
+        Assert.assertTrue(b69);
     }
 
     @Test
@@ -4024,31 +4008,31 @@ public class RegressionTest {
         multiset_histogram51.clear();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNull(i17);
         Assert.assertNull(i21);
-        Assert.assertTrue(b23 == false);
+        Assert.assertTrue(!b23);
         Assert.assertNull(i27);
         Assert.assertNotNull(str_array32);
-        Assert.assertTrue(b34 == true);
-        Assert.assertTrue(b36 == true);
+        Assert.assertTrue(b34);
+        Assert.assertTrue(b36);
         Assert.assertNull(i37);
         Assert.assertNull(i41);
         Assert.assertNull(i45);
-        Assert.assertTrue(b47 == false);
+        Assert.assertTrue(!b47);
         Assert.assertNull(i54);
         Assert.assertNotNull(str_array59);
-        Assert.assertTrue(b61 == true);
-        Assert.assertTrue(b63 == true);
+        Assert.assertTrue(b61);
+        Assert.assertTrue(b63);
         Assert.assertNull(i64);
         Assert.assertNull(i68);
         Assert.assertNull(i72);
         Assert.assertNull(i76);
         Assert.assertNotNull(str_array81);
-        Assert.assertTrue(b83 == true);
-        Assert.assertTrue(b85 == true);
+        Assert.assertTrue(b83);
+        Assert.assertTrue(b85);
         Assert.assertNull(i86);
         Assert.assertNotNull(set_histogram87);
         Assert.assertNull(i91);
@@ -4088,11 +4072,11 @@ public class RegressionTest {
         Collection<Integer> collection_i21 = multiset_histogram0.values();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNull(i18);
         Assert.assertTrue(i20 == 0);
         Assert.assertNotNull(collection_i21);
@@ -4134,30 +4118,30 @@ public class RegressionTest {
         boolean b43 = arraylist_str38.isEmpty();
         boolean b44 = arraylist_str38.isEmpty();
         Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
+        Assert.assertTrue(!b2);
         Assert.assertNotNull(str_array6);
-        Assert.assertTrue(b8 == true);
+        Assert.assertTrue(b8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertTrue("'" + b14 + "' != '" + true + "'", b14.equals(true));
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNotNull(str_array18);
-        Assert.assertTrue(b20 == true);
+        Assert.assertTrue(b20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(str_array29);
-        Assert.assertTrue(b31 == true);
+        Assert.assertTrue(b31);
         Assert.assertTrue("'" + b32 + "' != '" + true + "'", b32.equals(true));
-        Assert.assertTrue(b33 == false);
-        Assert.assertTrue(b34 == true);
+        Assert.assertTrue(!b33);
+        Assert.assertTrue(b34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertEquals(d41, Double.NaN, 0);
         Assert.assertNotNull(stream_str42);
-        Assert.assertTrue(b43 == false);
-        Assert.assertTrue(b44 == false);
+        Assert.assertTrue(!b43);
+        Assert.assertTrue(!b44);
     }
 
     @Test
@@ -4206,40 +4190,38 @@ public class RegressionTest {
         Stream<String>[] stream_str_array63 = heapwithfixedsize_str7.toArray(stream_str_array50);
         boolean b65 = heapwithfixedsize_str7.add("");
         boolean b67 = heapwithfixedsize_str7.contains(0L);
-        Comparator<? super String> comparator_wildcard68 = heapwithfixedsize_str7.comparator();
         boolean b69 = priorityqueue_str3.remove(heapwithfixedsize_str7);
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertTrue(i5 == 2);
         Assert.assertNotNull(str_array10);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b12);
         Assert.assertNotNull(stream_str13);
         Assert.assertNotNull(stream_str14);
         Assert.assertNotNull(str_array17);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b19);
         Assert.assertNotNull(stream_str20);
         Assert.assertNotNull(str_array23);
-        Assert.assertTrue(b25 == true);
+        Assert.assertTrue(b25);
         Assert.assertNotNull(stream_str26);
         Assert.assertNotNull(stream_str27);
         Assert.assertNotNull(str_array30);
-        Assert.assertTrue(b32 == true);
+        Assert.assertTrue(b32);
         Assert.assertNotNull(stream_str33);
         Assert.assertNotNull(stream_str34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertNotNull(str_array43);
-        Assert.assertTrue(b45 == true);
+        Assert.assertTrue(b45);
         Assert.assertNotNull(stream_str46);
         Assert.assertNotNull(stream_str47);
         Assert.assertNotNull(stream_array49);
         Assert.assertNotNull(stream_str_array50);
         Assert.assertNotNull(stream_str_array63);
-        Assert.assertTrue(b65 == true);
-        Assert.assertTrue(b67 == false);
-        Assert.assertNotNull(comparator_wildcard68);
-        Assert.assertTrue(b69 == false);
+        Assert.assertTrue(b65);
+        Assert.assertTrue(!b67);
+        Assert.assertTrue(!b69);
     }
 
     @Test
@@ -4264,23 +4246,21 @@ public class RegressionTest {
         String str25 = heapwithfixedsize_str21.poll();
         List<String> list_str27 = Tokenization.split("");
         boolean b28 = heapwithfixedsize_str21.removeAll(list_str27);
-        Comparator<? super String> comparator_wildcard29 = heapwithfixedsize_str21.comparator();
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
+        Assert.assertTrue(b10);
         Assert.assertNotNull(str_array13);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b15);
         Assert.assertTrue("'" + b16 + "' != '" + true + "'", b16.equals(true));
-        Assert.assertTrue(b17 == false);
+        Assert.assertTrue(!b17);
         Assert.assertTrue(i22 == 0);
-        Assert.assertTrue(b23 == false);
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b23);
+        Assert.assertTrue(!b24);
         Assert.assertNull(str25);
         Assert.assertNotNull(list_str27);
-        Assert.assertTrue(b28 == false);
-        Assert.assertNotNull(comparator_wildcard29);
+        Assert.assertTrue(!b28);
     }
 
     @Test
@@ -4316,28 +4296,28 @@ public class RegressionTest {
         Set<Histogram> set_histogram41 = multiset_histogram0.keySet();
         boolean b42 = multiset_histogram0.isEmpty();
         Assert.assertNotNull(str_array3);
-        Assert.assertTrue(b5 == true);
+        Assert.assertTrue(b5);
         Assert.assertNotNull(stream_str6);
         Assert.assertNotNull(str_array9);
-        Assert.assertTrue(b11 == true);
+        Assert.assertTrue(b11);
         Assert.assertNotNull(str_array14);
-        Assert.assertTrue(b16 == true);
+        Assert.assertTrue(b16);
         Assert.assertTrue("'" + b17 + "' != '" + true + "'", b17.equals(true));
-        Assert.assertTrue(b18 == false);
+        Assert.assertTrue(!b18);
         Assert.assertNotNull(str_array21);
-        Assert.assertTrue(b23 == true);
+        Assert.assertTrue(b23);
         Assert.assertNotNull(stream_str24);
         Assert.assertNotNull(str_array27);
-        Assert.assertTrue(b29 == true);
+        Assert.assertTrue(b29);
         Assert.assertNotNull(str_array32);
-        Assert.assertTrue(b34 == true);
+        Assert.assertTrue(b34);
         Assert.assertTrue("'" + b35 + "' != '" + true + "'", b35.equals(true));
-        Assert.assertTrue(b36 == false);
+        Assert.assertTrue(!b36);
         Assert.assertTrue(d37 == 1.0d);
-        Assert.assertTrue(b38 == false);
+        Assert.assertTrue(!b38);
         Assert.assertTrue("'" + i40 + "' != '" + 3 + "'", i40.equals(3));
         Assert.assertNotNull(set_histogram41);
-        Assert.assertTrue(b42 == true);
+        Assert.assertTrue(b42);
     }
 
     @Test
@@ -4449,14 +4429,14 @@ public class RegressionTest {
         String str39 = multiset_histogram0.toString();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
         Assert.assertNull(i18);
         Assert.assertNotNull(str_array23);
-        Assert.assertTrue(b25 == true);
-        Assert.assertTrue(b27 == true);
+        Assert.assertTrue(b25);
+        Assert.assertTrue(b27);
         Assert.assertNull(i28);
         Assert.assertNotNull(set_histogram29);
         Assert.assertNull(i33);
@@ -4565,26 +4545,26 @@ public class RegressionTest {
         textAreaAppender60.setLevel(level72);
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNull(i17);
         Assert.assertNull(i21);
-        Assert.assertTrue(b23 == false);
+        Assert.assertTrue(!b23);
         Assert.assertNull(i27);
         Assert.assertNotNull(str_array32);
-        Assert.assertTrue(b34 == true);
-        Assert.assertTrue(b36 == true);
+        Assert.assertTrue(b34);
+        Assert.assertTrue(b36);
         Assert.assertNull(i37);
         Assert.assertNull(i41);
         Assert.assertNull(i45);
-        Assert.assertTrue(b47 == false);
+        Assert.assertTrue(!b47);
         Assert.assertNull(filter53);
         Assert.assertNotNull(level54);
         Assert.assertNotNull(formatter56);
         Assert.assertNull(filter63);
         Assert.assertNotNull(level64);
-        Assert.assertTrue(b66 == false);
+        Assert.assertTrue(!b66);
         Assert.assertNull(filter71);
         Assert.assertNotNull(level72);
     }
@@ -4642,43 +4622,43 @@ public class RegressionTest {
         Iterator<String> iterator_str70 = heapwithfixedsize_str23.iterator();
         boolean b71 = heapwithfixedsize_str1.removeAll(heapwithfixedsize_str23);
         Assert.assertNotNull(str_array4);
-        Assert.assertTrue(b6 == true);
+        Assert.assertTrue(b6);
         Assert.assertNotNull(stream_str7);
         Assert.assertNotNull(str_array10);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b12);
         Assert.assertNotNull(str_array15);
-        Assert.assertTrue(b17 == true);
+        Assert.assertTrue(b17);
         Assert.assertTrue("'" + b18 + "' != '" + true + "'", b18.equals(true));
-        Assert.assertTrue(b19 == false);
+        Assert.assertTrue(!b19);
         Assert.assertTrue(i24 == 0);
-        Assert.assertTrue(b25 == false);
-        Assert.assertTrue(b26 == false);
+        Assert.assertTrue(!b25);
+        Assert.assertTrue(!b26);
         Assert.assertNull(str27);
         Assert.assertNotNull(str_array30);
-        Assert.assertTrue(b32 == true);
+        Assert.assertTrue(b32);
         Assert.assertNotNull(stream_str33);
         Assert.assertNotNull(str_array36);
-        Assert.assertTrue(b38 == true);
+        Assert.assertTrue(b38);
         Assert.assertNotNull(str_array41);
-        Assert.assertTrue(b43 == true);
+        Assert.assertTrue(b43);
         Assert.assertTrue("'" + b44 + "' != '" + true + "'", b44.equals(true));
-        Assert.assertTrue(b45 == false);
+        Assert.assertTrue(!b45);
         Assert.assertNotNull(str_array48);
-        Assert.assertTrue(b50 == true);
+        Assert.assertTrue(b50);
         Assert.assertNotNull(stream_str51);
         Assert.assertNotNull(str_array54);
-        Assert.assertTrue(b56 == true);
+        Assert.assertTrue(b56);
         Assert.assertNotNull(str_array59);
-        Assert.assertTrue(b61 == true);
+        Assert.assertTrue(b61);
         Assert.assertTrue("'" + b62 + "' != '" + true + "'", b62.equals(true));
-        Assert.assertTrue(b63 == false);
+        Assert.assertTrue(!b63);
         Assert.assertTrue(d64 == 1.0d);
-        Assert.assertTrue(b65 == false);
+        Assert.assertTrue(!b65);
         Assert.assertNotNull(list_str67);
         Assert.assertTrue(d68 == 1.0d);
-        Assert.assertTrue(b69 == false);
+        Assert.assertTrue(!b69);
         Assert.assertNotNull(iterator_str70);
-        Assert.assertTrue(b71 == false);
+        Assert.assertTrue(!b71);
     }
 
     @Test
@@ -4758,8 +4738,8 @@ public class RegressionTest {
         Collection<Integer> collection_i24 = multiset_histogram0.values();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
         Assert.assertNull(i18);
@@ -4839,32 +4819,32 @@ public class RegressionTest {
         double d53 = chen3.getTableChenSimilarity(arraylist_str42, arraylist_str51);
         String str54 = arraylist_str51.toString();
         Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
+        Assert.assertTrue(!b2);
         Assert.assertNotNull(table_array4);
-        Assert.assertTrue(b6 == false);
+        Assert.assertTrue(!b6);
         Assert.assertNotNull(str_array10);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b12);
         Assert.assertNotNull(str_array15);
-        Assert.assertTrue(b17 == true);
+        Assert.assertTrue(b17);
         Assert.assertTrue("'" + b18 + "' != '" + true + "'", b18.equals(true));
-        Assert.assertTrue(b19 == false);
+        Assert.assertTrue(!b19);
         Assert.assertNotNull(str_array22);
-        Assert.assertTrue(b24 == true);
+        Assert.assertTrue(b24);
         Assert.assertNotNull(stream_str25);
         Assert.assertNotNull(str_array28);
-        Assert.assertTrue(b30 == true);
+        Assert.assertTrue(b30);
         Assert.assertNotNull(str_array33);
-        Assert.assertTrue(b35 == true);
+        Assert.assertTrue(b35);
         Assert.assertTrue("'" + b36 + "' != '" + true + "'", b36.equals(true));
-        Assert.assertTrue(b37 == false);
-        Assert.assertTrue(b38 == true);
+        Assert.assertTrue(!b37);
+        Assert.assertTrue(b38);
         Assert.assertNotNull(str_array41);
-        Assert.assertTrue(b43 == true);
+        Assert.assertTrue(b43);
         Assert.assertNotNull(stream_str44);
         Assert.assertEquals(d45, Double.NaN, 0);
         Assert.assertNotNull(stream_str46);
         Assert.assertNotNull(str_array50);
-        Assert.assertTrue(b52 == true);
+        Assert.assertTrue(b52);
         Assert.assertEquals(d53, Double.NaN, 0);
         Assert.assertTrue("'" + str54 + "' != '" + "[hi!, [, hi!], ]" + "'", str54.equals("[hi!, [, hi!], ]"));
     }
@@ -4913,25 +4893,25 @@ public class RegressionTest {
         Spliterator<String> spliterator_str59 = heapwithfixedsize_str1.spliterator();
         String str60 = heapwithfixedsize_str1.poll();
         Assert.assertNotNull(str_array4);
-        Assert.assertTrue(b6 == true);
+        Assert.assertTrue(b6);
         Assert.assertNotNull(stream_str7);
         Assert.assertNotNull(stream_str8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertNotNull(stream_str14);
         Assert.assertNotNull(str_array17);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b19);
         Assert.assertNotNull(stream_str20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(stream_str27);
         Assert.assertNotNull(stream_str28);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
+        Assert.assertTrue(b33);
         Assert.assertNotNull(stream_str34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertNotNull(stream_str41);
         Assert.assertNotNull(stream_array43);
@@ -4994,14 +4974,14 @@ public class RegressionTest {
         Assert.assertNotNull(level5);
         Assert.assertNull(i10);
         Assert.assertNotNull(str_array15);
-        Assert.assertTrue(b17 == true);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b17);
+        Assert.assertTrue(b19);
         Assert.assertNull(i20);
         Assert.assertNotNull(set_histogram21);
         Assert.assertNull(i25);
         Assert.assertNotNull(str_array30);
-        Assert.assertTrue(b32 == true);
-        Assert.assertTrue(b34 == true);
+        Assert.assertTrue(b32);
+        Assert.assertTrue(b34);
         Assert.assertNull(i35);
         Assert.assertNotNull(set_histogram36);
         Assert.assertNull(i40);
@@ -5028,7 +5008,7 @@ public class RegressionTest {
         } catch (NullPointerException e) {
         }
         Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
+        Assert.assertTrue(!b2);
     }
 
     @Test
@@ -5106,51 +5086,51 @@ public class RegressionTest {
         } catch (NullPointerException e) {
         }
         Assert.assertNotNull(table_array0);
-        Assert.assertTrue(b2 == false);
+        Assert.assertTrue(!b2);
         Assert.assertNotNull(str_array6);
-        Assert.assertTrue(b8 == true);
+        Assert.assertTrue(b8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertTrue("'" + b14 + "' != '" + true + "'", b14.equals(true));
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNotNull(str_array18);
-        Assert.assertTrue(b20 == true);
+        Assert.assertTrue(b20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(str_array29);
-        Assert.assertTrue(b31 == true);
+        Assert.assertTrue(b31);
         Assert.assertTrue("'" + b32 + "' != '" + true + "'", b32.equals(true));
-        Assert.assertTrue(b33 == false);
-        Assert.assertTrue(b34 == true);
+        Assert.assertTrue(!b33);
+        Assert.assertTrue(b34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertNotNull(str_array43);
-        Assert.assertTrue(b45 == true);
+        Assert.assertTrue(b45);
         Assert.assertNotNull(str_array48);
-        Assert.assertTrue(b50 == true);
+        Assert.assertTrue(b50);
         Assert.assertTrue("'" + b51 + "' != '" + true + "'", b51.equals(true));
-        Assert.assertTrue(b52 == false);
+        Assert.assertTrue(!b52);
         Assert.assertTrue(i57 == 0);
-        Assert.assertTrue(b58 == false);
-        Assert.assertTrue(b59 == false);
+        Assert.assertTrue(!b58);
+        Assert.assertTrue(!b59);
         Assert.assertNotNull(str_array62);
-        Assert.assertTrue(b64 == true);
+        Assert.assertTrue(b64);
         Assert.assertNotNull(str_array67);
-        Assert.assertTrue(b69 == true);
+        Assert.assertTrue(b69);
         Assert.assertTrue("'" + b70 + "' != '" + true + "'", b70.equals(true));
-        Assert.assertTrue(b71 == false);
+        Assert.assertTrue(!b71);
         Assert.assertNotNull(str_array74);
-        Assert.assertTrue(b76 == true);
+        Assert.assertTrue(b76);
         Assert.assertNotNull(stream_str77);
         Assert.assertNotNull(str_array80);
-        Assert.assertTrue(b82 == true);
+        Assert.assertTrue(b82);
         Assert.assertNotNull(str_array85);
-        Assert.assertTrue(b87 == true);
+        Assert.assertTrue(b87);
         Assert.assertTrue("'" + b88 + "' != '" + true + "'", b88.equals(true));
-        Assert.assertTrue(b89 == false);
-        Assert.assertTrue(b90 == true);
+        Assert.assertTrue(!b89);
+        Assert.assertTrue(b90);
         Assert.assertTrue(d91 == 1.0d);
         Assert.assertEquals(d92, Double.NaN, 0);
     }
@@ -5219,7 +5199,7 @@ public class RegressionTest {
         } catch (NullPointerException e) {
         }
         Assert.assertTrue(i4 == 0);
-        Assert.assertTrue(b5 == false);
+        Assert.assertTrue(!b5);
     }
 
     @Test
@@ -5381,8 +5361,8 @@ public class RegressionTest {
         Set<Entry<Histogram, Integer>> set_entry_histogram_i76 = multiset_histogram0.entrySet();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
         Assert.assertNull(i18);
@@ -5391,20 +5371,20 @@ public class RegressionTest {
         Assert.assertNotNull(set_entry_histogram_i23);
         Assert.assertNull(i27);
         Assert.assertNotNull(str_array32);
-        Assert.assertTrue(b34 == true);
-        Assert.assertTrue(b36 == true);
+        Assert.assertTrue(b34);
+        Assert.assertTrue(b36);
         Assert.assertNull(i37);
         Assert.assertNull(i41);
         Assert.assertNull(i45);
-        Assert.assertTrue(b47 == false);
+        Assert.assertTrue(!b47);
         Assert.assertNull(i51);
         Assert.assertNotNull(str_array56);
-        Assert.assertTrue(b58 == true);
-        Assert.assertTrue(b60 == true);
+        Assert.assertTrue(b58);
+        Assert.assertTrue(b60);
         Assert.assertNull(i61);
         Assert.assertNull(i65);
         Assert.assertNull(i69);
-        Assert.assertTrue(b71 == false);
+        Assert.assertTrue(!b71);
         Assert.assertNotNull(set_entry_histogram_i76);
     }
 
@@ -5476,51 +5456,51 @@ public class RegressionTest {
         Iterator<String> iterator_str95 = heapwithfixedsize_str38.iterator();
         boolean b96 = arraylist_str21.containsAll(heapwithfixedsize_str38);
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
+        Assert.assertTrue(b10);
         Assert.assertNotNull(str_array13);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b15);
         Assert.assertTrue("'" + b16 + "' != '" + true + "'", b16.equals(true));
-        Assert.assertTrue(b17 == false);
+        Assert.assertTrue(!b17);
         Assert.assertNotNull(str_array20);
-        Assert.assertTrue(b22 == true);
+        Assert.assertTrue(b22);
         Assert.assertNotNull(stream_str23);
         Assert.assertNotNull(str_array26);
-        Assert.assertTrue(b28 == true);
+        Assert.assertTrue(b28);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
+        Assert.assertTrue(b33);
         Assert.assertTrue("'" + b34 + "' != '" + true + "'", b34.equals(true));
-        Assert.assertTrue(b35 == false);
+        Assert.assertTrue(!b35);
         Assert.assertTrue(d36 == 1.0d);
         Assert.assertNotNull(str_array41);
-        Assert.assertTrue(b43 == true);
+        Assert.assertTrue(b43);
         Assert.assertNotNull(stream_str44);
         Assert.assertNotNull(stream_str45);
         Assert.assertNotNull(str_array48);
-        Assert.assertTrue(b50 == true);
+        Assert.assertTrue(b50);
         Assert.assertNotNull(stream_str51);
         Assert.assertNotNull(str_array54);
-        Assert.assertTrue(b56 == true);
+        Assert.assertTrue(b56);
         Assert.assertNotNull(stream_str57);
         Assert.assertNotNull(stream_str58);
         Assert.assertNotNull(str_array61);
-        Assert.assertTrue(b63 == true);
+        Assert.assertTrue(b63);
         Assert.assertNotNull(stream_str64);
         Assert.assertNotNull(stream_str65);
         Assert.assertNotNull(str_array68);
-        Assert.assertTrue(b70 == true);
+        Assert.assertTrue(b70);
         Assert.assertNotNull(stream_str71);
         Assert.assertNotNull(str_array74);
-        Assert.assertTrue(b76 == true);
+        Assert.assertTrue(b76);
         Assert.assertNotNull(stream_str77);
         Assert.assertNotNull(stream_str78);
         Assert.assertNotNull(stream_array80);
         Assert.assertNotNull(stream_str_array81);
         Assert.assertNotNull(stream_str_array94);
         Assert.assertNotNull(iterator_str95);
-        Assert.assertTrue(b96 == true);
+        Assert.assertTrue(b96);
     }
 
     @Test
@@ -5552,7 +5532,7 @@ public class RegressionTest {
         Double d56 = Histogram.jaccard(d_array10, d_array32);
         boolean b57 = priorityqueue_str4.remove(d56);
         Assert.assertNotNull(str_array3);
-        Assert.assertTrue(b5 == true);
+        Assert.assertTrue(b5);
         Assert.assertTrue("'" + str6 + "' != '" + "[, hi!]" + "'", str6.equals("[, hi!]"));
         Assert.assertNotNull(d_array10);
         Assert.assertNotNull(d_array13);
@@ -5572,9 +5552,9 @@ public class RegressionTest {
         Assert.assertNotNull(d_array50);
         Assert.assertNotNull(d_array53);
         Assert.assertNotNull(d_array54);
-        Assert.assertTrue(b55 == false);
+        Assert.assertTrue(!b55);
         Assert.assertTrue("'" + d56 + "' != '" + 1.0d + "'", d56.equals(1.0d));
-        Assert.assertTrue(b57 == false);
+        Assert.assertTrue(!b57);
     }
 
     @Test
@@ -5626,44 +5606,42 @@ public class RegressionTest {
         List<String> list_str65 = Tokenization.split("");
         double d66 = TokenShareRatio.setTokenShareRatioFkLD(arraylist_str47, list_str65);
         boolean b67 = heapwithfixedsize_str21.contains(arraylist_str47);
-        Comparator<? super String> comparator_wildcard68 = heapwithfixedsize_str21.comparator();
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
+        Assert.assertTrue(b10);
         Assert.assertNotNull(str_array13);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b15);
         Assert.assertTrue("'" + b16 + "' != '" + true + "'", b16.equals(true));
-        Assert.assertTrue(b17 == false);
+        Assert.assertTrue(!b17);
         Assert.assertTrue(i22 == 0);
-        Assert.assertTrue(b23 == false);
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b23);
+        Assert.assertTrue(!b24);
         Assert.assertNull(str25);
         Assert.assertNotNull(str_array28);
-        Assert.assertTrue(b30 == true);
+        Assert.assertTrue(b30);
         Assert.assertNotNull(stream_str31);
         Assert.assertNotNull(str_array34);
-        Assert.assertTrue(b36 == true);
+        Assert.assertTrue(b36);
         Assert.assertNotNull(str_array39);
-        Assert.assertTrue(b41 == true);
+        Assert.assertTrue(b41);
         Assert.assertTrue("'" + b42 + "' != '" + true + "'", b42.equals(true));
-        Assert.assertTrue(b43 == false);
+        Assert.assertTrue(!b43);
         Assert.assertNotNull(str_array46);
-        Assert.assertTrue(b48 == true);
+        Assert.assertTrue(b48);
         Assert.assertNotNull(stream_str49);
         Assert.assertNotNull(str_array52);
-        Assert.assertTrue(b54 == true);
+        Assert.assertTrue(b54);
         Assert.assertNotNull(str_array57);
-        Assert.assertTrue(b59 == true);
+        Assert.assertTrue(b59);
         Assert.assertTrue("'" + b60 + "' != '" + true + "'", b60.equals(true));
-        Assert.assertTrue(b61 == false);
+        Assert.assertTrue(!b61);
         Assert.assertTrue(d62 == 1.0d);
-        Assert.assertTrue(b63 == false);
+        Assert.assertTrue(!b63);
         Assert.assertNotNull(list_str65);
         Assert.assertTrue(d66 == 1.0d);
-        Assert.assertTrue(b67 == false);
-        Assert.assertNotNull(comparator_wildcard68);
+        Assert.assertTrue(!b67);
     }
 
     @Test
@@ -5744,36 +5722,36 @@ public class RegressionTest {
         multiset_histogram0.add(histogram93);
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNull(i20);
         Assert.assertNotNull(str_array25);
-        Assert.assertTrue(b27 == true);
-        Assert.assertTrue(b29 == true);
+        Assert.assertTrue(b27);
+        Assert.assertTrue(b29);
         Assert.assertNull(i30);
         Assert.assertNull(i34);
         Assert.assertNull(i38);
-        Assert.assertTrue(b40 == false);
+        Assert.assertTrue(!b40);
         Assert.assertNull(i44);
         Assert.assertNotNull(str_array49);
-        Assert.assertTrue(b51 == true);
-        Assert.assertTrue(b53 == true);
+        Assert.assertTrue(b51);
+        Assert.assertTrue(b53);
         Assert.assertNull(i54);
         Assert.assertNull(i58);
         Assert.assertNull(i62);
-        Assert.assertTrue(b64 == false);
+        Assert.assertTrue(!b64);
         Assert.assertTrue(i68 == 0);
         Assert.assertNull(i72);
         Assert.assertNotNull(str_array77);
-        Assert.assertTrue(b79 == true);
-        Assert.assertTrue(b81 == true);
+        Assert.assertTrue(b79);
+        Assert.assertTrue(b81);
         Assert.assertNull(i82);
         Assert.assertNull(i86);
         Assert.assertNull(i90);
-        Assert.assertTrue(b92 == false);
+        Assert.assertTrue(!b92);
     }
 
     @Test
@@ -5793,10 +5771,10 @@ public class RegressionTest {
         Set<Histogram> set_histogram16 = multiset_histogram0.keySet();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNotNull(set_histogram16);
     }
 
@@ -5812,7 +5790,7 @@ public class RegressionTest {
         Assert.assertTrue(i4 == 1);
         Assert.assertNotNull(list_str6);
         Assert.assertTrue(i7 == 1);
-        Assert.assertTrue(b8 == false);
+        Assert.assertTrue(!b8);
         Assert.assertNotNull(list_str10);
     }
 
@@ -5915,37 +5893,37 @@ public class RegressionTest {
         multiset_histogram0.putAll(multiset_histogram21);
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNotNull(set_histogram14);
-        Assert.assertTrue(b15 == false);
+        Assert.assertTrue(!b15);
         Assert.assertNull(i18);
         Assert.assertTrue(i20 == 0);
-        Assert.assertTrue(b22 == true);
+        Assert.assertTrue(b22);
         Assert.assertNull(i26);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
-        Assert.assertTrue(b35 == true);
+        Assert.assertTrue(b33);
+        Assert.assertTrue(b35);
         Assert.assertNull(i36);
         Assert.assertNotNull(set_histogram37);
-        Assert.assertTrue(b38 == false);
+        Assert.assertTrue(!b38);
         Assert.assertNull(i43);
         Assert.assertNotNull(str_array48);
-        Assert.assertTrue(b50 == true);
-        Assert.assertTrue(b52 == true);
+        Assert.assertTrue(b50);
+        Assert.assertTrue(b52);
         Assert.assertNull(i53);
         Assert.assertNull(i57);
         Assert.assertNull(i61);
-        Assert.assertTrue(b63 == false);
+        Assert.assertTrue(!b63);
         Assert.assertNull(i67);
         Assert.assertNotNull(str_array72);
-        Assert.assertTrue(b74 == true);
-        Assert.assertTrue(b76 == true);
+        Assert.assertTrue(b74);
+        Assert.assertTrue(b76);
         Assert.assertNull(i77);
         Assert.assertNull(i81);
         Assert.assertNull(i85);
-        Assert.assertTrue(b87 == false);
+        Assert.assertTrue(!b87);
         Assert.assertTrue(i91 == 0);
         Assert.assertTrue(i92 == 0);
     }
@@ -5963,7 +5941,7 @@ public class RegressionTest {
     public void test168() throws Throwable {
         MultiMap multiMap0 = new MultiMap();
         boolean b1 = multiMap0.isEmpty();
-        Assert.assertTrue(b1 == true);
+        Assert.assertTrue(b1);
     }
 
     @Test
@@ -5993,7 +5971,7 @@ public class RegressionTest {
         Collection<Integer> collection_i6 = multiset_histogram0.values();
         Assert.assertNotNull(set_histogram1);
         Assert.assertTrue("'" + str2 + "' != '" + "{}" + "'", str2.equals("{}"));
-        Assert.assertTrue(b5 == false);
+        Assert.assertTrue(!b5);
         Assert.assertNotNull(collection_i6);
     }
 
@@ -6043,29 +6021,29 @@ public class RegressionTest {
         boolean b48 = heapwithfixedsize_str21.offer("[hi!, [, hi!], ]");
         Spliterator<String> spliterator_str49 = heapwithfixedsize_str21.spliterator();
         Assert.assertNotNull(str_array2);
-        Assert.assertTrue(b4 == true);
+        Assert.assertTrue(b4);
         Assert.assertNotNull(stream_str5);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
+        Assert.assertTrue(b10);
         Assert.assertNotNull(str_array13);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b15);
         Assert.assertTrue("'" + b16 + "' != '" + true + "'", b16.equals(true));
-        Assert.assertTrue(b17 == false);
+        Assert.assertTrue(!b17);
         Assert.assertTrue(i22 == 0);
-        Assert.assertTrue(b23 == false);
-        Assert.assertTrue(b24 == false);
+        Assert.assertTrue(!b23);
+        Assert.assertTrue(!b24);
         Assert.assertNull(str25);
         Assert.assertNull(i29);
         Assert.assertNotNull(str_array34);
-        Assert.assertTrue(b36 == true);
-        Assert.assertTrue(b38 == true);
+        Assert.assertTrue(b36);
+        Assert.assertTrue(b38);
         Assert.assertNull(i39);
         Assert.assertNotNull(set_histogram40);
-        Assert.assertTrue(b41 == false);
+        Assert.assertTrue(!b41);
         Assert.assertNull(i44);
-        Assert.assertTrue(b45 == false);
+        Assert.assertTrue(!b45);
         Assert.assertNotNull(stream_str46);
-        Assert.assertTrue(b48 == true);
+        Assert.assertTrue(b48);
         Assert.assertNotNull(spliterator_str49);
     }
 
@@ -6078,7 +6056,7 @@ public class RegressionTest {
         Set<Entry<Histogram, Integer>> set_entry_histogram_i6 = multiset_histogram0.entrySet();
         Assert.assertNotNull(set_histogram1);
         Assert.assertTrue("'" + str2 + "' != '" + "{}" + "'", str2.equals("{}"));
-        Assert.assertTrue(b5 == false);
+        Assert.assertTrue(!b5);
         Assert.assertNotNull(set_entry_histogram_i6);
     }
 
@@ -6143,20 +6121,20 @@ public class RegressionTest {
         Assert.assertTrue("'" + str2 + "' != '" + "{}" + "'", str2.equals("{}"));
         Assert.assertNull(i6);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
-        Assert.assertTrue(b15 == true);
+        Assert.assertTrue(b13);
+        Assert.assertTrue(b15);
         Assert.assertNull(i16);
         Assert.assertNotNull(set_histogram17);
         Assert.assertNull(i21);
         Assert.assertNotNull(str_array26);
-        Assert.assertTrue(b28 == true);
-        Assert.assertTrue(b30 == true);
+        Assert.assertTrue(b28);
+        Assert.assertTrue(b30);
         Assert.assertNull(i31);
         Assert.assertNotNull(set_histogram32);
         Assert.assertNull(i36);
         Assert.assertTrue(i39 == 0);
         Assert.assertTrue(i40 == 0);
-        Assert.assertTrue(b42 == false);
+        Assert.assertTrue(!b42);
         Assert.assertNull(i44);
         Assert.assertNotNull(set_histogram45);
     }
@@ -6210,24 +6188,24 @@ public class RegressionTest {
         multiset_histogram0.clear();
         Assert.assertNull(i3);
         Assert.assertNotNull(str_array8);
-        Assert.assertTrue(b10 == true);
-        Assert.assertTrue(b12 == true);
+        Assert.assertTrue(b10);
+        Assert.assertTrue(b12);
         Assert.assertNull(i13);
         Assert.assertNull(i17);
         Assert.assertNull(i21);
-        Assert.assertTrue(b23 == false);
+        Assert.assertTrue(!b23);
         Assert.assertNull(i27);
         Assert.assertNotNull(str_array32);
-        Assert.assertTrue(b34 == true);
-        Assert.assertTrue(b36 == true);
+        Assert.assertTrue(b34);
+        Assert.assertTrue(b36);
         Assert.assertNull(i37);
         Assert.assertNull(i41);
         Assert.assertNull(i45);
-        Assert.assertTrue(b47 == false);
+        Assert.assertTrue(!b47);
         Assert.assertNotNull(str_array53);
-        Assert.assertTrue(b55 == true);
+        Assert.assertTrue(b55);
         Assert.assertNotNull(stream_str56);
-        Assert.assertTrue(b58 == false);
+        Assert.assertTrue(!b58);
     }
 
     @Test
@@ -6329,36 +6307,36 @@ public class RegressionTest {
         String str66 = heapwithfixedsize_str1.poll();
         boolean b67 = heapwithfixedsize_str1.isEmpty();
         Assert.assertNotNull(str_array4);
-        Assert.assertTrue(b6 == true);
+        Assert.assertTrue(b6);
         Assert.assertNotNull(stream_str7);
         Assert.assertNotNull(stream_str8);
         Assert.assertNotNull(str_array11);
-        Assert.assertTrue(b13 == true);
+        Assert.assertTrue(b13);
         Assert.assertNotNull(stream_str14);
         Assert.assertNotNull(str_array17);
-        Assert.assertTrue(b19 == true);
+        Assert.assertTrue(b19);
         Assert.assertNotNull(stream_str20);
         Assert.assertNotNull(stream_str21);
         Assert.assertNotNull(str_array24);
-        Assert.assertTrue(b26 == true);
+        Assert.assertTrue(b26);
         Assert.assertNotNull(stream_str27);
         Assert.assertNotNull(stream_str28);
         Assert.assertNotNull(str_array31);
-        Assert.assertTrue(b33 == true);
+        Assert.assertTrue(b33);
         Assert.assertNotNull(stream_str34);
         Assert.assertNotNull(str_array37);
-        Assert.assertTrue(b39 == true);
+        Assert.assertTrue(b39);
         Assert.assertNotNull(stream_str40);
         Assert.assertNotNull(stream_str41);
         Assert.assertNotNull(stream_array43);
         Assert.assertNotNull(stream_str_array44);
         Assert.assertNotNull(stream_str_array57);
         Assert.assertTrue(i62 == 0);
-        Assert.assertTrue(b63 == false);
-        Assert.assertTrue(b64 == true);
+        Assert.assertTrue(!b63);
+        Assert.assertTrue(b64);
         Assert.assertNull(str65);
         Assert.assertNull(str66);
-        Assert.assertTrue(b67 == true);
+        Assert.assertTrue(b67);
     }
 
     @Test
@@ -6443,38 +6421,38 @@ public class RegressionTest {
         Assert.assertNotNull(set_histogram1);
         Assert.assertNull(i5);
         Assert.assertNotNull(str_array10);
-        Assert.assertTrue(b12 == true);
-        Assert.assertTrue(b14 == true);
+        Assert.assertTrue(b12);
+        Assert.assertTrue(b14);
         Assert.assertNull(i15);
         Assert.assertNull(i19);
         Assert.assertNull(i23);
         Assert.assertTrue("'" + i25 + "' != '" + 7 + "'", i25.equals(7));
         Assert.assertNull(i29);
         Assert.assertNotNull(str_array34);
-        Assert.assertTrue(b36 == true);
-        Assert.assertTrue(b38 == true);
+        Assert.assertTrue(b36);
+        Assert.assertTrue(b38);
         Assert.assertNull(i39);
         Assert.assertNotNull(set_histogram40);
-        Assert.assertTrue(b41 == false);
+        Assert.assertTrue(!b41);
         Assert.assertNull(i46);
         Assert.assertNotNull(str_array51);
-        Assert.assertTrue(b53 == true);
-        Assert.assertTrue(b55 == true);
+        Assert.assertTrue(b53);
+        Assert.assertTrue(b55);
         Assert.assertNull(i56);
         Assert.assertNull(i60);
         Assert.assertNull(i64);
-        Assert.assertTrue(b66 == false);
+        Assert.assertTrue(!b66);
         Assert.assertNull(i70);
         Assert.assertNotNull(str_array75);
-        Assert.assertTrue(b77 == true);
-        Assert.assertTrue(b79 == true);
+        Assert.assertTrue(b77);
+        Assert.assertTrue(b79);
         Assert.assertNull(i80);
         Assert.assertNull(i84);
         Assert.assertNull(i88);
-        Assert.assertTrue(b90 == false);
+        Assert.assertTrue(!b90);
         Assert.assertTrue(i94 == 0);
         Assert.assertNotNull(errorManager97);
-        Assert.assertTrue(b98 == false);
+        Assert.assertTrue(!b98);
         Assert.assertNotNull(obj99);
     }
 }

@@ -283,7 +283,6 @@ public class Relationship implements Comparable<Relationship> {
 		violatesCardinalityConstraint = violatesCardinalityConstraint();
 		violatesRange = violatesRange();
 		rangeCoverage = getRangeCoverage();
-		histogramSimilarity = getHistogramSimilarity();
 		nameAgree = (pk.getName().equals(fk.getName()));
 		isSpecialization = isSpecialization();
 		violatesSpecialization = violatesSpecialization();
@@ -303,7 +302,6 @@ public class Relationship implements Comparable<Relationship> {
 
 		return fk.getName().equals(pk.getName()) && fk.isBestAttemptPk() && fkBestAttemptPkCount==pkBestAttemptPkCount;
 	}
-
 
 	// If it looks like a specialization relationship, validate that the specialized table does not contain
 	// more rows than the more generic table.
@@ -443,16 +441,6 @@ public class Relationship implements Comparable<Relationship> {
 		return result;
 	}
 
-	private @Nullable Double getHistogramSimilarity() {
-//		System.out.println(fk + " ---> " + pk);
-		try {
-			return Histogram.jaccard(fk.getHistogramBounds(), pk.getHistogramBounds());
-		} catch (RuntimeException ignored) {
-
-		}
-
-		return null;
-	}
 
 	private double getAvgWidthDiff() {
 		double result = Double.NaN;
@@ -478,7 +466,19 @@ public class Relationship implements Comparable<Relationship> {
 		tpcSimilarity = Tpc.similarity(fkTableTokenizedLowerCaseTrimmedName, fk.getTokenizedLowerCaseTrimmedName(), pk.getTokenizedLowerCaseTrimmedName(), pkTableTokenizedLowerCaseTrimmedName);
 		chenColumnSimilarity = chen.getChenSimilarity(fk, pk);
 		chenTableSimilarity = chen.getTableChenSimilarity(fk.getTokenizedLowerCaseTrimmedName(), pkTableTokenizedLowerCaseTrimmedName);
+		histogramSimilarity = getHistogramSimilarity();
 		setFirstCharAgree();
+	}
+
+	private @Nullable Double getHistogramSimilarity() {
+//		System.out.println(fk + " ---> " + pk);
+		try {
+			return Histogram.jaccard(fk.getHistogramBounds(), pk.getHistogramBounds());
+		} catch (RuntimeException ignored) {
+
+		}
+
+		return null;
 	}
 
 	public void setSlowFeatures(Connection connection) throws SQLException {
@@ -644,11 +644,14 @@ public class Relationship implements Comparable<Relationship> {
 	}
 
 	// Needed for optimization.
-	// Should also implement equals.
+	// As the contract requires, we return a negative int if this < that.
+	// Beware: equals() method must still return true only if we are comparing a relationship to itself because
+	// we use this property in the generation of meaningful relationship candidates (isTheSameColumn()) -> we violate
+	// the recommended contract between equals() and compareTo().
 	@Override
 	public int compareTo(Relationship that) {
-		if (foreignKeyProbability > that.foreignKeyProbability) return -1;
-		if (foreignKeyProbability < that.foreignKeyProbability) return 1;
+		if (foreignKeyProbability > that.foreignKeyProbability) return 1;
+		if (foreignKeyProbability < that.foreignKeyProbability) return -1;
 		return 0;
 	}
 

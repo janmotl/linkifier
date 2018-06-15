@@ -28,8 +28,6 @@ public class OptimizationRelationship {
 			}
 		}
 
-		Collections.sort(relationships);
-
 		return selected.size();
 	}
 
@@ -37,7 +35,7 @@ public class OptimizationRelationship {
 	// Output: Set of selected relationships.
 	private static List<Relationship> optimizeInternal(List<Relationship> relationships, List<Table> tables) {
 		getExpectedRelationshipCount(tables.size());
-		PriorityQueue<Relationship> input = new PriorityQueue<>(relationships); // Sorted by probability in descending order
+		Collections.sort(relationships, Comparator.reverseOrder()); // Sorted by probability in descending order
 		Stack<Relationship> output = new Stack<>();    // LIFO
 		Set<String> doppelgangers = new HashSet<>();   // Set of partially matched doppelgangers
 		MultiMap compounds = new MultiMap();           // Set of partially matched compound FK constraints
@@ -52,23 +50,25 @@ public class OptimizationRelationship {
 			tableMap.put(table.getName(), table);
 		}
 
-		while (!input.isEmpty() && output.size()< MAX_FK_COUNT) {   // The current implementation is too slow for more FK constraints...
-			output.add(input.remove());
-			if (isAcyclic(output) && satisfiesUnity(output)) {
-				doppelgangersAreUnmatched = updateDoppelgangers(output.peek(), doppelgangers);
-				compoundPksAreUnmatched = updateCompound(output.peek(), compounds, tableMap.get(output.peek().getPkTableName()));
-				newLoss = getLoss(output, doppelgangers.size(), compounds.size());
-				if (newLoss <= oldLoss) {
-					oldLoss = newLoss;
-					oldDoppelgangersAreUnmatched = doppelgangersAreUnmatched;
-					oldCompoundPksAreUnmatched = compoundPksAreUnmatched;
+		for (Relationship relationship : relationships) {
+			if (output.size() < MAX_FK_COUNT) { // The current implementation is too slow for more FK constraints...
+				output.add(relationship);
+				if (isAcyclic(output) && satisfiesUnity(output)) {
+					doppelgangersAreUnmatched = updateDoppelgangers(output.peek(), doppelgangers);
+					compoundPksAreUnmatched = updateCompound(output.peek(), compounds, tableMap.get(output.peek().getPkTableName()));
+					newLoss = getLoss(output, doppelgangers.size(), compounds.size());
+					if (newLoss <= oldLoss) {
+						oldLoss = newLoss;
+						oldDoppelgangersAreUnmatched = doppelgangersAreUnmatched;
+						oldCompoundPksAreUnmatched = compoundPksAreUnmatched;
+					} else {
+						if (oldDoppelgangersAreUnmatched || oldCompoundPksAreUnmatched) continue;
+						output.pop();
+						return output;
+					}
 				} else {
-					if (oldDoppelgangersAreUnmatched || oldCompoundPksAreUnmatched) continue;
 					output.pop();
-					return output;
 				}
-			} else {
-				output.pop();
 			}
 		}
 
@@ -176,6 +176,7 @@ public class OptimizationRelationship {
 
 	// Very slow implementation.
 	// There is a data type conversion Stack -> List. But it should be ok because stack is a linkedList.
+	// We are allocating LinkedList many times. That is not good.
 	private static boolean isAcyclic(List<Relationship> unvisited, Relationship start, Column destinationFk) {
 		for (Relationship relationship : unvisited) {
 			if (relationship.getFk().equals(start.getPk())) {                   // Is a neighbour

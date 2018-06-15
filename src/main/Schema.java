@@ -228,7 +228,7 @@ public class Schema {
 	// Generate list of the top candidates for table.column --> table.pk
 	// In theory, a FK may reference any column(s), which is unique. But base on the analysis of >70 databases,
 	// all FKs reference a PK. So, it is a reasonable heuristic to generate only all pairs of columns referencing a PK.
-	// Since this method can be time consuming on large database, it is interruptible.
+	// Since this method can be time consuming on large databases, it is interruptible.
 	private static List<Relationship> getCandidates(String schemaName, List<Table> tables, List<Relationship> nList, Chen chen) throws InterruptedException {
 		PriorityQueue<Relationship> nnList = new HeapWithFixedSize<>(MAX_HEAP_SIZE);
 		for (Table pkTable : tables) {

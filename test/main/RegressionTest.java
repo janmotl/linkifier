@@ -7670,7 +7670,7 @@ public class RegressionTest {
         Assert.assertNull(str5);
         Assert.assertTrue("'" + d6 + "' != '" + 0.0d + "'", d6.equals(0.0d));
         Assert.assertTrue("'" + d7 + "' != '" + 0.0d + "'", d7.equals(0.0d));
-        Assert.assertTrue(i10 == (-1));
+        Assert.assertTrue(i10 == (1));
         Assert.assertTrue("'" + str11 + "' != '" + "null --> null" + "'", str11.equals("null --> null"));
     }
 

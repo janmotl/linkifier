@@ -67,8 +67,15 @@ public class TokenShareRatioTest {
 	}
 
 	@Test
-	public void simSynonym() {
+	public void simSynonymPerson() {
 		double similarity = setTokenShareRatioFkLD(lowercaseSplit("peopleId"), lowercaseSplit("personId"));
+
+		assertEquals(1, similarity, 0.00001);
+	}
+
+	@Test
+	public void simSynonymProduct() {
+		double similarity = setTokenShareRatioFkLD(lowercaseSplit("productId"), lowercaseSplit("componentId"));
 
 		assertEquals(1, similarity, 0.00001);
 	}
