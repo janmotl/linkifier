@@ -109,8 +109,8 @@ public class MSSQL implements Vendor {
 
 				"  SELECT TABLES.TABLE_NAME " +
 				"    , stats.name " +
-				"  FROM sys.stats " +
-				"  JOIN INFORMATION_SCHEMA.TABLES " +
+				"  FROM sys.stats AS stats " +   // We have to define the alias (or use full sys.stats.name in the select). See issue #6.
+				"  JOIN INFORMATION_SCHEMA.TABLES AS TABLES " +
 				"  ON OBJECT_NAME(stats.object_id) = TABLES.TABLE_NAME " +
 				"  WHERE TABLES.TABLE_SCHEMA = '" + schemaName +"' " +
 				"  AND TABLES.TABLE_CATALOG = '" + databaseName +"' " +
@@ -189,8 +189,8 @@ public class MSSQL implements Vendor {
 				"   result.AvgLength " +
 //				"   result.[Updated], " +
 //				"   result.[Rows Sampled] " +
-				"FROM #Result result " +
-				"JOIN INFORMATION_SCHEMA.COLUMNS " +
+				"FROM #Result AS result " +
+				"JOIN INFORMATION_SCHEMA.COLUMNS AS COLUMNS " +
 				"ON result.TableName = COLUMNS.TABLE_NAME COLLATE DATABASE_DEFAULT " +
 				"AND result.Columns = COLUMNS.COLUMN_NAME COLLATE DATABASE_DEFAULT " +
 				"ORDER BY 1,2";
