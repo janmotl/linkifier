@@ -194,7 +194,10 @@ public class VendorTest {
             vendor.getColumnStatistics("PredictorFactory", "financial", tables, connection);
 		}
 
-        // There are 760931 null records
+        // There are 760931 null records in "trans"."account" column.
+        // Note that by default the database stores sample statistics -> we may have to rerun:
+        //  ANALYZE financial.trans
+        // in the database.
         assertEquals(760931.0/1056320.0, tables.get(0).getColumn("account").getNullRatio(), 0.01);
         // There are 7665 non-null unique records from all records
         assertEquals(7665.0/1056320.0, tables.get(0).getColumn("account").getUniqueRatio(), 0.01);

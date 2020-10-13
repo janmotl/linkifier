@@ -26,6 +26,9 @@ public class QualityControl {
                 if (column.getUniqueRatio() != null && column.getUniqueRatio() < 0) LOGGER.severe("UniqueRatio " + table.getName() + "." + column.getName() + " is negative");
                 if (column.getWidthAvg() != null && column.getWidthAvg() < 0) LOGGER.severe("WidthAvg " + table.getName() + "." + column.getName() + " is negative");
 
+                if (column.getNullRatio() != null && column.getNullRatio() > 1) LOGGER.severe("NullRatio " + table.getName() + "." + column.getName() + " is bigger than 1");
+                if (column.getUniqueRatio() != null && column.getUniqueRatio() > 1) LOGGER.severe("UniqueRatio " + table.getName() + "." + column.getName() + " is bigger than 1");
+
                 // Integers
                 if (column.getRowCount() != null && column.getRowCount() < 0) LOGGER.severe("RowCount " + table.getName() + "." + column.getName() + " is negative");
             }
