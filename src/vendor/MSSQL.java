@@ -210,12 +210,12 @@ public class MSSQL implements Vendor {
 				// We are working with estimates.
 				// And MSSQL sometimes returns the estimated count of nulls > estimated count of rows.
 				// This causes troubles in the estimate of WidthAvgWithoutNulls -> we cap the estimate.
-				Double nullRatio = (column.getRowCount()==null || column.getRowCount()==0) ? null : rs.getDouble(5) / column.getRowCount();
-				nullRatio = Math.min(Math.max(nullRatio, 0.0), 1.0);
+				@Nullable Double nullRatio = (column.getRowCount()==null || column.getRowCount()==0) ? null : rs.getDouble(5) / column.getRowCount();
+				nullRatio = nullRatio==null ? null : Math.min(Math.max(nullRatio, 0.0), 1.0);
 				column.setNullRatio(nullRatio);
 				// We preventively cap the unique ratio as well.
-				Double uniqueRatio = column.getRowCount()==null || column.getRowCount()==0 ? null : (1/rs.getDouble(6)) / column.getRowCount();
-				uniqueRatio = Math.min(Math.max(uniqueRatio, 0.0), 1.0);
+				@Nullable Double uniqueRatio = column.getRowCount()==null || column.getRowCount()==0 ? null : (1/rs.getDouble(6)) / column.getRowCount();
+				uniqueRatio = uniqueRatio==null ? null : Math.min(Math.max(uniqueRatio, 0.0), 1.0);
 				column.setUniqueRatio(uniqueRatio);
 				// Azure counts nulls in widthAvg. But for FK-PK match detection it is better to exclude nulls from widthAvg
 				// as PK should not contain nulls but FK may contain nulls.

@@ -262,7 +262,7 @@ public class Column {
 		return nullRatio;
 	}
 
-	public void setNullRatio(Double nullRatio) {
+	public void setNullRatio(@Nullable Double nullRatio) {
 		this.nullRatio = nullRatio;
 	}
 
@@ -270,7 +270,7 @@ public class Column {
 		return widthAvg;
 	}
 
-	public void setWidthAvg(Double widthAvg) {
+	public void setWidthAvg(@Nullable Double widthAvg) {
 		this.widthAvg = widthAvg;
 	}
 
