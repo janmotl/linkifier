@@ -52,10 +52,12 @@ Once again, probabilities are estimated with logistic regression. And the most l
     - Oracle: `EXEC DBMS_STATS.gather_table_stats('mutagenesis', 'molecule')`
     - PostgreSQL: `ANALYZE mutagenesis.molecule`
  2. Set primary keys in the schema. Once Linkifier knows for sure what are the PKs, the accuracy of the foreign key constraint estimates increases.
- 3. Export into csv files. The csv files contain more details than the export into SQL.
+ 3. Set known foreign key constraints in the schema. Linkifier will then attempt to find only remaining missing foreign key constraints.
+ 4. Limit the search space with "Table blacklist regex" option to a subset of tables that are actually interesting for you.
+ 5. Inspect "Decision justification for FK" export, which contains the estimated probabilites for the top 2000 foreign key candidates (the 3rd column from the right).
 
 ## Limitations
-If the schema quality is extremely low (e.g. all columns are typed as text and have irrelevant names), the PK and particularly FK estimates are going to be off. First, set correct data types and names to the columns. Then rerun Linkifier. [DBLint](https://dblint.codeplex.com/) may help you to identify some of the problems with your schema. 
+If the schema quality is extremely low (e.g. all columns are typed as text and have irrelevant names), the PK and particularly FK estimates are going to be off. First, set correct data types and names to the columns. Then rerun Linkifier. [DBLint](https://dblint.codeplex.com/) may help you to identify some of the problems with your schema.
 
 ## Known issues
 If you are using MySQL and get `Access to data dictionary table 'mysql.table_stats' is rejected` then it is because MySQL, contrary to MariaDB, prevents access to internal tables. To be able to run Linkifier, start the db in the [debug mode](http://datacharmer.blogspot.com/2016/09/showing-hidden-tables-in-mysql-8-data.html).
