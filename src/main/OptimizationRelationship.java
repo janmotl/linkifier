@@ -51,7 +51,7 @@ public class OptimizationRelationship {
 		}
 
 		for (Relationship relationship : relationships) {
-			if (output.size() < MAX_FK_COUNT) { // The current implementation is too slow for more FK constraints...
+			if (output.size() < MAX_FK_COUNT && relationship.getForeignKeyProbability() >= 0.001 && !"false".equals(relationship.getSatisfiesFKConstraint())) { // The current implementation is too slow for more FK constraints...
 				output.add(relationship);
 				if (isAcyclic(output) && satisfiesUnity(output)) {
 					doppelgangersAreUnmatched = updateDoppelgangers(output.peek(), doppelgangers);

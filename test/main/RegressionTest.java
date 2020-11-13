@@ -503,23 +503,6 @@ public class RegressionTest {
     }
 
     @Test
-    public void test048() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test048");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.toString();
-        Connection connection3 = null;
-        try {
-            relationship0.setSlowFeatures(connection3);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertTrue("'" + str2 + "' != '" + "null --> null" + "'", str2.equals("null --> null"));
-    }
-
-    @Test
     public void test049() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test049");
@@ -948,29 +931,6 @@ public class RegressionTest {
     }
 
     @Test
-    public void test086() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test086");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Column column6 = new Column(",", "");
-        column6.setEstimatedRowCount((long) 0);
-        Boolean b9 = column6.isBestAttemptPk();
-        relationship0.setPk(column6);
-        Connection connection11 = null;
-        try {
-            relationship0.setSlowFeatures(connection11);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-        Assert.assertTrue("'" + b9 + "' != '" + false + "'", b9.equals(false));
-    }
-
-    @Test
     public void test087() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test087");
@@ -1044,29 +1004,6 @@ public class RegressionTest {
         column2.setNullable(true);
         column2.setKeywords();
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
-    }
-
-    @Test
-    public void test096() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test096");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        Boolean b2 = relationship0.getDataTypeCategoryAgree();
-        Boolean b3 = relationship0.isEstimatedFk();
-        String str4 = relationship0.toString();
-        Boolean b5 = relationship0.getDataTypeCategoryAgree();
-        Connection connection6 = null;
-        try {
-            relationship0.setSlowFeatures(connection6);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-
-        Assert.assertTrue("'" + b3 + "' != '" + false + "'", b3.equals(false));
-        Assert.assertTrue("'" + str4 + "' != '" + "null --> null" + "'", str4.equals("null --> null"));
-
     }
 
     @Test
@@ -1284,27 +1221,6 @@ public class RegressionTest {
         Assert.assertNull(str5);
         Assert.assertNotNull(list_column6);
         Assert.assertTrue("'" + str9 + "' != '" + "," + "'", str9.equals(","));
-    }
-
-    @Test
-    public void test111() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test111");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Boolean b4 = relationship0.isEstimatedFk();
-        Connection connection5 = null;
-        try {
-            relationship0.setSlowFeatures(connection5);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-
-        Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
     }
 
     @Test
@@ -1666,25 +1582,6 @@ public class RegressionTest {
         column2.setColumnSize(0);
         Assert.assertTrue("'" + b5 + "' != '" + false + "'", b5.equals(false));
         Assert.assertNotNull(list_str13);
-    }
-
-    @Test
-    public void test136() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test136");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        Boolean b2 = relationship0.getDataTypeCategoryAgree();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Connection connection4 = null;
-        try {
-            relationship0.setSlowFeatures(connection4);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-
-
     }
 
     @Test
@@ -2281,28 +2178,6 @@ public class RegressionTest {
     }
 
     @Test
-    public void test175() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test175");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Boolean b4 = relationship0.isEstimatedFk();
-        relationship0.setEstimatedFk(true);
-        Connection connection7 = null;
-        try {
-            relationship0.setSlowFeatures(connection7);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-
-        Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
-    }
-
-    @Test
     public void test176() throws Throwable {
         if (debug)
             System.out.format("%n%s%n", "RegressionTest0.test176");
@@ -2321,25 +2196,6 @@ public class RegressionTest {
 
         Assert.assertNull(str3);
         Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
-    }
-
-    @Test
-    public void test177() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test177");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        Boolean b2 = relationship0.isTheSameColumn();
-        Boolean b3 = relationship0.isTheSameColumn();
-        Connection connection4 = null;
-        try {
-            relationship0.setSlowFeatures(connection4);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-
-
     }
 
     @Test
@@ -3650,28 +3506,6 @@ public class RegressionTest {
         Assert.assertTrue(i4 == 0);
         Assert.assertTrue(i5 == 0);
         Assert.assertTrue("'" + str11 + "' != '" + "" + "'", str11.equals(""));
-    }
-
-    @Test
-    public void test263() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test263");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        String str2 = relationship0.getSchema();
-        Boolean b3 = relationship0.getDataTypeCategoryAgree();
-        Boolean b4 = relationship0.isEstimatedFk();
-        relationship0.setSchema("schema,table,column,dataTypeName,isUnique,isUniqueConstraint,columnSize,decimalDigits,isDecimal,hasDefault,ordinalPosition,ordinalPositionEnd,tableColumnCount,tableContainsLob,estimatedRowCount,isAutoincrement,isNotNull,nullRatio,isNullable,uniqueRatio,minValue,maxValue,avgWidth,avgWidthBigger10,correlationAbs,isKeywordSingleton,isJunctionTable,hasMultiplePK,levenshteinDistance,minLDOtherTable,isDoppelganger,contains,isPrimaryKey");
-        Connection connection7 = null;
-        try {
-            relationship0.setSlowFeatures(connection7);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertNull(str2);
-
-        Assert.assertTrue("'" + b4 + "' != '" + false + "'", b4.equals(false));
     }
 
     @Test
@@ -7460,24 +7294,6 @@ public class RegressionTest {
         Assert.assertTrue("'" + b3 + "' != '" + false + "'", b3.equals(false));
         Assert.assertNull(str4);
         Assert.assertTrue("'" + d5 + "' != '" + 0.0d + "'", d5.equals(0.0d));
-    }
-
-    @Test
-    public void test481() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test481");
-        Relationship relationship0 = new Relationship();
-        Column column1 = relationship0.getPk();
-        Boolean b2 = relationship0.getDataTypeCategoryAgree();
-        Boolean b3 = relationship0.isEstimatedFk();
-        Connection connection4 = null;
-        try {
-            relationship0.setSlowFeatures(connection4);
-            Assert.fail("Expected exception of type java.lang.NullPointerException");
-        } catch (NullPointerException e) {
-        }
-        Assert.assertNull(column1);
-        Assert.assertTrue("'" + b3 + "' != '" + false + "'", b3.equals(false));
     }
 
     @Test

@@ -57,7 +57,7 @@ public class TrainingRelationship {
 					Optimization.optimize(tables);
 
 					// Get relations
-					List<Relationship> relationships = Schema.getRelationships(connection, schemaName, schemaName, tables, true);
+					List<Relationship> relationships = Schema.getRelationships(connection, schemaName, schemaName, tables, true, true);
 
 					// Print
 					for (Relationship relationship : relationships) {

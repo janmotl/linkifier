@@ -1,6 +1,7 @@
 package vendor;
 
 import main.Column;
+import main.Relationship;
 import main.Table;
 
 import javax.annotation.Nullable;
@@ -228,5 +229,27 @@ public class MSSQL implements Vendor {
 
 		// Output quality control (if something turns sour, we want to know about that)
 		QualityControl.qcNumericalValues(tables);
+	}
+
+	public void validateFkConstraint(Relationship relationship, Connection connection, char leftQuote, char rightQuote, int timeOut) throws SQLException {
+		relationship.setSatisfiesFKConstraint("true");
+
+		String query =
+				"select top 1 1 " +
+				"from " + leftQuote + relationship.getSchema() + rightQuote + "." + leftQuote + relationship.getFkTableName() + rightQuote + " t1 " +
+				"left join " + leftQuote + relationship.getSchema() + rightQuote + "." + leftQuote + relationship.getPkTableName() + rightQuote + " t2 " +
+				"on t1." + leftQuote + relationship.getFk().getName() + rightQuote + " = t2."  + leftQuote + relationship.getPk().getName() + rightQuote + " " +
+				"where t2." +  leftQuote + relationship.getPk().getName() + rightQuote + " is null " +
+				"and t1." + leftQuote + relationship.getFk().getName() + rightQuote + " is not null";
+
+		try (Statement stmt = connection.createStatement()) {
+			stmt.setQueryTimeout(timeOut);
+			try (ResultSet rs = stmt.executeQuery(query)) {
+				if (rs.next()) relationship.setSatisfiesFKConstraint("false");
+			} catch (SQLException e) {
+				LOGGER.info(e.getMessage());
+				relationship.setSatisfiesFKConstraint("timeout");
+			}
+		}
 	}
 }

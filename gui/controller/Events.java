@@ -47,6 +47,8 @@ public class Events implements Initializable {
 	@FXML private ComboBox<String> comboBoxVendor;
 	@FXML private TextArea textAreaConsole;
 	@FXML private CheckBox checkBoxWindowsAuthentication;
+	@FXML private CheckBox checkBoxIgnoreKnownFK;
+	@FXML private CheckBox checkBoxValidateFK;
 
 	// Event handlers
 	@FXML private void runAction() {
@@ -69,6 +71,8 @@ public class Events implements Initializable {
 		properties.setProperty("schema", textSchema.getText());
 		properties.setProperty("username", textUsername.getText());
 		properties.setProperty("windowsAuthentication", Boolean.toString(checkBoxWindowsAuthentication.isSelected()));
+		properties.setProperty("ignoreKnownFK", Boolean.toString(checkBoxIgnoreKnownFK.isSelected()));
+		properties.setProperty("validateFK", Boolean.toString(checkBoxValidateFK.isSelected()));
 		writeProperties(properties);
 
 		// Estimate the PK and FK
@@ -193,6 +197,8 @@ public class Events implements Initializable {
 			textPassword.setText(properties.getProperty("password", "")); // We do not store the password, but if the user fills it in the properties file, read it
 		}
 		checkBoxWindowsAuthentication.setSelected(Boolean.valueOf(properties.getProperty("windowsAuthentication")));
+		checkBoxIgnoreKnownFK.setSelected(Boolean.valueOf(properties.getProperty("ignoreKnownFK")));
+		checkBoxValidateFK.setSelected(Boolean.valueOf(properties.getProperty("validateFK")));
 
 		// Disable username & password inputs if checkBoxWindowsAuthentication is selected
 		windowsAuthenticationAction();
@@ -268,7 +274,7 @@ public class Events implements Initializable {
 						databaseName += " " + connection.getMetaData().getDatabaseProductVersion();
 						LOGGER.info("Successfully connected to: " + databaseName);
 
-						linkifier = new Linkifier(connection, properties.getProperty("schema"), Pattern.compile(properties.getProperty("tableBlacklist")));
+						linkifier = new Linkifier(connection, properties.getProperty("schema"), Pattern.compile(properties.getProperty("tableBlacklist")), Boolean.parseBoolean(properties.getProperty("ignoreKnownFK")));
 						if (isCancelled()) return null;
 
 						linkifier.estimatePk();
@@ -276,6 +282,8 @@ public class Events implements Initializable {
 
 						linkifier.estimateFk();
 						LOGGER.info("Estimated foreign key constraint count: " + linkifier.getFkCount());
+
+						if (checkBoxValidateFK.isSelected()) linkifier.validateFk();
 					}
 
 					return null;

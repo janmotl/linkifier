@@ -30,7 +30,7 @@ public class Demo {
 			// Estimate the PK and FK
 			List<Table> tables = Schema.getPrimaryKeys(connection, databaseName, schemaName, Pattern.compile(""));
 			Optimization.optimize(tables);
-			List<Relationship> relationships = Schema.getRelationships(connection, databaseName, schemaName, tables, false);
+			List<Relationship> relationships = Schema.getRelationships(connection, databaseName, schemaName, tables, true, false);
 			OptimizationRelationship.optimize(relationships, tables);
 			List<CompoundRelationship> compoundRelationships = CompoundRelationship.buildFrom(relationships);
 

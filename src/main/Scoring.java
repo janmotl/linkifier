@@ -20,7 +20,7 @@ public class Scoring {
 
 		// Parameters
 		String databaseName = "PredictorFactory";		// For MySQL set only databaseName and set schemaName="".
-		String schemaName = "mutagenesis";                         // For other databases, set both databaseName and schemaName.
+		String schemaName = "mutagenesis";              // For other databases, set both databaseName and schemaName.
 
 		// Collect metadata
 		String identifierQuote = "\"\"";
@@ -31,7 +31,7 @@ public class Scoring {
 			identifierQuote = connection.getMetaData().getIdentifierQuoteString();
 			tables = Schema.getPrimaryKeys(connection, databaseName, schemaName, Pattern.compile(""));
 			Optimization.optimize(tables);
-			relationships = Schema.getRelationships(connection, databaseName, schemaName, tables, false);
+			relationships = Schema.getRelationships(connection, databaseName, schemaName, tables, true, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

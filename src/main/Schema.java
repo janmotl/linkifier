@@ -174,7 +174,7 @@ public class Schema {
 
 
 
-	public static List<Relationship> getRelationships(Connection connection, String databaseName, String schemaName, List<Table> tables, boolean exhaustive) throws SQLException, InterruptedException {
+	public static List<Relationship> getRelationships(Connection connection, String databaseName, String schemaName, List<Table> tables, boolean ignoreKnownFK, boolean exhaustive) throws SQLException, InterruptedException {
 		List<Relationship> relationships = generateRelationships(schemaName, tables, exhaustive);
 
 		for (Table table : tables) {
@@ -191,6 +191,7 @@ public class Schema {
 							fkTable.equals(relationship.getFkTableName()) &&
 							pkTable.equals(relationship.getPkTableName())) {
 								relationship.setForeignKey(true);
+								if (!ignoreKnownFK) relationship.setForeignKeyProbability(1.0);
 						}
 					}
 				}

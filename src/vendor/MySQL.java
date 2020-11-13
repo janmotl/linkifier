@@ -1,6 +1,7 @@
 package vendor;
 
 import main.Column;
+import main.Relationship;
 import main.Table;
 import utility.Histogram;
 
@@ -143,5 +144,28 @@ public class MySQL implements Vendor {
 			doubles[i] = Double.valueOf(strings[i]);
 		}
 		return doubles;
+	}
+
+	public void validateFkConstraint(Relationship relationship, Connection connection, char leftQuote, char rightQuote, int timeOut) throws SQLException {
+		relationship.setSatisfiesFKConstraint("true");
+
+		String query =
+				"select 1 " +
+				"from " + leftQuote + relationship.getFkTableName() + rightQuote + " t1 " +
+				"left join " + leftQuote + relationship.getPkTableName() + rightQuote + " t2 " +
+				"on t1." + leftQuote + relationship.getFk().getName() + rightQuote + " = t2."  + leftQuote + relationship.getPk().getName() + rightQuote + " " +
+				"where t2." +  leftQuote + relationship.getPk().getName() + rightQuote + " is null " +
+				"and t1." + leftQuote + relationship.getFk().getName() + rightQuote + " is not null " +
+				"limit 1";
+
+		try (Statement stmt = connection.createStatement()) {
+			stmt.setQueryTimeout(timeOut);
+			try (ResultSet rs = stmt.executeQuery(query)) {
+				if (rs.next()) relationship.setSatisfiesFKConstraint("false");
+			} catch (SQLException e) {
+				LOGGER.fine(e.getMessage());
+				relationship.setSatisfiesFKConstraint("timeout");
+			}
+		}
 	}
 }

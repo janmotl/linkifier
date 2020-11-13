@@ -349,8 +349,11 @@ public class Relationship implements Comparable<Relationship> {
 				return 0;
 			}
 
-			// Deal with NaNs (appear in OpenML_2016.data_quality.value)
-			if (pk.getValueMin().isNaN() || pk.getValueMax().isNaN() || fk.getValueMin().isNaN() || fk.getValueMax().isNaN()) return 0;
+			// Deal with NaNs (appear in OpenML_2016.data_quality.value). Justification for always returning 1: What monster would use NaN as a key?
+			if (pk.getValueMin().isNaN() || pk.getValueMax().isNaN() || fk.getValueMin().isNaN() || fk.getValueMax().isNaN()) return 1;
+
+			// Deal with infinities (for example, inf/inf produces NaN). Justification for always returning 1: What monster would use infinity as a key?
+			if (pk.getValueMin().isInfinite() || pk.getValueMax().isInfinite() || fk.getValueMin().isInfinite() || fk.getValueMax().isInfinite()) return 1;
 
 			double range = pk.getValueMax() - pk.getValueMin();
 			double lowerRelativeOvershoot = max(0, (pk.getValueMin()-fk.getValueMin()) / range);
@@ -481,10 +484,6 @@ public class Relationship implements Comparable<Relationship> {
 		return null;
 	}
 
-	public void setSlowFeatures(Connection connection) throws SQLException {
-		setSatisfiesFKConstraint(connection);
-	}
-
 	private void setFirstCharAgree() {
 		boolean abbreviationMatches = false;
 
@@ -499,32 +498,12 @@ public class Relationship implements Comparable<Relationship> {
 		foreignKeyProbability = Logistic.classify(toArray(), WEIGHTS, BIAS);
 	}
 
-	private void setSatisfiesFKConstraint(Connection conn) throws SQLException {
-		// Are all FK values present in pkTableName.pk?
-		// The query works in MySQL and PostgreSQL, but fails on MSSQL and Oracle because of exist clause in select.
-		String query = "SELECT not EXISTS (" +
-				"select * " +
-				"from `" + schema + "`.`" + fkTableName + "` t1 " +
-				"left join `" + schema + "`.`" + pkTableName + "` t2  " +
-				"on  t1.`" + fk.getName() + "` = t2.`" + pk.getName() + "` " +
-				"where t1.`" + fk.getName() + "` is not null and t2.`" + pk.getName() + "` is null " +
-				") as satisfiesFKConstraint";
+	public void setSatisfiesFKConstraint(String satisfiesFKConstraint) {
+		this.satisfiesFKConstraint = satisfiesFKConstraint;
+	}
 
-		try (Statement stmt = conn.createStatement()) {
-			stmt.setQueryTimeout(20);
-			try (ResultSet rs = stmt.executeQuery(query)) {
-				while (rs.next()) {
-					if (rs.getBoolean(1)) {
-						satisfiesFKConstraint = "true";
-					} else {
-						satisfiesFKConstraint = "false";
-					}
-				}
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-				satisfiesFKConstraint = "timeout";
-			}
-		}
+	public String getSatisfiesFKConstraint() {
+		return satisfiesFKConstraint;
 	}
 
 	public void setRatioSatisfiedFKConstraint(Connection conn) throws SQLException {
