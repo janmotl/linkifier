@@ -1,5 +1,4 @@
-# Estimate Primary & Foreign Keys in a Database
-
+# Estimate Primary & Foreign Key Constraints in a Database
 Do you need to import CSV files into a database but no one gave you the entity–relationship model to set up the primary and foreign keys?
 
 Say no more.
@@ -7,15 +6,14 @@ Say no more.
 ![screenshot](https://github.com/janmotl/linkifier/blob/master/ScreenShot.png)
 
 ## Usage
-
  1. Download the latest [release](https://github.com/janmotl/linkifier/releases)
- 2. Execute the jar file (requieres JRE 8.0 or newer)
+ 2. Execute the jar file (requieres Oracle JRE 8 because of JavaFX)
  3. Connect to a database (Microsoft SQL Server, MySQL, Oracle or PostgreSQL)
  4. Estimate the primary and foreign key constraints
  5. Export the estimates (multiple formats are supported including SQL alter queries and graphml for ER-diagram visualization)
   
 ## Algorithm
-The algorithm works on the *metadata* about tables and columns, which are accessible over JDBC, and column and table *statistics*, which the database use for the execution plan optimization. That means that the algorithm is blazing fast (as it does not look at the actual data).
+The algorithm works on the *metadata* about tables and columns, which are accessible over JDBC, and column and table *statistics*, which the database uses for the execution plan optimization. That means the algorithm is blazing fast as it does not look at the actual data.
 
 
 ### Primary Key
@@ -57,7 +55,7 @@ Once again, probabilities are estimated with logistic regression. And the most l
  5. Inspect "Decision justification for FK" export, which contains the estimated probabilites for the top 2000 foreign key candidates (the 3rd column from the right).
 
 ## Limitations
-If the schema quality is extremely low (e.g. all columns are typed as text and have irrelevant names), the PK and particularly FK estimates are going to be off. First, set correct data types and names to the columns. Then rerun Linkifier. [DBLint](https://dblint.codeplex.com/) may help you to identify some of the problems with your schema.
+If the schema quality is extremely low (e.g. all columns are typed as text and have irrelevant names), the PK and particularly FK estimates are going to be off. First, set correct data types and names to the columns. Then rerun Linkifier.
 
 ## Known issues
 If you are using MySQL and get `Access to data dictionary table 'mysql.table_stats' is rejected` then it is because MySQL, contrary to MariaDB, prevents access to internal tables. To be able to run Linkifier, start the db in the [debug mode](http://datacharmer.blogspot.com/2016/09/showing-hidden-tables-in-mysql-8-data.html).
