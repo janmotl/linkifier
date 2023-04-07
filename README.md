@@ -72,11 +72,11 @@ Error: Could not find or load main class controller.MainApp
 Caused by: java.lang.NoClassDefFoundError: javafx/application/Application
 ```
 on macOS with M1 processor or newer, you actually have to use OpenJDK: 
-1. Download and unpack OpenJDK: https://jdk.java.net/20/
-2. Download and unpack JavaFX SDK for macOS x64 platform (aarch64 currently does not work): https://gluonhq.com/products/javafx/
-3. Execute Linkifier with something like:
+1. Download and unpack [OpenJDK](https://jdk.java.net/20/)
+2. Download and unpack [JavaFX SDK](https://gluonhq.com/products/javafx/) for macOS x64 platform (aarch64 currently does not work)
+3. Execute Linkifier with something like (adjust paths based on the reality):
 ```
-./Downloads/jdk-20.jdk/Contents/Home/bin/java --module-path ./Downloads/javafx-sdk-20_x64/lib --add-modules javafx.controls,javafx.fxml -jar ./Downloads/Linkifier/linkifier-3.2.9.jar 
+./Downloads/jdk-20.jdk/Contents/Home/bin/java --module-path ./Downloads/javafx-sdk-20/lib --add-modules javafx.controls,javafx.fxml -jar ./Downloads/linkifier/linkifier-3.2.9.jar 
 ```
 If GUI still does not work, run Linkifier in [commandline mode](https://github.com/janmotl/linkifier/issues/8).
 
