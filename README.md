@@ -62,6 +62,24 @@ If you are using MySQL and get `Access to data dictionary table 'mysql.table_sta
 
 If you have problems to connect to MSSQL, make sure login with [username-password](https://serverfault.com/questions/246951/set-a-login-with-username-password-for-sql-server-2008-express) combination is permitted and [TCP/IP](https://stackoverflow.com/questions/18841744/jdbc-connection-failed-error-tcp-ip-connection-to-host-failed) protocol is permitted. If you want to use Windows Authentication instead of username-password combination, a correct version of `sqljdbc_auth.dll` (32/64bit) must be in the Java path. Possibly the easisest solution is to copy `sqljdbc_auth.dll` from source directory `lib\mssql\auth\` into bin directory in Java (e.g. `C:\Program Files\Java\jre8\bin\`). Alternatively, start Linkifier from the command line with arguments like `java -Djava.library.path=C:\path\to\sqljdbc_auth_directory -jar linkifier.jar`.
 
+If you get an error from a database driver, the driver might be outdated. Replace the outdated driver with a new one, which is compatible with `JDK 1.8` and your version of database.
+
+If you get `Table count: 0`, make sure that database name and schema name are both explicitly specified (in MySQL, you specify only database name).
+
+If you get:
+```
+Error: Could not find or load main class controller.MainApp
+Caused by: java.lang.NoClassDefFoundError: javafx/application/Application
+```
+on macOS with M1 processor or newer, you actually have to use OpenJDK: 
+1. Download and unpack OpenJDK: https://jdk.java.net/20/
+2. Download and unpack JavaFX SDK for macOS x64 platform (aarch64 currently does not work): https://gluonhq.com/products/javafx/
+3. Execute Linkifier with something like:
+```
+./Downloads/jdk-20.jdk/Contents/Home/bin/java --module-path ./Downloads/javafx-sdk-20_x64/lib --add-modules javafx.controls,javafx.fxml -jar ./Downloads/Linkifier/linkifier-3.2.9.jar 
+```
+If GUI still does not work, run Linkifier in [commandline mode](https://github.com/janmotl/linkifier/issues/8).
+
 If you have any question or suggestion, let me know.
 
 ## How to cite
